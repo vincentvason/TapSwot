@@ -13,11 +13,13 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
     public void CreateRoom()
     {
         PhotonNetwork.CreateRoom(createInput.text);
+        Debug.Log("Multiplayer Lobby succesfully created: " + createInput.text);
     }
 
     public void JoinRoom()
     {
         PhotonNetwork.JoinRoom(joinInput.text);
+        Debug.Log("Multiplayer Lobby succesfully joined: " + joinInput.text);
     }
 
     public override void OnJoinedRoom()
