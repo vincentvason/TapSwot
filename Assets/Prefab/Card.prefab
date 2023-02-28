@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2465888562845896287}
   - component: {fileID: 7592217616291459537}
   - component: {fileID: 4186437683511907790}
+  - component: {fileID: 4921461691007101573}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -80,6 +81,27 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &4921461691007101573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 244837630797399863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 188630528f35fb64b8259a1af104d43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card:
+    cardTitle: Tap Swot
+    cardDescription: 'Place Holder '
+    cardCategory: S
+    cardRank: 3
+  cardTitle: {fileID: 3338631034143915146}
+  cardDescription: {fileID: 3595375148478104122}
+  cardRank: {fileID: 8239291030729923624}
+  cardCategory: {fileID: 3509519152848900375}
 --- !u!1 &1066001659449458015
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +114,7 @@ GameObject:
   - component: {fileID: 595253240928312121}
   - component: {fileID: 8239291030729923624}
   m_Layer: 5
-  m_Name: RankNmber (TMP)
+  m_Name: CardRankText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,7 +249,7 @@ GameObject:
   - component: {fileID: 7565355803617968341}
   - component: {fileID: 3595375148478104122}
   m_Layer: 5
-  m_Name: CardSubtitle (TMP)
+  m_Name: CardDescription
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -281,10 +303,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Card Subtitle
+  m_text: Card Description
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -362,7 +384,7 @@ GameObject:
   - component: {fileID: 8357933149382855732}
   - component: {fileID: 8649114737056811305}
   m_Layer: 5
-  m_Name: Category
+  m_Name: CardCategory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -439,7 +461,7 @@ GameObject:
   - component: {fileID: 1340392154087567875}
   - component: {fileID: 3338631034143915146}
   m_Layer: 5
-  m_Name: CardTitle (TMP)
+  m_Name: CardTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -496,7 +518,7 @@ MonoBehaviour:
   m_text: Card Title
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -574,7 +596,7 @@ GameObject:
   - component: {fileID: 1145487523283645095}
   - component: {fileID: 9120079363093366109}
   m_Layer: 5
-  m_Name: Rank
+  m_Name: CardRank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -622,7 +644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -651,7 +673,7 @@ GameObject:
   - component: {fileID: 8953059262733511889}
   - component: {fileID: 3509519152848900375}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: CardCategoryText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -714,8 +736,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278848041
+  m_fontColor: {r: 0.16037738, g: 0.038833503, b: 0.038833503, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

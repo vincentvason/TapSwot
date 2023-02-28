@@ -26,4 +26,14 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.LoadLevel("Game");
     }
+
+    public override void OnJoinRoomFailed(short returnCode, string message)
+    {
+        Debug.LogError("Join room failed because {message}");
+    }
+
+    public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
+    {
+        Debug.LogError($"player {newPlayer.ActorNumber} entered the room");
+    }
 }

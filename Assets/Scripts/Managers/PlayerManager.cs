@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+ 
+    public List<Player> players = new List<Player>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
