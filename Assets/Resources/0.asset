@@ -13,8 +13,12 @@ MonoBehaviour:
   m_Name: 0
   m_EditorClassIdentifier: 
   cardId: 0
-  cardTitle: 
-  cardDescription: 
-  cardBrief: 
-  cardCategory: 
+  cardTitle: 'Better reflects the world we live in '
+  cardDescription: 'People live their lives in a triple access system, not (only)
+    a transport system '
+  cardBrief: 'How people fulfil their access needs and desires is influenced by the
+    supply of access opportunity  across transport, land-use and telecommunications
+    systems. A planning approach that recognises this is better able to understand
+    and shape overall access and the place of mobility within this.  '
+  cardCategory: S
   cardRank: 0

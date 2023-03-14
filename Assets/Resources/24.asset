@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2899bb0a379d08b42a45605f3893c7f8, type: 3}
+  m_Name: 24
+  m_EditorClassIdentifier: 
+  cardId: 24
+  cardTitle: 'Conceptually appealing '
+  cardDescription: 'The new approach resonates with what professionals feel they
+    need '
+  cardBrief: 'Many planning professionals would recognise the merit of being vision-led
+    rather than forecast-led, of looking beyond road traffic, and of confronting
+    uncertainty. The portrayal of the Triple Access System within which transport
+    finds its place and role in access is simple and compelling. As such the new
+    approach is conceptually appealing which encourages challenge to conventional
+    mobility planning. '
+  cardCategory: S
+  cardRank: 0

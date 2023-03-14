@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2899bb0a379d08b42a45605f3893c7f8, type: 3}
+  m_Name: 11
+  m_EditorClassIdentifier: 
+  cardId: 11
+  cardTitle: Politics
+  cardDescription: 'Stakes are high for politicians in the face of change and they
+    need legitimacy '
+  cardBrief: 'Decision making on policies and investments that shape the future is
+    seldom easy for the politicians involved. They are unlikely to welcome any suggestion
+    of uncertainty bringing into question their judgement. They may wish to assert
+    confidence in more conventional thinking and a belief that primacy of motorised
+    mobility will endure. Conversely a vision-led approach in which uncertainty abounds
+    could be mis-used in service of vested interests. '
+  cardCategory: T
+  cardRank: 0

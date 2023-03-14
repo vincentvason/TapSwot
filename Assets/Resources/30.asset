@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2899bb0a379d08b42a45605f3893c7f8, type: 3}
+  m_Name: 30
+  m_EditorClassIdentifier: 
+  cardId: 30
+  cardTitle: 'The need for adaptive capacity '
+  cardDescription: 'In the face of system shocks society needs to be adaptive and
+    resilient '
+  cardBrief: 'COVID-19 highlighted our collective reliance upon the Triple Access
+    System as a source of resilience within which businesses and individuals could
+    adapt their behaviours. Resilience and adaptive capacity would seem of growing
+    importance. A planning process that is able to actively improve examination of,
+    and changes to, a system comprised of multiple forms of access should be of great
+    appeal.  '
+  cardCategory: O
+  cardRank: 0

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2899bb0a379d08b42a45605f3893c7f8, type: 3}
+  m_Name: 16
+  m_EditorClassIdentifier: 
+  cardId: 16
+  cardTitle: 'Inspires a new generation '
+  cardDescription: 'Earlier career planning professionals are motivated and empowered '
+  cardBrief: 'As the transport and wider planning profession evolves, new blood and
+    new perspectives come into play. There is substantial recognition of the need
+    to plan differently, not least given the imperatives of addressing climate change.
+    The underlying philosophy of this new approach and the support it provides to
+    reimagine the future creates a flexible and empowering environment within which
+    professionals with new ideas and priorities can flourish. '
+  cardCategory: S
+  cardRank: 0

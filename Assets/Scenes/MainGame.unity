@@ -13866,6 +13866,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardRank
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardBrief
+      value: "representing supply and demand for physical mobility, spatial proximity
+        and digital connectivity would need further model development, and data may
+        not exist to support this. to then model multiple \u2018what-if\u2019 futures
+        would need more resources and time that could slow the planning process."
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardTitle
+      value: hard to model
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardCategory
+      value: W
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardDescription
+      value: representing a more complex system is too resource and time hungry
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
@@ -19662,6 +19689,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardRank
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardBrief
+      value: how people fulfil their access needs and desires is influenced by the
+        supply of access opportunity  across transport, land-use and telecommunications
+        systems. a planning approach that recognises this is better able to understand
+        and shape overall access and the place of mobility within this.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardTitle
+      value: better reflects the world we live in
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardDescription
+      value: people live their lives in a triple access system, not (only) a transport
+        system
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
@@ -22412,6 +22459,35 @@ PrefabInstance:
     - target: {fileID: 2465888562845896287, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardRank
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardBrief
+      value: "the covid-19 pandemic was a global shock that demonstrated how things
+        can change in unexpected, uncertain ways. many people shifted significantly
+        from a reliance on physical mobility to a greater reliance on digital connectivity.
+        professionals and the public alike are more likely to \u2018get it\u2019
+        now."
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardTitle
+      value: covid-19 exposure
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardCategory
+      value: O
+      objectReference: {fileID: 0}
+    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+      propertyPath: card.cardDescription
+      value: "reater familiarity with triple access and uncertainty opens people\u2019s
+        minds"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -25221,7 +25297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &3235858834383389282
 MonoBehaviour:
   m_ObjectHideFlags: 0

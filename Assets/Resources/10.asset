@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2899bb0a379d08b42a45605f3893c7f8, type: 3}
+  m_Name: 10
+  m_EditorClassIdentifier: 
+  cardId: 10
+  cardTitle: 'Accommodating uncertainty '
+  cardDescription: 'Society is in a state of flux with a heightened need to plan
+    for uncertainty '
+  cardBrief: "Once upon a time it may have seemed that \u2018more of the same\u2019
+    car-dependent planning would suffice in a world where road traffic and economic
+    output seemed to be tightly coupled. Now the world is changing. Decarbonisation
+    demands something different. The digital age may well further transform how we
+    live our lives, but in ways that can be hard to imagine. Being able to explore
+    and account for different possible triple access futures is preferable to (only)
+    forecasting traffic.  "
+  cardCategory: O
+  cardRank: 0

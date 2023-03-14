@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2899bb0a379d08b42a45605f3893c7f8, type: 3}
   m_Name: 1
   m_EditorClassIdentifier: 
-  cardId: 0
-  cardTitle: 
-  cardDescription: 
-  cardBrief: 
-  cardCategory: 
+  cardId: 1
+  cardTitle: 'Hard to model '
+  cardDescription: 'Representing a more complex system is too resource and time hungry '
+  cardBrief: "Representing supply and demand for physical mobility, spatial proximity
+    and digital connectivity would need further model development, and data may not
+    exist to support this. To then model multiple \u2018what-if\u2019 futures would
+    need more resources and time that could slow the planning process.  "
+  cardCategory: W
   cardRank: 0

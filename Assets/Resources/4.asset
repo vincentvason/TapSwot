@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2899bb0a379d08b42a45605f3893c7f8, type: 3}
+  m_Name: 4
+  m_EditorClassIdentifier: 
+  cardId: 4
+  cardTitle: Future proof
+  cardDescription: 'Realising a vision involves being able to accommodate uncertainty '
+  cardBrief: "Exposing uncertainty about the future involves developing different
+    possible future contexts \u2013 explorative scenarios -  to which a plan\u2019s
+    implementation may be exposed. Scenario planning allows the plan itself to be
+    devised in a way that its creators can ask \u201Cis this part of the plan going
+    to work regardless of what the future has to throw at us?\u201D. A policy or
+    measure that in any scenario helps progress towards a vision for a better future
+    is more robust or \u2018future proof\u2019. "
+  cardCategory: S
+  cardRank: 0
