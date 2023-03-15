@@ -18559,7 +18559,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardDatabase: {fileID: 11400000, guid: 7483358b5db514a43980b3a00f33ceb4, type: 2}
   mainDeck: []
-  discardedDeck: []
+  discardedDeck:
+  - cardId: 0
+    cardTitle: 
+    cardDescription: 
+    cardBrief: 
+    cardCategory: 
+    cardRank: 0
 --- !u!1 &1607086557
 GameObject:
   m_ObjectHideFlags: 0
