@@ -8,7 +8,7 @@ using System.Linq;
 
 public class CardManager : MonoBehaviour
 {
-    public AllCards cardDatabase;
+    public CardDatabase cardDatabase;
     public static CardManager instance;
 
     [SerializeField]private List<CardSO> mainDeck = new List<CardSO>();
