@@ -14,9 +14,10 @@ public class CardManager : MonoBehaviour
     [SerializeField]private List<CardSO> mainDeck = new List<CardSO>();
     [SerializeField]private List<CardSO> discardedDeck = new List<CardSO>();
 
+    //Bool to Initialize the Main card deck copy before allocating the individual Player decks  
     public Action<bool> cardInitilaized;
 
-    //to check if the cards have been shuffled
+    //To check if the cards have been shuffled
     private bool shuffleCheck = false;
 
     private void Start()

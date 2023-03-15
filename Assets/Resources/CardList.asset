@@ -14,242 +14,499 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cards:
   - cardId: 0
-    cardTitle: faaf
-    cardDescription: asfsaf
-    cardBrief: ass
+    cardTitle: 'Better reflects the world we live in '
+    cardDescription: "People live their lives in a triple access system, not (only)
+      a transport system\r"
+    cardBrief: "How people fulfil their access needs and desires is influenced by
+      the supply of access opportunity  across transport, land-use and telecommunications
+      systems. A planning approach that recognises this is better able to understand
+      and shape overall access and the place of mobility within this.\r"
     cardCategory: S
     cardRank: 0
   - cardId: 1
-    cardTitle: asa
-    cardDescription: asdas
-    cardBrief: saggdaa
+    cardTitle: Hard to model
+    cardDescription: "Representing a more complex system is too resource and time
+      hungry\r"
+    cardBrief: "Representing supply and demand for physical mobility, spatial proximity
+      and digital connectivity would need further model development, and data may
+      not exist to support this. To then model multiple \u2018what-if\u2019 futures
+      would need more resources and time that could slow the planning process.\r\n"
+    cardCategory: W
+    cardRank: 0
+  - cardId: 2
+    cardTitle: COVID-19 Exposure
+    cardDescription: "Greater familiarity with triple access and uncertainty opens
+      people\u2019s minds\r"
+    cardBrief: "The COVID-19 pandemic was a global shock that demonstrated how things
+      can change in unexpected, uncertain ways. Many people shifted significantly
+      from a reliance on physical mobility to a greater reliance on digital connectivity.
+      Professionals and the public alike are more likely to \u2018get it\u2019 now.\r\n\r"
+    cardCategory: O
+    cardRank: 0
+  - cardId: 3
+    cardTitle: Hard to understand
+    cardDescription: If the concepts are new they may be harder to understand and
+      buy intO
+    cardBrief: "Planners are familiar with urban mobility planning that is forecast-led
+      and transport-focused. They have a confidence in practicing this approach.
+      A new approach requires new understanding which can make it harder to believe
+      in and in turn invest effort in.\r"
     cardCategory: T
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 4
+    cardTitle: Future proof
+    cardDescription: 'Realising a vision involves being able to accommodate uncertainty
+
+'
+    cardBrief: "Exposing uncertainty about the future involves developing different
+      possible future contexts \u2013 explorative scenarios -  to which a plan\u2019s
+      implementation may be exposed. Scenario planning allows the plan itself to
+      be devised in a way that its creators can ask \u201Cis this part of the plan
+      going to work regardless of what the future has to throw at us?\u201D. A policy
+      or measure that in any scenario helps progress towards a vision for a better
+      future is more robust or \u2018future proof\u2019.\r\n"
+    cardCategory: S
+    cardRank: 0
+  - cardId: 5
+    cardTitle: Lack of evidence
+    cardDescription: 'How different forms of access are at work is poorly understood '
+    cardBrief: "While evidence on the transport system and its use is integral to
+      transport planning, the picture is less clear in relation to the land-use system
+      and even more so in terms of the telecommunications system and its use. The
+      three systems and how they are used are interconnected and changing (at different
+      rates). Making sense empirically of the Triple Access System is challenging
+      (albeit that the TAS exists and affects transport whether sense is made of
+      it or not).\r\n\r"
+    cardCategory: W
+    cardRank: 0
+  - cardId: 6
+    cardTitle: "De-car\u2019bonise"
+    cardDescription: "Triple access offers the prospect of less motorised mobility
+      and emissions\r"
+    cardBrief: 'Alongside economic prosperity and social wellbeing is environmental
+      sustainability and the imperative to urgently address climate change. Giving
+      greater emphasis to spatial proximity and digital connectivity in urban mobility
+      planning can help reduce dependence upon motorised mobility and especially
+      the private car, leading to reduced carbon dioxide emissions while still allowing
+      people to lead their lives socially and economically.
+
+
+'
+    cardCategory: O
+    cardRank: 0
+  - cardId: 7
+    cardTitle: Professional resistance to change
+    cardDescription: "Those invested in established approaches may be uncomfortable\r"
+    cardBrief: 'Sense of purpose, reputation and security come from achieving a level
+      of proficiency in the application of particular tools, methods and processes.
+      Understandably individuals and organisations have invested in such proficiency
+      associated with established approaches. They may be instinctively reluctant
+      to embrace a new approach that is seen to diminish their return on the investment
+      in skills and experience that they have made.
+
+'
+    cardCategory: T
+    cardRank: 0
+  - cardId: 8
+    cardTitle: Helps us to unthink
+    cardDescription: "By stepping back and helping open our minds new perspectives
+      can emerge\r"
+    cardBrief: "It is easy for conventional thinking in transport planning and analysis
+      to blinker how we perceive the present and how best to take steps to shape
+      the future. By developing new mental models of the present and future of our
+      triple access world it becomes possible to question prior assumptions. It becomes
+      possible to unthink and then rethink the scope of urban mobility planning and
+      reimagine what steps could be taken on a pathway ahead.\r\n\r"
+    cardCategory: S
+    cardRank: 0
+  - cardId: 9
+    cardTitle: 'Lack of precedents '
+    cardDescription: Planning authorities taking a lead with a new approach can feel
+      exposed
+    cardBrief: "While conventional urban mobility planning may not be perfect or
+      may even fall short, there is strength in numbers, strength in conforming with
+      norms of practice and norms of professional, public, political expectation.
+      In contrast, embracing triple access with vision-led appetite, and addressing
+      uncertainty is more novel. The reassurance of others having already tried and
+      tested the approach to good effect is in short supply.\r\n\r"
+    cardCategory: W
+    cardRank: 0
+  - cardId: 10
+    cardTitle: Accommodating uncertainty
+    cardDescription: "Society is in a state of flux with a heightened need to plan
+      for uncertainty\r"
+    cardBrief: "Once upon a time it may have seemed that \u2018more of the same\u2019
+      car-dependent planning would suffice in a world where road traffic and economic
+      output seemed to be tightly coupled. Now the world is changing. Decarbonisation
+      demands something different. The digital age may well further transform how
+      we live our lives, but in ways that can be hard to imagine. Being able to explore
+      and account for different possible triple access futures is preferable to (only)
+      forecasting traffic.\r\n\r"
+    cardCategory: O
+    cardRank: 0
+  - cardId: 11
+    cardTitle: Politics
+    cardDescription: "Stakes are high for politicians in the face of change and they
+      need legitimacy\r"
+    cardBrief: "Decision making on policies and investments that shape the future
+      is seldom easy for the politicians involved. They are unlikely to welcome any
+      suggestion of uncertainty bringing into question their judgement. They may
+      wish to assert confidence in more conventional thinking and a belief that primacy
+      of motorised mobility will endure. Conversely a vision-led approach in which
+      uncertainty abounds could be mis-used in service of vested interests.\r"
+    cardCategory: T
+    cardRank: 0
+  - cardId: 12
+    cardTitle: Encourages diversity of perspective
+    cardDescription: "Actively thinking beyond the transport system brings new insight
+      and prospects\r"
+    cardBrief: 'The system (or system of systems) of transport and society is a complex
+      one in relation to supply and demand. Mobility planning with only a transport
+      mindset constraints the ability to make sense of the system that planning seeks
+      to shape. A planning approach that considers triple access naturally lends
+      itself to bringing transport, spatial and digital planners and other experts
+      together. Their shared mental model of the present and future can strengthen
+      planning.
+
+'
+    cardCategory: S
+    cardRank: 0
+  - cardId: 13
+    cardTitle: New skills required
+    cardDescription: This planning approach calls for new capabilities and competencies
+    cardBrief: "Not only does this new planning approach encourage a fresh philosophical
+      perspective on how and why we plan and how we might plan differently, it also
+      demands new skills and processes \u2013 and related capabilities and competencies.
+      Being able to co-create a shared triple-access vision, being able to constructively
+      explore uncertainty, and being able to guide more robust decision making are
+      challenging prospects for those unfamiliar with them. \r\n\r"
+    cardCategory: W
+    cardRank: 0
+  - cardId: 14
+    cardTitle: Appetite for change
+    cardDescription: "There is growing recognition of a need to move away from business
+      as usual\r"
+    cardBrief: "The adage \u2018if you do what you\u2019ve always done you will get
+      what you\u2019ve always got\u2019 is pertinent to mobility planning. Whether
+      as professionals, politicians or as members of the public, there is a wish
+      (albeit not universal) to work with the dynamics of our times to shape a different
+      type of future society that supports diversity and prospers while living within
+      its means and environmental boundaries. A new approach to planning helps free
+      up our minds to embrace new possibilities.\r\n\r"
+    cardCategory: O
     cardRank: 0
   - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+    cardTitle: Lack of headspace
+    cardDescription: "Planning authorities may lack capacity and resources for planning
+      differently\r"
+    cardBrief: "Many transport authorities are resource constrained and facing short-term
+      pressures and demands that have been exacerbated significantly by the COVID-19
+      pandemic. This can make it difficult to prioritise strategic planning for the
+      longer-term. While expectation for onward mobility planning and its delivery
+      will exist, this can already be intellectually and procedurally challenging.
+      Accordingly, it may be difficult to find the capacity and resources to engage
+      in a new approach.\r\n\r"
+    cardCategory: T
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 16
+    cardTitle: Inspires a new generation
+    cardDescription: "Earlier career planning professionals are motivated and empowered\r"
+    cardBrief: "As the transport and wider planning profession evolves, new blood
+      and new perspectives come into play. There is substantial recognition of the
+      need to plan differently, not least given the imperatives of addressing climate
+      change. The underlying philosophy of this new approach and the support it provides
+      to reimagine the future creates a flexible and empowering environment within
+      which professionals with new ideas and priorities can flourish.\r"
+    cardCategory: S
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 17
+    cardTitle: 'Cognitive overload '
+    cardDescription: The complexity of present and future triple access is too hard
+      to process
+    cardBrief: "There are many, many factors at play in making sense of the present
+      day Triple Access System and its use in a diverse society. The complexity is
+      compounded by the challenge of contemplating how and to what extent such factors
+      are important in influencing the future. Being able to process this and draw
+      planning conclusions from it with confidence can be highly demanding if not
+      unmanageable.\r\n\r"
+    cardCategory: W
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 18
+    cardTitle: Responsible planning
+    cardDescription: "Strong planning is needed that is more than only accountable
+      to due process\r"
+    cardBrief: "While established planning process and appraisal offer a framework
+      for addressing future mobility, it is no longer sufficient to have demonstrated
+      accountability in following due process. There is a need for planning that
+      helps decision makers to take greater responsibility for charting a course
+      ahead that holds the prospect of achieving meaningful change to help address
+      environmental and social as well as economic concerns. The approach offered
+      more proactively facilitates this.\r\n\r"
+    cardCategory: O
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 19
+    cardTitle: Silo mentality
+    cardDescription: "Joined-up government can often remain elusive making triple
+      access problematic\r"
+    cardBrief: "Efforts in the past to more strongly embrace access-based planning
+      have proved challenging due to differing perspectives and understandings and
+      the difficulty of bringing these together across different jurisdictions of
+      responsibility. It is rare for mobility, spatial and digital planning to be
+      treated as a combined function. Existing organisational structures may work
+      against being able to fulfil such a function.\r\n\r"
+    cardCategory: T
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 20
+    cardTitle: Access at the core
+    cardDescription: "Society thrives on access, with mobility being only one means
+      to that end\r"
+    cardBrief: 'The functioning of society and the wellbeing of individuals relies
+      upon being able to access people, employment, goods, services and opportunities.
+      Motorised mobility is not synonymous with access. It is a means to an end.
+      Spatial proximity and especially digital connectivity represent other important
+      (complementary) means to that end. Triple Access Planning helps ensure all
+      means are drawn upon to help achieve the end in the most appropriate way.
+
+'
+    cardCategory: S
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 21
+    cardTitle: Too abstract and intangible
+    cardDescription: "The new approach is conceptually appealing but hard to apply\r"
+    cardBrief: "Triple Access Planning points to the triple access reality of our
+      lives and in this respect can be conceptually very appealing. However, moving
+      from the abstract to the specifics of how to observe, understand and influence
+      triple access demands more than a new philosophy. It can well demand tools
+      and processes, and detailed guidance for their use. The new approach does not
+      \u2018hand hold\u2019 practitioners through its application.\r\n\r"
+    cardCategory: W
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 22
+    cardTitle: Rethinking measures
+    cardDescription: "Transport measures could have new consequences in a triple
+      access world\r"
+    cardBrief: "Transport measures within mobility planning have been seen as transport
+      solutions addressing a transport problem. Problems more fundamentally relate
+      to access, and in this respect a triple access lens can increasingly be used
+      to think through the possible consequences of transport measures as part of
+      an urban mobility plan \u2013 e.g. road pricing is not just about the choice
+      between car and public transport but may influence the role of spatial proximity
+      and digital connectivity.\r\n\r"
+    cardCategory: O
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 23
+    cardTitle: "Lack of public\vbuy-in"
+    cardDescription: "Many people see themselves as locked-in to car dependent lifestyles\r"
+    cardBrief: "Triple Access Planning seeks to better equip society for a sustainable
+      prosperous future by \u2018putting the private car in its place\u2019 in a
+      wide repertoire of forms of access. While this may be the case, the sort of
+      mobility planning it produces may provoke strong resistance from parts of the
+      public who see the way ahead as incompatible with their present-day means of
+      access fulfilment.\r\n\r"
+    cardCategory: T
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 24
+    cardTitle: Conceptually appealing
+    cardDescription: "The new approach resonates with what professionals feel they
+      need\r"
+    cardBrief: "Many planning professionals would recognise the merit of being vision-led
+      rather than forecast-led, of looking beyond road traffic, and of confronting
+      uncertainty. The portrayal of the Triple Access System within which transport
+      finds its place and role in access is simple and compelling. As such the new
+      approach is conceptually appealing which encourages challenge to conventional
+      mobility planning.\r"
+    cardCategory: S
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 25
+    cardTitle: Contested territories
+    cardDescription: "Limited understanding of triple access dynamics produces difference
+      of opinion\r"
+    cardBrief: "The nature and use of the Triple Access System continues to change
+      and be changed. Research efforts reveal how challenging it is to make sense
+      of the System and how its elements interact. As a result, while the new approach
+      invites an opening of minds to thinking more broadly than only about motorised
+      transport, it may not be possible to achieve a strong shared level of confidence
+      in a particular interpretation of the System.\r\n\r"
+    cardCategory: W
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 26
+    cardTitle: Necessity is the mother of invention
+    cardDescription: Uncertainty and a climate emergency invite new, bolder ways
+      forward
+    cardBrief: 'Uncertainty becomes an opportunity in the sense that if the future
+      cannot be predicted then we are offered greater invitation to shape it. The
+      climate emergency demands that it is shaped in pursuit of a vision that is
+      different to business as usual and which involves a makeup of access that treads
+      more lightly on the planet. The proactive and participatory nature of the approach
+      lends itself strongly to enabling and helping to justify bolder ways forwards.
+
+'
+    cardCategory: O
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 27
+    cardTitle: Lack of appraisal framework
+    cardDescription: "The planning system continues to expect conformity with approved
+      approaches\r"
+    cardBrief: "The new approach may be, or be perceived to be, acting outside of
+      the bounds of recognised appraisal practice. By not being able to demonstrate
+      conformity or to effectively offer a convincing alternative appraisal framework,
+      Triple Access Planning, including its treatment of uncertainty, may fail to
+      garner support and endorsement. Without this sense of legitimacy, putting it
+      into practice could be jeopardised.\r\n\r"
+    cardCategory: T
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 28
+    cardTitle: Acts as a complement
+    cardDescription: "The new approach can enhance existing mobility planning\r"
+    cardBrief: "Triple Access Planning and its handling of uncertainty are not a
+      wholesale substitute for conventional mobility planning. The new approach encourages
+      a rethinking and broadening of planning perspective and promotes the need to
+      stress-test a plan against uncertainty. This helps reframe the mobility planning
+      process at its outset and adds new means of engaging in and applying that process.
+      \r"
+    cardCategory: S
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 29
+    cardTitle: Dependence on more actors
+    cardDescription: "A greater pool of expertise is needed to capitalise upon what
+      the approach offers\r"
+    cardBrief: 'Conventional mobility planning has been centred upon the transport
+      system with mixed experience of engagement with spatial planning. Even more
+      remote has been any engagement with evolving expertise in digital planning.
+      Added to this is a need for expertise in foresight methods to explore possible
+      futures and how they may be reached. This all points to a need for a greater
+      range of expertise to be involved in the planning process which is harder to
+      find and harness.
+
+'
+    cardCategory: W
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 30
+    cardTitle: The need for adaptive capacity
+    cardDescription: "In the face of system shocks society needs to be adaptive and
+      resilient\r"
+    cardBrief: "COVID-19 highlighted our collective reliance upon the Triple Access
+      System as a source of resilience within which businesses and individuals could
+      adapt their behaviours. Resilience and adaptive capacity would seem of growing
+      importance. A planning process that is able to actively improve examination
+      of, and changes to, a system comprised of multiple forms of access should be
+      of great appeal.\r\n\r"
+    cardCategory: O
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 31
+    cardTitle: Other access influencers
+    cardDescription: 'There are multiple influencers of access and this complicates
+      shaping the future
+
+'
+    cardBrief: 'With recognition of the triple access nature of transport comes a
+      realisation of how many different players are involved in shaping the forms
+      of access available in society. The way employment, shopping and other services
+      are organised in space and time and their functional form all affect access.
+      Digital and transport service providers in the private and public sectors are
+      at play. This makes it challenging to co-ordinate understanding of access in
+      the present and shaping of it in the future.
+
+'
+    cardCategory: T
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 32
+    cardTitle: Considers the art of the possible
+    cardDescription: "Being encouraged to imagine future change strengthens planning\r"
+    cardBrief: 'Consider how much change has happened in the last 20 years to access.
+      Consider how, where and when you work and play and engage with others. The
+      future is not just more or less of what we have now. The form and qualities
+      of activities and their access is likely to change, perhaps quite substantially.
+      A planning approach that actively encourages exploration of what change might
+      unfold helps better determine how to account for and shape such change.
+
+'
+    cardCategory: S
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 33
+    cardTitle: "It doesn\u2019t compute "
+    cardDescription: 'Getting people to buy-in to the new approach is not guaranteed
+
+'
+    cardBrief: "Whether as decision makers, planners or analysts, not everyone sees
+      the need for a new approach. They may not be convinced that uncertainty about
+      the future is that great. They may have strong faith in a transport-centric
+      approach to mobility planning and believe the existing processes and tools
+      are sufficient. The new approach is predicated on people\u2019s buy-in to engaging
+      with it and seeing a need to innovate.\r\n\r"
+    cardCategory: W
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 34
+    cardTitle: "Preparing for \vthe worst"
+    cardDescription: "If the need for major change intensifies, forecast-led planning
+      won\u2019t do\r"
+    cardBrief: "It is hard to judge different forms of planning or even their outcomes
+      as right or wrong. Weaker planning that \u2018goes with the flow\u2019 of external
+      forces may seem sufficient. However, in the face of climate change and shifting
+      attitudes and behaviours, the demand for stronger planning that can respond
+      to this may grow. Planning authorities that are engaging with, and growing
+      their proficiency in, the new approach stand to be better placed to respond.\r"
+    cardCategory: O
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 35
+    cardTitle: "Damned by\vfaint praise"
+    cardDescription: "A new approach that doesn\u2019t fit someone\u2019s agenda
+      is unwelcome\r"
+    cardBrief: "Stronger planning suggests shaping a more inclusive, fair, environmentally
+      sensitive and prosperous future. This may not fit the narrative of beneficiaries
+      of a present system that serves them well. As a result they may either seek
+      to exert disproportionate influence on a new and participative approach, or
+      they may subtly cast doubt on the credibility of the approach, anxious to preserve
+      the more familiar orthodox approach to planning where their influence is established.\r\n\r"
+    cardCategory: T
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 36
+    cardTitle: Encourages ambition
+    cardDescription: "Stronger planning can result from inviting us to dream\r"
+    cardBrief: "While conventional mobility planning does not prohibit \u2018thinking
+      big\u2019, it can tend towards conservatism and preserving the established
+      form and function of mobility. The new approach more explicitly invites us
+      to explore new possibilities both in terms of what could change and what could
+      be encouraged to change. By better engaging with understanding how the world
+      is changing, could change and needs to change, ambitious vision-led planning
+      is possible.\r"
+    cardCategory: S
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 37
+    cardTitle: "It doesn\u2019t guarantee better outcomes"
+    cardDescription: "What is a better future is subjective and in the hands of those
+      involved\r"
+    cardBrief: "Within conventional mobility planning it is possible to progress
+      towards a future that for some is desirable. The new approach is intended to
+      offer a process that is more overtly vision-led and broader in outlook through
+      its triple-access view. However, the actors involved in the process are what
+      determines the plan that results. They bring their own values, vested interests
+      and preconceptions. Be careful what you wish for. \r\n\r"
+    cardCategory: W
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 38
+    cardTitle: 'Moving beyond white male privilege '
+    cardDescription: "In order to better account for a diverse population we must
+      think differently\r"
+    cardBrief: "The transport system has predominantly been designed by men; in many
+      countries by white, men. Gender, ethnicity and other protected characteristics
+      that reflect the true and diverse makeup of the society that transport and
+      access support have been largely overlooked. Thankfully, this is changing and
+      needs to change. A planning approach that is less rooted in the past and more
+      concerned with engaging diverse voices in the present about preferable futures
+      is key.\r\n\r"
+    cardCategory: O
     cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
-    cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
-    cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
-    cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
-    cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
-    cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
-    cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
-    cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
-    cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
-    cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
-    cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
-    cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
-    cardRank: 0
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
+  - cardId: 39
+    cardTitle: A need to quantify
+    cardDescription: "Analytical rigour often means numbers, and precise numbers
+      at that\r"
+    cardBrief: "The adage \u2018if you can\u2019t count it, it doesn\u2019t count\u2019
+      reminds us that what matters may lie beyond what (big) data and numbers are
+      able to convincingly represent. The concept of \u2018access\u2019 has struggled
+      to be embraced in mobility planning because a unifying definition and means
+      of measuring has proved elusive. Definitions and numbers can only go so far
+      in helping us in a meaningful way in planning for the future. Nevertheless
+      if a new approach cannot play the numbers game\u2026\r\n\r\n"
+    cardCategory: T
     cardRank: 0
