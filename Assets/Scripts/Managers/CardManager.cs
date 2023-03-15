@@ -1,21 +1,57 @@
 using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 public class CardManager : MonoBehaviour
 {
+    public AllCards cardDatabase;
+    public static CardManager instance;
 
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]private List<CardSO> mainDeck = new List<CardSO>();
+    [SerializeField]private List<CardSO> discardedDeck = new List<CardSO>();
+
+    public Action<bool> cardInitilaized;
+
+    //to check if the cards have been shuffled
+    private bool shuffleCheck = false;
+
+    private void Start()
     {
-        
+        mainDeck = cardDatabase.cards.Select(c => new CardSO(c)).ToList();
+        cardInitilaized?.Invoke(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else 
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public List<CardSO> GetShuffledCards()
+    {
+        if (!shuffleCheck)
+        {
+           ShuffleCards();
+
+        }
+        return mainDeck;
+    }
+    //to shuffle the cards before distributing to players
+    public void ShuffleCards()
+    {
+        // Shuffle cards pending
+
+        shuffleCheck = true;
+
     }
 }

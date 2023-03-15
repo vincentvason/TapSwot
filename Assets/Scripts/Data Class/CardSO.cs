@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[CreateAssetMenu(fileName ="New Card", menuName ="Add New Card")]
-public class CardSO : ScriptableObject
+[System.Serializable]
+public class CardSO
 {
     public int cardId;
     public string cardTitle;
@@ -11,4 +11,14 @@ public class CardSO : ScriptableObject
     public string cardCategory;
     public int cardRank;
 
+    public CardSO(CardSO card)
+    {
+        this.cardId = card.cardId;
+        this.cardTitle = card.cardTitle;
+        this.cardDescription = card.cardDescription;
+        this.cardBrief = card.cardBrief;
+        this.cardCategory = card.cardCategory;
+        this.cardRank = card.cardRank;
+    }
 }
+

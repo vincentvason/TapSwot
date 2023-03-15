@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 5866007}
   - component: {fileID: 5866006}
   m_Layer: 5
-  m_Name: TeammateName (TMP)
+  m_Name: Player2Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2242,8 +2242,9 @@ GameObject:
   - component: {fileID: 154321789}
   - component: {fileID: 154321791}
   - component: {fileID: 154321790}
+  - component: {fileID: 154321792}
   m_Layer: 5
-  m_Name: TeammateStatus2
+  m_Name: Player2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2257,19 +2258,19 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154321788}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.368178}
-  m_LocalScale: {x: 0.57812506, y: 0.57812506, z: 0.57812506}
+  m_LocalPosition: {x: 0, y: 0, z: -7.555767}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 717321855}
   - {fileID: 5866005}
   - {fileID: 1917634156}
-  m_Father: {fileID: 1000977341}
+  m_Father: {fileID: 2043736388}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -126.9, y: 121.52901}
+  m_AnchoredPosition: {x: -296.50272, y: 448.2124}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &154321790
@@ -2310,6 +2311,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154321788}
   m_CullTransparentMesh: 1
+--- !u!114 &154321792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154321788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f553b26e0c8fc448a449424d4bd11c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: 
+  playerID: 0
+  playerCards: []
+  playerNameText: {fileID: 5866006}
+  playerStatusText: {fileID: 1917634157}
+  playeStatus: 
 --- !u!1 &158196907
 GameObject:
   m_ObjectHideFlags: 0
@@ -3320,8 +3339,9 @@ GameObject:
   - component: {fileID: 240492715}
   - component: {fileID: 240492717}
   - component: {fileID: 240492716}
+  - component: {fileID: 240492718}
   m_Layer: 5
-  m_Name: TeammateStatus3
+  m_Name: Player4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3335,19 +3355,19 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 240492714}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.368178}
-  m_LocalScale: {x: 0.57812506, y: 0.57812506, z: 0.57812506}
+  m_LocalPosition: {x: 0, y: 0, z: -7.555767}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 902032952}
   - {fileID: 692811164}
   - {fileID: 1446332938}
-  m_Father: {fileID: 1000977341}
+  m_Father: {fileID: 2043736388}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 234.8, y: 121.52901}
+  m_AnchoredPosition: {x: 329.14044, y: 448.21234}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &240492716
@@ -3388,6 +3408,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 240492714}
   m_CullTransparentMesh: 1
+--- !u!114 &240492718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 240492714}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f553b26e0c8fc448a449424d4bd11c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: 
+  playerID: 0
+  playerCards: []
+  playerNameText: {fileID: 692811165}
+  playerStatusText: {fileID: 1446332939}
+  playeStatus: 
 --- !u!1001 &241030809
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4537,7 +4575,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 361261029}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4547,7 +4585,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 223.3, y: -47.6}
+  m_AnchoredPosition: {x: 223.29993, y: -47.59996}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &361261031
@@ -4782,7 +4820,8 @@ RectTransform:
   m_Children:
   - {fileID: 1000977341}
   - {fileID: 525023818}
-  - {fileID: 1359375546}
+  - {fileID: 534317666}
+  - {fileID: 2043736388}
   - {fileID: 158196908}
   - {fileID: 894391433}
   - {fileID: 1159998240}
@@ -6099,7 +6138,7 @@ GameObject:
   - component: {fileID: 492381106}
   - component: {fileID: 492381105}
   m_Layer: 5
-  m_Name: TeammateStatus (TMP)
+  m_Name: Player3Status
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6785,6 +6824,40 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 534263405}
   m_CullTransparentMesh: 1
+--- !u!1 &534317665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 534317666}
+  m_Layer: 0
+  m_Name: Menuoptions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &534317666
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 534317665}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 215.21521, y: -69.396454, z: 5.5328555}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1394573457}
+  - {fileID: 1164737886}
+  - {fileID: 1503105553}
+  m_Father: {fileID: 396764703}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &542952888
 GameObject:
   m_ObjectHideFlags: 0
@@ -7099,6 +7172,141 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!1 &598206876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 598206877}
+  - component: {fileID: 598206879}
+  - component: {fileID: 598206878}
+  m_Layer: 5
+  m_Name: PlayerStatus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &598206877
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598206876}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2000030395}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 93.994995, y: -70}
+  m_SizeDelta: {x: 178.61, y: 42.148}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &598206878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598206876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: player Status
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 24
+  m_fontSizeBase: 24
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &598206879
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598206876}
+  m_CullTransparentMesh: 1
 --- !u!1 &599649278
 GameObject:
   m_ObjectHideFlags: 0
@@ -8509,7 +8717,7 @@ GameObject:
   - component: {fileID: 692811166}
   - component: {fileID: 692811165}
   m_Layer: 5
-  m_Name: TeammateName (TMP)
+  m_Name: Player4Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8820,7 +9028,7 @@ GameObject:
   - component: {fileID: 717321857}
   - component: {fileID: 717321856}
   m_Layer: 5
-  m_Name: TeammateAvatar
+  m_Name: Player2Avatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11007,7 +11215,7 @@ GameObject:
   - component: {fileID: 902032954}
   - component: {fileID: 902032953}
   m_Layer: 5
-  m_Name: TeammateAvatar
+  m_Name: Player4Avatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12411,9 +12619,6 @@ Transform:
   m_LocalScale: {x: 1.7297297, y: 1.7297297, z: 1.7297297}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1866047920}
-  - {fileID: 154321789}
-  - {fileID: 240492715}
   - {fileID: 612623809}
   - {fileID: 1650857445}
   m_Father: {fileID: 396764703}
@@ -13868,7 +14073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
       propertyPath: card.cardId
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
       propertyPath: card.cardRank
@@ -13876,22 +14081,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
       propertyPath: card.cardBrief
-      value: "representing supply and demand for physical mobility, spatial proximity
-        and digital connectivity would need further model development, and data may
-        not exist to support this. to then model multiple \u2018what-if\u2019 futures
-        would need more resources and time that could slow the planning process."
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
       propertyPath: card.cardTitle
-      value: hard to model
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
       propertyPath: card.cardCategory
-      value: W
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
       propertyPath: card.cardDescription
-      value: representing a more complex system is too resource and time hungry
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -14289,17 +14491,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1164737885}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.57812506, y: 0.57812506, z: 0.57812506}
+  m_LocalPosition: {x: 0, y: 0, z: -3.3466923}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1853337667}
-  m_Father: {fileID: 1359375546}
+  m_Father: {fileID: 534317666}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 501, y: -251}
+  m_AnchoredPosition: {x: 673.0073, y: -387.7657}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1164737887
@@ -16202,8 +16404,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1359375546}
+  - component: {fileID: 1359375547}
   m_Layer: 0
-  m_Name: PlayerBar
+  m_Name: Player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16217,18 +16420,33 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359375545}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21.628061, y: -31, z: 2.1861632}
+  m_LocalPosition: {x: 21.628052, y: 13, z: 2.1861632}
   m_LocalScale: {x: 1.7297297, y: 1.7297297, z: 1.7297297}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1394573457}
-  - {fileID: 1503105553}
-  - {fileID: 1164737886}
   - {fileID: 2000030395}
   - {fileID: 1703526920}
-  m_Father: {fileID: 396764703}
+  m_Father: {fileID: 2043736388}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1359375547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1359375545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f553b26e0c8fc448a449424d4bd11c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: 
+  playerID: 0
+  playerCards: []
+  playerNameText: {fileID: 1683451928}
+  playerStatusText: {fileID: 598206878}
+  playeStatus: 
 --- !u!1 &1365003058
 GameObject:
   m_ObjectHideFlags: 0
@@ -16241,7 +16459,7 @@ GameObject:
   - component: {fileID: 1365003061}
   - component: {fileID: 1365003060}
   m_Layer: 5
-  m_Name: TeammateName (TMP)
+  m_Name: Player3Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16653,17 +16871,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394573456}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.57812506, y: 0.57812506, z: 0.57812506}
+  m_LocalPosition: {x: 0, y: 0, z: -3.3466923}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 734753815}
-  m_Father: {fileID: 1359375546}
+  m_Father: {fileID: 534317666}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 501, y: -182}
+  m_AnchoredPosition: {x: 673.0073, y: -268.41434}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1394573458
@@ -17244,7 +17462,7 @@ GameObject:
   - component: {fileID: 1446332940}
   - component: {fileID: 1446332939}
   m_Layer: 5
-  m_Name: TeammateStatus (TMP)
+  m_Name: Player4Status
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17889,17 +18107,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1503105552}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.57812506, y: 0.57812506, z: 0.57812506}
+  m_LocalPosition: {x: 0, y: 0, z: -3.3466923}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1915088810}
-  m_Father: {fileID: 1359375546}
+  m_Father: {fileID: 534317666}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 500, y: -216.3}
+  m_AnchoredPosition: {x: 671.27783, y: -327.7441}
   m_SizeDelta: {x: 120, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1503105554
@@ -18260,9 +18478,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1571808894}
-  - component: {fileID: 1571808897}
   - component: {fileID: 1571808896}
   - component: {fileID: 1571808895}
+  - component: {fileID: 1571808897}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -18310,14 +18528,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players:
-  - playerName: 
-    playerID: 0
-  - playerName: 
-    playerID: 0
-  - playerName: 
-    playerID: 0
-  - playerName: 
-    playerID: 0
+  - {fileID: 1359375547}
+  - {fileID: 154321792}
+  - {fileID: 1866047923}
+  - {fileID: 240492718}
+  myPlayer: {fileID: 0}
 --- !u!114 &1571808897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18330,6 +18545,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f897cb617f3ecc34b858a1e7f127a8d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardDatabase: {fileID: 11400000, guid: 7483358b5db514a43980b3a00f33ceb4, type: 2}
+  mainDeck: []
+  discardedDeck: []
 --- !u!1 &1607086557
 GameObject:
   m_ObjectHideFlags: 0
@@ -19348,7 +19566,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1683451926}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -19358,7 +19576,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 93.995, y: -28.673998}
+  m_AnchoredPosition: {x: 93.994995, y: -28.67398}
   m_SizeDelta: {x: 178.61, y: 42.148}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1683451928
@@ -19688,26 +19906,6 @@ PrefabInstance:
     - target: {fileID: 2465888562845896287, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
-      propertyPath: card.cardRank
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
-      propertyPath: card.cardBrief
-      value: how people fulfil their access needs and desires is influenced by the
-        supply of access opportunity  across transport, land-use and telecommunications
-        systems. a planning approach that recognises this is better able to understand
-        and shape overall access and the place of mobility within this.
-      objectReference: {fileID: 0}
-    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
-      propertyPath: card.cardTitle
-      value: better reflects the world we live in
-      objectReference: {fileID: 0}
-    - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
-      propertyPath: card.cardDescription
-      value: people live their lives in a triple access system, not (only) a transport
-        system
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -20669,7 +20867,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -400, y: -170}
+  m_AnchoredPosition: {x: -400, y: -157}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1770607871
@@ -21892,8 +22090,9 @@ GameObject:
   - component: {fileID: 1866047920}
   - component: {fileID: 1866047922}
   - component: {fileID: 1866047921}
+  - component: {fileID: 1866047923}
   m_Layer: 5
-  m_Name: TeammateStatus1
+  m_Name: Player3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21907,19 +22106,19 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866047919}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.368178}
-  m_LocalScale: {x: 0.57812506, y: 0.57812506, z: 0.57812506}
+  m_LocalPosition: {x: 0, y: 0, z: -7.555767}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1888466402}
   - {fileID: 1365003059}
   - {fileID: 492381104}
-  m_Father: {fileID: 1000977341}
+  m_Father: {fileID: 2043736388}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 53.502834, y: 121.52901}
+  m_AnchoredPosition: {x: 15.545437, y: 448.21234}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1866047921
@@ -21960,6 +22159,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1866047919}
   m_CullTransparentMesh: 1
+--- !u!114 &1866047923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866047919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f553b26e0c8fc448a449424d4bd11c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: 
+  playerID: 0
+  playerCards: []
+  playerNameText: {fileID: 1365003060}
+  playerStatusText: {fileID: 492381105}
+  playeStatus: 
 --- !u!224 &1867749445 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6368950713864176213, guid: 4aed7ba743cca6542b7d5d2b0afadd06, type: 3}
@@ -22092,7 +22309,7 @@ GameObject:
   - component: {fileID: 1888466404}
   - component: {fileID: 1888466403}
   m_Layer: 5
-  m_Name: TeammateAvatar
+  m_Name: Player3Avatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22462,7 +22679,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
       propertyPath: card.cardId
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
       propertyPath: card.cardRank
@@ -22470,24 +22687,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
       propertyPath: card.cardBrief
-      value: "the covid-19 pandemic was a global shock that demonstrated how things
-        can change in unexpected, uncertain ways. many people shifted significantly
-        from a reliance on physical mobility to a greater reliance on digital connectivity.
-        professionals and the public alike are more likely to \u2018get it\u2019
-        now."
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
       propertyPath: card.cardTitle
-      value: covid-19 exposure
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
       propertyPath: card.cardCategory
-      value: O
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
       propertyPath: card.cardDescription
-      value: "reater familiarity with triple access and uncertainty opens people\u2019s
-        minds"
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -22753,7 +22965,7 @@ GameObject:
   - component: {fileID: 1917634158}
   - component: {fileID: 1917634157}
   m_Layer: 5
-  m_Name: TeammateStatus (TMP)
+  m_Name: Player2Status
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23758,7 +23970,7 @@ GameObject:
   - component: {fileID: 2000030397}
   - component: {fileID: 2000030396}
   m_Layer: 5
-  m_Name: PlayerStatus
+  m_Name: Player1Details
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23778,6 +23990,7 @@ RectTransform:
   m_Children:
   - {fileID: 361261030}
   - {fileID: 1683451927}
+  - {fileID: 598206877}
   m_Father: {fileID: 1359375546}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -24407,6 +24620,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2040615789}
   m_CullTransparentMesh: 1
+--- !u!1 &2043736387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2043736388}
+  m_Layer: 5
+  m_Name: Players
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2043736388
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043736387}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1359375546}
+  - {fileID: 154321789}
+  - {fileID: 1866047920}
+  - {fileID: 240492715}
+  m_Father: {fileID: 396764703}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2047999454
 GameObject:
   m_ObjectHideFlags: 0
@@ -25297,7 +25550,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &3235858834383389282
 MonoBehaviour:
   m_ObjectHideFlags: 0

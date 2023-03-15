@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class CardController : MonoBehaviour
+public class CardUI : MonoBehaviour
 {
-    public Card card;
+    public CardSO card;
     public TextMeshProUGUI cardTitle;
     public TextMeshProUGUI cardDescription;
     public TextMeshProUGUI cardRank;
@@ -16,7 +16,7 @@ public class CardController : MonoBehaviour
         
     }
 
-    public void Initialize(Card card)
+    public void Initialize(CardSO card)
     {
         cardTitle.text = card.cardTitle;
         cardDescription.text = card.cardDescription;
