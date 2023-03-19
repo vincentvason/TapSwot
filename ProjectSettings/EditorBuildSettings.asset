@@ -6,12 +6,21 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/InitialLoadingScene.unity
+    path: Assets/Scenes/InitialLoading.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/CreateJoinScene.unity
-    guid: e5398606d25a09044a31d5b446a0a9b8
+    path: Assets/Scenes/MainMenu.unity
+    guid: b0a32f319fede9e43a06f28e3ee04088
   - enabled: 1
-    path: Assets/Scenes/LobbyRoomScene2.unity
+    path: Assets/Scenes/PlayerProfile.unity
+    guid: 0f888767703854742948c58cb377ecff
+  - enabled: 1
+    path: Assets/Scenes/CreateJoin.unity
+    guid: 20cea67e6728e8c4d969c8645de0f1ce
+  - enabled: 1
+    path: Assets/Scenes/MainGame.unity
+    guid: 493b3759a6537d34aae27675e3028e71
+  - enabled: 1
+    path: Assets/Scenes/LobbyWaiting.unity
     guid: af7a2896459c7a94785f8643fda382ae
   m_configObjects: {}
