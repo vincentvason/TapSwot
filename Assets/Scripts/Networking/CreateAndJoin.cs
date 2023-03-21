@@ -13,22 +13,12 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
 
     private int totalPlayerCount=4; // Total players to start the game  
 
-    public TMPro.TMP_InputField createInput;
-    public TMPro.TMP_InputField joinInput;
+    public TMP_InputField createInput;
+    public TMP_InputField joinInput;
 
     private void Start()
     {
-        //if(SelectionManager.instance.GetPlayerSelection()=="Create")
-        //{
-        //    selectionScreens[0].SetActive(true);
-        //    selectionScreens[1].SetActive(false);
-
-        //}
-        //else
-        //{
-        //    selectionScreens[0].SetActive(false);
-        //    selectionScreens[1].SetActive(true);
-        //}
+     
     }
 
     private void Awake()
@@ -49,7 +39,7 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
 
     public void CreateRoom()
     {
-        if(createInput!=null)
+        if(createInput.text.Length>=1)
         {
             PhotonNetwork.CreateRoom(createInput.text, new RoomOptions() { MaxPlayers=4, IsVisible=true, IsOpen=true},TypedLobby.Default,null );
            
@@ -64,10 +54,11 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
 
     public void JoinRoom()
     {
-        if (joinInput != null)
+        if (joinInput.text.Length >= 1)
         { 
             PhotonNetwork.JoinRoom(joinInput.text);
             Debug.Log("Multiplayer Lobby succesfully joined: " + joinInput.text);
+
         }
         else
         {

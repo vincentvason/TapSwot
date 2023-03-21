@@ -7,16 +7,7 @@ public class SceneChange : MonoBehaviour
 {
 
 
-    public void OnSelectCreateRoom()
-    {
-     
-
-    }
-    public void OnSelectJoinRoom()
-    {
-        
-      
-    }
+    
 
 
     public void onSelectQuit()
