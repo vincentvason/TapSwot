@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Photon.Realtime;
 
 public class CreateAndJoin : MonoBehaviourPunCallbacks
 {
@@ -38,6 +39,7 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         if (instance == null)
         {
             instance = this;
+          
         }
         else
         {
@@ -52,7 +54,8 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
     {
         if(createInput!=null)
         {
-            PhotonNetwork.CreateRoom(createInput.text);
+            PhotonNetwork.CreateRoom(createInput.text, new RoomOptions() { MaxPlayers=4, IsVisible=true, IsOpen=true},TypedLobby.Default,null );
+
             Debug.Log("Multiplayer Lobby succesfully created: " + createInput.text);
         }
         else
@@ -81,7 +84,6 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel(5);
         Debug.Log("Current Players in the Room(Photon)"+PhotonNetwork.CurrentRoom.PlayerCount);
        
-        Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
     }
 
     public override void OnJoinRoomFailed(short returnCode, string message)
@@ -92,13 +94,16 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         Debug.Log($"player {newPlayer.ActorNumber} entered the room");
+        
       
-        Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+        Debug.Log("Current Players in the Room(Photon)" + PhotonNetwork.CurrentRoom.PlayerCount);
         
         
         if (PhotonNetwork.CurrentRoom.PlayerCount == totalPlayerCount)
         {
             PhotonNetwork.LoadLevel(4);
+            
         }
     }
+    
 }

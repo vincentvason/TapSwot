@@ -18,7 +18,7 @@ EditorBuildSettings:
     path: Assets/Scenes/CreateJoin.unity
     guid: 20cea67e6728e8c4d969c8645de0f1ce
   - enabled: 1
-    path: Assets/Scenes/MainGame.unity
+    path: Assets/Scenes/MainGame2.unity
     guid: 493b3759a6537d34aae27675e3028e71
   - enabled: 1
     path: Assets/Scenes/LobbyWaiting.unity
