@@ -11,27 +11,24 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
 {
     public static CreateAndJoin instance;
 
-    private int totalPlayerCount=4; // Total players to start the game
-    
-
-    public GameObject[] selectionScreens; // Toggle between Room creation screen and Room joining screen
+    private int totalPlayerCount=4; // Total players to start the game  
 
     public TMPro.TMP_InputField createInput;
     public TMPro.TMP_InputField joinInput;
 
     private void Start()
     {
-        if(SelectionManager.instance.GetPlayerSelection()=="Create")
-        {
-            selectionScreens[0].SetActive(true);
-            selectionScreens[1].SetActive(false);
+        //if(SelectionManager.instance.GetPlayerSelection()=="Create")
+        //{
+        //    selectionScreens[0].SetActive(true);
+        //    selectionScreens[1].SetActive(false);
 
-        }
-        else
-        {
-            selectionScreens[0].SetActive(false);
-            selectionScreens[1].SetActive(true);
-        }
+        //}
+        //else
+        //{
+        //    selectionScreens[0].SetActive(false);
+        //    selectionScreens[1].SetActive(true);
+        //}
     }
 
     private void Awake()
@@ -55,7 +52,7 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         if(createInput!=null)
         {
             PhotonNetwork.CreateRoom(createInput.text, new RoomOptions() { MaxPlayers=4, IsVisible=true, IsOpen=true},TypedLobby.Default,null );
-
+           
             Debug.Log("Multiplayer Lobby succesfully created: " + createInput.text);
         }
         else
@@ -81,7 +78,7 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel(5);
+        PhotonNetwork.LoadLevel(2);
         Debug.Log("Current Players in the Room(Photon)"+PhotonNetwork.CurrentRoom.PlayerCount);
        
     }
@@ -93,7 +90,7 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
-        Debug.Log($"player {newPlayer.ActorNumber} entered the room");
+        Debug.Log($"player {newPlayer.NickName} entered the room");
         
       
         Debug.Log("Current Players in the Room(Photon)" + PhotonNetwork.CurrentRoom.PlayerCount);
@@ -101,7 +98,7 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         
         if (PhotonNetwork.CurrentRoom.PlayerCount == totalPlayerCount)
         {
-            PhotonNetwork.LoadLevel(4);
+            PhotonNetwork.LoadLevel(3);
             
         }
     }

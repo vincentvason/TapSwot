@@ -16918,7 +16918,7 @@ MonoBehaviour:
   playerName: 
   playerID: 0
   playerCards: []
-  playerNameText: {fileID: 0}
+  playerNameText: {fileID: 60485206}
   playerStatusText: {fileID: 598206878}
   playeStatus: 
 --- !u!1 &1368214764
@@ -19024,8 +19024,8 @@ MonoBehaviour:
   players:
   - {fileID: 1359375547}
   - {fileID: 154321792}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 687608903}
+  - {fileID: 770278568}
   myPlayer: {fileID: 0}
 --- !u!114 &1571808897
 MonoBehaviour:
