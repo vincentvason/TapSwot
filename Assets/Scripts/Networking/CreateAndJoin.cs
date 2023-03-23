@@ -87,11 +87,11 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         Debug.Log("Current Players in the Room(Photon)" + PhotonNetwork.CurrentRoom.PlayerCount);
         
         
-        if (PhotonNetwork.CurrentRoom.PlayerCount == totalPlayerCount)
-        {
-            PhotonNetwork.LoadLevel(3);
+        //if (PhotonNetwork.CurrentRoom.PlayerCount == totalPlayerCount)
+        //{
+        //    PhotonNetwork.LoadLevel(3);
             
-        }
+        //}
     }
     
 }

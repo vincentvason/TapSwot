@@ -10,6 +10,8 @@ public class Lobby : MonoBehaviourPunCallbacks
 {
     public TextMeshProUGUI roomName;
 
+
+
     void Awake()
     {
         roomName.text = "Room name: " + PhotonNetwork.CurrentRoom.Name;
@@ -25,4 +27,6 @@ public class Lobby : MonoBehaviourPunCallbacks
     {
         SceneManager.LoadScene(1);
     }
+
+
 }
