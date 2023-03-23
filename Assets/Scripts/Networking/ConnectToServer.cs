@@ -10,6 +10,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     void Start()
     {
         //Establish connection of Player and Photon Server
+        PhotonNetwork.GameVersion="1.0";
         PhotonNetwork.ConnectUsingSettings();
         Debug.Log("Connected to the Photon Server");
     }
