@@ -8,7 +8,6 @@ using TMPro;
 
 public class PlayerInfo : MonoBehaviour
 {
-
     public Photon.Realtime.Player Player { get; private set; }
 
     public TextMeshProUGUI _nickname;
@@ -17,5 +16,11 @@ public class PlayerInfo : MonoBehaviour
     {
         Player = player;
         _nickname.text = player.NickName;
+    }
+
+    [PunRPC]
+    void LoadLevel()
+    {
+        PhotonNetwork.LoadLevel("MainGame2");
     }
 }

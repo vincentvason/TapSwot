@@ -16,9 +16,13 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
     public TMP_InputField createInput;
     public TMP_InputField joinInput;
 
+
+    public GameObject CreateJoinCanvas, LobbyCanvas;
+
     private void Start()
     {
-     
+        CreateJoinCanvas.SetActive(true);
+        LobbyCanvas.SetActive(false);
     }
 
     private void Awake()
@@ -69,29 +73,102 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel(2);
+        CreateJoinCanvas.SetActive(false);
+        LobbyCanvas.SetActive(true);
+
         Debug.Log("Current Players in the Room(Photon)"+PhotonNetwork.CurrentRoom.PlayerCount);
-       
+
+        CleanList();
+
+        if (PhotonNetwork.CurrentRoom.Players.Count > 0)
+        {
+            foreach(KeyValuePair<int, Photon.Realtime.Player> kvp in (PhotonNetwork.CurrentRoom.Players))
+            {
+                GameObject a = PhotonNetwork.Instantiate("PlayerPlane1", new Vector3(0, 0, 0), Quaternion.identity);
+                a.transform.SetParent(_content);
+                PlayerInfo listing = a.GetComponent<PlayerInfo>();
+
+                listing.SetPlayerInfo(kvp.Value);
+                _listing.Add(listing);
+            }
+        }
     }
+
 
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         Debug.Log("Join room failed because {message}");
     }
 
+    [SerializeField]
+    private Transform _content;
+    [SerializeField]
+    private PlayerInfo playerListPrefab;
+
+    private List<PlayerInfo> _listing = new List<PlayerInfo>();
+
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
-        Debug.Log($"player {newPlayer.NickName} entered the room");
-        
-      
+        Debug.Log($"player {newPlayer.NickName} entered the room");        
         Debug.Log("Current Players in the Room(Photon)" + PhotonNetwork.CurrentRoom.PlayerCount);
-        
-        
-        //if (PhotonNetwork.CurrentRoom.PlayerCount == totalPlayerCount)
-        //{
-        //    PhotonNetwork.LoadLevel(3);
-            
-        //}
+
+        CleanList();
+
+        if (PhotonNetwork.CurrentRoom.Players.Count > 0)
+        {
+            foreach (KeyValuePair<int, Photon.Realtime.Player> kvp in (PhotonNetwork.CurrentRoom.Players))
+            {
+                GameObject a = PhotonNetwork.Instantiate("PlayerPlane1", new Vector3(0, 0, 0), Quaternion.identity);
+                a.transform.SetParent(_content);
+                PlayerInfo listing = a.GetComponent<PlayerInfo>();
+
+                listing.SetPlayerInfo(kvp.Value);
+                _listing.Add(listing);
+            }
+        }
     }
-    
+
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    {
+        int index = _listing.FindIndex(x => x.Player == otherPlayer);
+        if (index != -1)
+        {
+            Destroy(_listing[index].gameObject);
+            _listing.RemoveAt(index);
+        }
+    }
+
+    private void CleanList()
+    {
+        _listing.Clear();
+        if (_content.transform.childCount > 0)
+        {
+            for(int i=0;i< _content.transform.childCount; i++)
+            {
+                Destroy(_content.transform.GetChild(i).gameObject);
+            }
+        }
+    }
+
+
+    public void OnSelectStartGame()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
+            {
+                foreach (PlayerInfo pf in _listing)
+                {
+                    pf.gameObject.GetComponent<PhotonView>().RPC("LoadLevel", RpcTarget.AllBuffered);
+                }
+                
+                PhotonNetwork.LoadLevel("MainGame2");
+            }
+            else
+            {
+                Debug.Log("Insufficient Players in the Room, Current Players : " + PhotonNetwork.CurrentRoom.PlayerCount);
+            }
+        }
+    }
+
 }

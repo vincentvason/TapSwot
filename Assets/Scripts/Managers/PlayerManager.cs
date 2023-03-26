@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour
     private void Start()
     {
         myPlayer = players[0];
-        CardManager.instance.cardInitilaized += InitilizeAllPlayers; 
+        //CardManager.instance.cardInitilaized += InitilizeAllPlayers; 
 
     }
 

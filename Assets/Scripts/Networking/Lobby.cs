@@ -8,7 +8,9 @@ using TMPro;
 
 public class Lobby : MonoBehaviourPunCallbacks
 {
-    public TextMeshProUGUI roomName;
+    public TextMeshProUGUI roomName; 
+
+    private bool _ready = false;
 
 
 
@@ -28,5 +30,21 @@ public class Lobby : MonoBehaviourPunCallbacks
         SceneManager.LoadScene(1);
     }
 
+    private void SetReadyUp (bool state)
+    {
+        _ready = state;
+    }
+    public void OnClickReadyButton()
+    {
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            SetReadyUp(!_ready);
+        }
+    }
 
+    [PunRPC]
+    private void RPC_ChangeReadyState(bool ready)
+    {
+
+    }
 }
