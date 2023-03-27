@@ -12,15 +12,21 @@ public class PlayerInfo : MonoBehaviour
 
     public TextMeshProUGUI _nickname;
 
+    bool calledOnce = false;
+
     public void SetPlayerInfo(Photon.Realtime.Player player)
     {
         Player = player;
         _nickname.text = player.NickName;
     }
 
-    [PunRPC]
-    void LoadLevel()
-    {
-        PhotonNetwork.LoadLevel("MainGame2");
-    }
+    //[PunRPC]
+    //void LoadLevel()
+    //{   if (calledOnce) return;
+    //    if(SceneManager.GetActiveScene().name != "MainGame2")
+    //    {
+    //        PhotonNetwork.LoadLevel("MainGame2");
+    //        calledOnce = true;
+    //    }
+    //}
 }

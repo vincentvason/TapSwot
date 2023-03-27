@@ -155,19 +155,27 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
-            {
-                foreach (PlayerInfo pf in _listing)
-                {
-                    pf.gameObject.GetComponent<PhotonView>().RPC("LoadLevel", RpcTarget.AllBuffered);
-                }
-                
-                PhotonNetwork.LoadLevel("MainGame2");
-            }
-            else
-            {
-                Debug.Log("Insufficient Players in the Room, Current Players : " + PhotonNetwork.CurrentRoom.PlayerCount);
-            }
+            GetComponent<PhotonView>().RPC("LoadLevel", RpcTarget.AllBuffered);
+            //if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
+            //{
+            //    foreach (PlayerInfo pf in _listing)
+            //    {
+            //        pf.gameObject.GetComponent<PhotonView>().RPC("LoadLevel", RpcTarget.AllBuffered);
+            //    }
+            //}
+            //else
+            //{
+            //    Debug.Log("Insufficient Players in the Room, Current Players : " + PhotonNetwork.CurrentRoom.PlayerCount);
+            //}
+        }
+    }
+
+    [PunRPC]
+    void LoadLevel()
+    {
+        if (SceneManager.GetActiveScene().name != "MainGame2")
+        {
+            PhotonNetwork.LoadLevel("MainGame2");
         }
     }
 

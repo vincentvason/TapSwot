@@ -17,16 +17,33 @@ public class CardManager : MonoBehaviour
     //Temporary container deck to shuffle but can use discardedDeck instead to save memory unless client requirements for it change
     // [SerializeField]private List<CardSO> tempDeck= new List<CardSO>(); 
 
-    //Bool to Initialize the Main card deck copy before allocating the individual Player decks  
-    public Action<bool> cardInitilaized;
-
     //To check if the cards have been shuffled
     private bool shuffleCheck = false;
 
     private void Start()
     {
         mainDeck = cardDatabase.cards.Select(c => new CardSO(c)).ToList();
-        cardInitilaized?.Invoke(true);
+    }
+
+    public void UpdateDiscardedCards(CardSO c)
+    {
+        discardedDeck.Remove(c);      
+    }
+
+    public void UpdateDiscardedDeckUI()
+    {
+        CleanDiscarded();
+        //Initialise here in discarded deck content transform
+    }
+
+    public void CleanDiscarded()
+    {
+        //delete all child in discarded deck content transform
+    }
+
+    public List<CardSO> GetCardListBasedOnIds(List<string> ids)
+    {
+        return System.Linq.Enumerable.ToList(cardDatabase.cards.Where(c => ids.Contains(c.cardId.ToString())));
     }
 
     private void Awake()
@@ -46,7 +63,6 @@ public class CardManager : MonoBehaviour
         if (!shuffleCheck)
         {
            ShuffleCards();
-
         }
         return mainDeck;
     }

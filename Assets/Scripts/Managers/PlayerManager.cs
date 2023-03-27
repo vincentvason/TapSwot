@@ -1,44 +1,115 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
- 
-    public List<Player> players = new List<Player>();
+    public static PlayerManager instance;
+    public List<Player> localPlayersList = new List<Player>();
     public Player myPlayer;
 
-    private void Start()
+    public RectTransform[] allPlayersGameobject = new RectTransform[4];
+    public GameObject myPlayerPrefab, otherPlayerPrefab;
+    private void Awake()
     {
-        myPlayer = players[0];
-        //CardManager.instance.cardInitilaized += InitilizeAllPlayers; 
-
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
     }
 
-    public void InitilizeAllPlayers(bool b)
+    public void InitializeNetworkPlayers(Dictionary<int, Photon.Realtime.Player> players)
     {
-        
-        // To do - Get Player ID and Player name from Photon
-        // Currently using placeholder name and ID
-
-        for (int i = 0; i < players.Count; i++)
+        Debug.Log(PhotonNetwork.CurrentRoom.Players.Count);
+        foreach (KeyValuePair<int, Photon.Realtime.Player> kvp in (PhotonNetwork.CurrentRoom.Players))
         {
+            if(kvp.Value != PhotonNetwork.LocalPlayer)
+            {
+                Debug.Log("not local");
+                GameObject a = GameObject.Instantiate(otherPlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                a.transform.parent = (allPlayersGameobject[kvp.Value.ActorNumber - 1].transform);
+                a.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+                a.GetComponent<RectTransform>().transform.localPosition = new Vector3(0, 0, 0);
+                a.GetComponent<Player>().InitialiseNetworkPlayer(kvp.Value);
+                localPlayersList.Add(a.GetComponent<Player>());
+            }
+            else
+            {
+                Debug.Log("local");
+                GameObject localPlayer = GameObject.Instantiate(myPlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                localPlayer.transform.parent = (allPlayersGameobject[kvp.Value.ActorNumber - 1]);
+                localPlayer.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+                localPlayer.GetComponent<RectTransform>().transform.localPosition = new Vector3(0, 0, 0);
+                localPlayer.GetComponent<Player>().InitialiseNetworkPlayer(PhotonNetwork.LocalPlayer);
+                myPlayer = localPlayer.GetComponent<Player>();
+                localPlayersList.Add(myPlayer);
+            }
+        }
+        if (PhotonNetwork.IsMasterClient)
+        {
+            SendForInitilizeCards();
+        }
+    }
 
-            List<CardSO> cards = new List<CardSO>();
-
-            Debug.Log("Cards before distributing to player:"+(i+1)+",Card count :"+CardManager.instance.GetShuffledCards().Count);
+    public void SendForInitilizeCards()
+    {
+        foreach (KeyValuePair<int, Photon.Realtime.Player> kvp in (PhotonNetwork.CurrentRoom.Players))
+        {
+            List<string> cardId = new List<string>();
+            string actorsNumber = string.Empty;
+            actorsNumber= (kvp.Value.ActorNumber.ToString());
 
             for (int j = 0; j < 5; j++)
             {
-                cards.Add(CardManager.instance.GetShuffledCards()[CardManager.instance.GetShuffledCards().Count-1]);
-                CardManager.instance.GetShuffledCards().RemoveAt(CardManager.instance.GetShuffledCards().Count-1);
+                CardSO c = CardManager.instance.GetShuffledCards()[CardManager.instance.GetShuffledCards().Count - 1];
+                CardManager.instance.GetShuffledCards().RemoveAt(CardManager.instance.GetShuffledCards().Count - 1);
+                cardId.Add(c.cardId.ToString());
             }
-            // To do - Get Player ID and Player name from Photon
-            players[i].Initialize("SamplePlayer",0,cards);
 
-            Debug.Log("Cards after distributing to player:" + (i + 1)+ ",Card count :" + CardManager.instance.GetShuffledCards().Count);
+            gameObject.GetComponent<PhotonView>().RPC("ReceiveCards", RpcTarget.All, actorsNumber,
+                cardId[0],
+                cardId[1],
+                cardId[2],
+                cardId[3],
+                cardId[4]);
 
         }
+
+    }
+
+    [PunRPC]
+    public void ReceiveCards(string actorID, string c1, string c2, string c3, string c4, string c5)
+    {
+        Debug.Log("actorID other" + actorID);
+        Debug.Log(c1 + "," + c2 + "," + c3 + "," + c4 + "," + c5);
+
+        foreach(Player p in localPlayersList)
+        {
+            if (p.playerID.ToString() == actorID)
+            {
+                Debug.Log("actorID self" + actorID);
+                p.ReceiveCards(c1,c2,c3,c4,c5);
+            }
+        }
+
+
+        //if (this.playerID.ToString() == actorID)
+        //{
+        //    Debug.Log("actorID self" + actorID);
+        //    Debug.Log(c1 + "," + c2 + "," + c3 + "," + c4 + "," + c5);
+        //}
+        //else
+        //{
+        //    Debug.Log("actorID other" + actorID);
+        //    Debug.Log(c1 + "," + c2 + "," + c3 + "," + c4 + "," + c5);
+        //}
+
     }
 
 }

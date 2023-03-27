@@ -425,6 +425,7 @@ GameObject:
   - component: {fileID: 1406545176}
   - component: {fileID: 1406545175}
   - component: {fileID: 1406545177}
+  - component: {fileID: 1406545178}
   m_Layer: 0
   m_Name: SceneManager
   m_TagString: Untagged
@@ -477,6 +478,28 @@ MonoBehaviour:
   LobbyCanvas: {fileID: 732255178}
   _content: {fileID: 732255179}
   playerListPrefab: {fileID: 213749730059559362, guid: 95d24b0fc37d0584ba1fbd117e691d88, type: 3}
+--- !u!114 &1406545178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406545174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 2
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!114 &1710143085 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2327075949499294483, guid: 641b009f629751b48ab8187d75505229, type: 3}

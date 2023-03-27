@@ -11,27 +11,11 @@ public class CardUI : MonoBehaviour
     public TextMeshProUGUI cardRank;
     public TextMeshProUGUI cardCategory;
 
-    void Start()
-    {
-        
-    }
-
     public void Initialize(CardSO card)
     {
         cardTitle.text = card.cardTitle;
         cardDescription.text = card.cardDescription;
         cardRank.text = card.cardRank.ToString();
-        cardCategory.text = card.cardCategory;
-
-    }
-    private void Awake()
-    {
-        Initialize(card);  
-
-    }
-
-    void Update()
-    {
-        
+        cardCategory.text = card.cardCategory;        
     }
 }
