@@ -12,8 +12,6 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     private bool _ready = false;
 
-
-
     void Awake()
     {
         roomName.text = "Room name: " + PhotonNetwork.CurrentRoom.Name;
@@ -42,9 +40,9 @@ public class Lobby : MonoBehaviourPunCallbacks
         }
     }
 
-    [PunRPC]
-    private void RPC_ChangeReadyState(bool ready)
-    {
+    //[PunRPC]
+    //private void RPC_ChangeReadyState(bool ready)
+    //{
 
-    }
+    //}
 }

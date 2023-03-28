@@ -11,6 +11,10 @@ public class PlayerManager : MonoBehaviour
 
     public RectTransform[] allPlayersGameobject = new RectTransform[4];
     public GameObject myPlayerPrefab, otherPlayerPrefab;
+
+    public RectTransform Otherplayer_content,Myplayer_content;
+    
+
     private void Awake()
     {
         if (instance == null)
@@ -32,10 +36,16 @@ public class PlayerManager : MonoBehaviour
             if(kvp.Value != PhotonNetwork.LocalPlayer)
             {
                 Debug.Log("not local");
+
                 GameObject a = GameObject.Instantiate(otherPlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                a.transform.parent = (allPlayersGameobject[kvp.Value.ActorNumber - 1].transform);
-                a.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-                a.GetComponent<RectTransform>().transform.localPosition = new Vector3(0, 0, 0);
+                a.transform.SetParent(Otherplayer_content);
+
+
+                //GameObject a = GameObject.Instantiate(otherPlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                //a.transform.SetParent(allPlayersGameobject[kvp.Value.ActorNumber - 1]);
+                //a.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+                //a.GetComponent<RectTransform>().transform.localPosition = new Vector3(0, 0, 0);
+
                 a.GetComponent<Player>().InitialiseNetworkPlayer(kvp.Value);
                 localPlayersList.Add(a.GetComponent<Player>());
             }
@@ -43,9 +53,15 @@ public class PlayerManager : MonoBehaviour
             {
                 Debug.Log("local");
                 GameObject localPlayer = GameObject.Instantiate(myPlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                localPlayer.transform.parent = (allPlayersGameobject[kvp.Value.ActorNumber - 1]);
-                localPlayer.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-                localPlayer.GetComponent<RectTransform>().transform.localPosition = new Vector3(0, 0, 0);
+                localPlayer.transform.SetParent(Myplayer_content);
+
+
+
+                //GameObject localPlayer = GameObject.Instantiate(myPlayerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                //localPlayer.transform.SetParent(allPlayersGameobject[kvp.Value.ActorNumber - 1]);
+                //localPlayer.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+                //localPlayer.GetComponent<RectTransform>().transform.localPosition = new Vector3(0, 0, 0);
+
                 localPlayer.GetComponent<Player>().InitialiseNetworkPlayer(PhotonNetwork.LocalPlayer);
                 myPlayer = localPlayer.GetComponent<Player>();
                 localPlayersList.Add(myPlayer);
@@ -97,19 +113,6 @@ public class PlayerManager : MonoBehaviour
                 p.ReceiveCards(c1,c2,c3,c4,c5);
             }
         }
-
-
-        //if (this.playerID.ToString() == actorID)
-        //{
-        //    Debug.Log("actorID self" + actorID);
-        //    Debug.Log(c1 + "," + c2 + "," + c3 + "," + c4 + "," + c5);
-        //}
-        //else
-        //{
-        //    Debug.Log("actorID other" + actorID);
-        //    Debug.Log(c1 + "," + c2 + "," + c3 + "," + c4 + "," + c5);
-        //}
-
     }
 
 }

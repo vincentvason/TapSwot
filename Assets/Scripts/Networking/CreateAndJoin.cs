@@ -11,17 +11,16 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
 {
     public static CreateAndJoin instance;
 
-    private int totalPlayerCount=4; // Total players to start the game  
-
     public TMP_InputField createInput;
     public TMP_InputField joinInput;
 
-
     public GameObject CreateJoinCanvas, LobbyCanvas;
 
+    #region START AND AWAKE
     private void Start()
     {
-        CreateJoinCanvas.SetActive(true);
+        // To initialize the Create and Join canvas at the start of the scene
+        CreateJoinCanvas.SetActive(true);  
         LobbyCanvas.SetActive(false);
     }
 
@@ -40,7 +39,11 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         DontDestroyOnLoad(gameObject);
 
     }
+    # endregion 
 
+    #region CREATE AND JOIN ROOM PUN CALLBACKS 
+
+    // Create room function with Max players currently set to 4
     public void CreateRoom()
     {
         if(createInput.text.Length>=1)
@@ -56,6 +59,7 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         
     }
 
+    // Join Room function to join a room that already exists
     public void JoinRoom()
     {
         if (joinInput.text.Length >= 1)
@@ -100,6 +104,10 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         Debug.Log("Join room failed because {message}");
     }
 
+    #endregion
+
+    #region PLAYER JOIN AND LEFT CALLBACKS
+
     [SerializeField]
     private Transform _content;
     [SerializeField]
@@ -111,9 +119,10 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
     {
         Debug.Log($"player {newPlayer.NickName} entered the room");        
         Debug.Log("Current Players in the Room(Photon)" + PhotonNetwork.CurrentRoom.PlayerCount);
-
+        
         CleanList();
 
+        // Reinstantiate the Player list prefab whenever a player joins
         if (PhotonNetwork.CurrentRoom.Players.Count > 0)
         {
             foreach (KeyValuePair<int, Photon.Realtime.Player> kvp in (PhotonNetwork.CurrentRoom.Players))
@@ -130,6 +139,7 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
+        // To destroy the Player prefab from the player list in the lobby
         int index = _listing.FindIndex(x => x.Player == otherPlayer);
         if (index != -1)
         {
@@ -138,6 +148,7 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         }
     }
 
+    // Clean the player list and its child
     private void CleanList()
     {
         _listing.Clear();
@@ -149,24 +160,26 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
             }
         }
     }
+    #endregion
 
+    #region ON SELECT - START BUTTON - RPC TO START LOAD MAIN GAME 
 
     public void OnSelectStartGame()
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            GetComponent<PhotonView>().RPC("LoadLevel", RpcTarget.AllBuffered);
-            //if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
-            //{
-            //    foreach (PlayerInfo pf in _listing)
-            //    {
-            //        pf.gameObject.GetComponent<PhotonView>().RPC("LoadLevel", RpcTarget.AllBuffered);
-            //    }
-            //}
-            //else
-            //{
-            //    Debug.Log("Insufficient Players in the Room, Current Players : " + PhotonNetwork.CurrentRoom.PlayerCount);
-            //}
+            //GetComponent<PhotonView>().RPC("LoadLevel", RpcTarget.AllBuffered);
+            if (PhotonNetwork.CurrentRoom.PlayerCount == 4) // To check the count of players in the room is 4 including the host
+            {
+                { 
+                    GetComponent<PhotonView>().RPC("LoadLevel", RpcTarget.AllBuffered);
+                }
+            }
+            else
+            {
+                // Change debug to UI message 
+                Debug.Log("Insufficient Players in the Room, Current Players : " + PhotonNetwork.CurrentRoom.PlayerCount);
+            }
         }
     }
 
@@ -180,3 +193,5 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
     }
 
 }
+
+#endregion

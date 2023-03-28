@@ -175,7 +175,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 368, y: 125}
+  m_SizeDelta: {x: 365, y: 125}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6060236083964190582
 CanvasRenderer:
@@ -233,6 +233,8 @@ MonoBehaviour:
   playerNameText: {fileID: 6060236083816029727}
   playerStatusText: {fileID: 6060236085123783268}
   playeStatus: 
+  cardIds: []
+  cardsUI: []
 --- !u!1 &6060236084058394138
 GameObject:
   m_ObjectHideFlags: 0
