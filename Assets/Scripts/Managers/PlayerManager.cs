@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
-    public List<Player> localPlayersList = new List<Player>();
+    public List<Player> currentPlayersList = new List<Player>();
     public Player myPlayer;
 
     public RectTransform[] allPlayersGameobject = new RectTransform[4];
@@ -47,7 +47,7 @@ public class PlayerManager : MonoBehaviour
                 //a.GetComponent<RectTransform>().transform.localPosition = new Vector3(0, 0, 0);
 
                 a.GetComponent<Player>().InitialiseNetworkPlayer(kvp.Value);
-                localPlayersList.Add(a.GetComponent<Player>());
+                currentPlayersList.Add(a.GetComponent<Player>());
             }
             else
             {

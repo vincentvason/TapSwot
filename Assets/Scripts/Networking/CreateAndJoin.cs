@@ -24,21 +24,21 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         LobbyCanvas.SetActive(false);
     }
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
+    //private void Awake()
+    //{
+    //    if (instance == null)
+    //    {
+    //        instance = this;
           
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+    //    }
+    //    else
+    //    {
+    //        Destroy(gameObject);
+    //    }
 
-        DontDestroyOnLoad(gameObject);
+    //    DontDestroyOnLoad(gameObject);
 
-    }
+    //}
     # endregion 
 
     #region CREATE AND JOIN ROOM PUN CALLBACKS 
@@ -169,7 +169,7 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             //GetComponent<PhotonView>().RPC("LoadLevel", RpcTarget.AllBuffered);
-            if (PhotonNetwork.CurrentRoom.PlayerCount == 4) // To check the count of players in the room is 4 including the host
+            if (PhotonNetwork.CurrentRoom.PlayerCount >= 1) // To check the count of players in the room is 4 including the host
             {
                 { 
                     GetComponent<PhotonView>().RPC("LoadLevel", RpcTarget.AllBuffered);
