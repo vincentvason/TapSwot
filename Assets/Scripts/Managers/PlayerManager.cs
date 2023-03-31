@@ -64,7 +64,7 @@ public class PlayerManager : MonoBehaviour
 
                 localPlayer.GetComponent<Player>().InitialiseNetworkPlayer(PhotonNetwork.LocalPlayer);
                 myPlayer = localPlayer.GetComponent<Player>();
-                localPlayersList.Add(myPlayer);
+                currentPlayersList.Add(myPlayer);
             }
         }
         if (PhotonNetwork.IsMasterClient)
@@ -105,7 +105,7 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("actorID other" + actorID);
         Debug.Log(c1 + "," + c2 + "," + c3 + "," + c4 + "," + c5);
 
-        foreach(Player p in localPlayersList)
+        foreach(Player p in currentPlayersList)
         {
             if (p.playerID.ToString() == actorID)
             {

@@ -14,15 +14,16 @@ public class CardManager : MonoBehaviour
     [SerializeField]private List<CardSO> mainDeck = new List<CardSO>();
     [SerializeField]private List<CardSO> discardedDeck = new List<CardSO>();
 
-    //Temporary container deck to shuffle but can use discardedDeck instead to save memory unless client requirements for it change
-    // [SerializeField]private List<CardSO> tempDeck= new List<CardSO>(); 
+    public RectTransform mainDeckRect;
+    public GameObject card;
 
-    //To check if the cards have been shuffled
+  
     private bool shuffleCheck = false;
 
     private void Start()
     {
         mainDeck = cardDatabase.cards.Select(c => new CardSO(c)).ToList();
+
     }
 
     public void UpdateDiscardedCards(CardSO c)
@@ -33,12 +34,24 @@ public class CardManager : MonoBehaviour
     public void UpdateDiscardedDeckUI()
     {
         CleanDiscarded();
-        //Initialise here in discarded deck content transform
+        DisplayRemainingCard();
     }
 
     public void CleanDiscarded()
     {
         //delete all child in discarded deck content transform
+    }
+
+    public void DisplayRemainingCard()
+    {
+        for (int i = 0; i < mainDeck.Count; i++)
+        {
+            GameObject a = GameObject.Instantiate(card, new Vector3(0, 0, 0), Quaternion.identity);
+            a.transform.SetParent(mainDeckRect);
+            a.GetComponent<CardUI>().Initialize(mainDeck[i]);
+
+        }
+
     }
 
     public List<CardSO> GetCardListBasedOnIds(List<string> ids)
