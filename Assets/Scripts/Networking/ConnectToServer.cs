@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 using UnityEngine.SceneManagement;
-
+using Photon.Pun;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
+    
     void Start()
     {
         //Establish connection of Player and Photon Server
@@ -18,13 +18,13 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         SceneManager.LoadScene(1);
-        //PhotonNetwork.JoinLobby();
+        // PhotonNetwork.JoinLobby();
+        
     }
 
     public override void OnJoinedLobby()
     {
         SceneManager.LoadScene(1);
     }
-
 
 }
