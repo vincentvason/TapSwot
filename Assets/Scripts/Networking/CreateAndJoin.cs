@@ -17,6 +17,12 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
 
     public MainMenuAnimation mainMenu;
 
+    public Lobby lobby;
+
+    public GameObject emptySeatPrefab;
+
+    public Color[] playerColor;
+
     #region START AND AWAKE
     private void Start()
     {
@@ -84,6 +90,7 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         StartCoroutine(mainMenu.CloseCreateJoinWindow());
         // LobbyCanvas.SetActive(true);
         StartCoroutine(mainMenu.OpenLobbyWaitingWindow());
+        lobby.RoomCreate();
 
         Debug.Log("Current Players in the Room(Photon)"+PhotonNetwork.CurrentRoom.PlayerCount);
 
@@ -93,12 +100,22 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         {
             foreach(KeyValuePair<int, Photon.Realtime.Player> kvp in (PhotonNetwork.CurrentRoom.Players))
             {
-                GameObject a = PhotonNetwork.Instantiate("PlayerPlane1", new Vector3(0, 0, 0), Quaternion.identity);
+                GameObject a = PhotonNetwork.Instantiate("PlayerLobby", new Vector3(0, 0, 0), Quaternion.identity);
                 a.transform.SetParent(_content);
                 PlayerInfo listing = a.GetComponent<PlayerInfo>();
 
                 listing.SetPlayerInfo(kvp.Value);
                 _listing.Add(listing);
+
+                a.transform.localScale = new Vector3(1f, 1f, 1f);
+                a.GetComponent<Image>().color = playerColor[_listing.Count - 1];
+            }
+
+            for(int emptySeat = 0; emptySeat < 4; emptySeat++)
+            {
+                GameObject b = Instantiate(emptySeatPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                b.transform.SetParent(_content);
+                b.transform.localScale = new Vector3(1f, 1f, 1f);
             }
         }
     }
@@ -132,12 +149,20 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         {
             foreach (KeyValuePair<int, Photon.Realtime.Player> kvp in (PhotonNetwork.CurrentRoom.Players))
             {
-                GameObject a = PhotonNetwork.Instantiate("PlayerPlane1", new Vector3(0, 0, 0), Quaternion.identity);
+                GameObject a = PhotonNetwork.Instantiate("PlayerLobby", new Vector3(0, 0, 0), Quaternion.identity);
+                a.transform.localScale = new Vector3(1f, 1f, 1f);
                 a.transform.SetParent(_content);
                 PlayerInfo listing = a.GetComponent<PlayerInfo>();
 
                 listing.SetPlayerInfo(kvp.Value);
                 _listing.Add(listing);
+            }
+
+            for(int emptySeat = 0; emptySeat < 4; emptySeat++)
+            {
+                GameObject b = Instantiate(emptySeatPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+                b.transform.localScale = new Vector3(1f, 1f, 1f);
+                b.transform.SetParent(_content);
             }
         }
     }

@@ -12,9 +12,9 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     private bool _ready = false;
 
-    void Start()
+    public void RoomCreate()
     {
-        roomName.text = "Room name: " + PhotonNetwork.CurrentRoom.Name;
+        roomName.text = PhotonNetwork.CurrentRoom.Name;
     }
 
 
