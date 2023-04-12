@@ -44,8 +44,9 @@ public class CardShuffling : MonoBehaviour
     [HideInInspector] private float drawDuration = 0.2f;
     
 
-    // Start is called before the first frame update
-    void Start()
+   
+
+    public void StartShuffleAnimation()
     {
         StartCoroutine(DrawCard());
     }
