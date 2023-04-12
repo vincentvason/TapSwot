@@ -10,18 +10,21 @@ using Photon.Realtime;
 public class CreateAndJoin : MonoBehaviourPunCallbacks
 {
     public static CreateAndJoin instance;
+    public SceneTransition sceneTransition;
 
     public TMP_InputField createInput;
     public TMP_InputField joinInput;
 
-    public GameObject CreateJoinCanvas, LobbyCanvas;
+    public MainMenuAnimation mainMenu;
 
     #region START AND AWAKE
     private void Start()
     {
         // To initialize the Create and Join canvas at the start of the scene
-        CreateJoinCanvas.SetActive(true);  
-        LobbyCanvas.SetActive(false);
+        // CreateJoinCanvas.SetActive(true);
+        StartCoroutine(mainMenu.OpenCreateJoinWindow());
+        // LobbyCanvas.SetActive(false);
+        StartCoroutine(mainMenu.CloseLobbyWaitingWindow());
     }
 
     //private void Awake()
@@ -77,8 +80,10 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        CreateJoinCanvas.SetActive(false);
-        LobbyCanvas.SetActive(true);
+        // CreateJoinCanvas.SetActive(false);
+        StartCoroutine(mainMenu.CloseCreateJoinWindow());
+        // LobbyCanvas.SetActive(true);
+        StartCoroutine(mainMenu.OpenLobbyWaitingWindow());
 
         Debug.Log("Current Players in the Room(Photon)"+PhotonNetwork.CurrentRoom.PlayerCount);
 
@@ -184,10 +189,11 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void LoadLevel()
+    IEnumerator LoadLevel()
     {
         if (SceneManager.GetActiveScene().name != "MainGame2")
         {
+            yield return StartCoroutine(sceneTransition.SceneTransitionBegin());
             PhotonNetwork.LoadLevel("MainGame2");
         }
     }
