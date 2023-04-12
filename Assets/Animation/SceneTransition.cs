@@ -70,6 +70,7 @@ public class SceneTransition : MonoBehaviour
 
     public IEnumerator SceneTransitionEnd()
     {
+        DOTween.KillAll();
         bg.anchoredPosition = new Vector2(0,0f);
         mascot.anchoredPosition = new Vector2(-1120f,0f);
         iconT.color = new Color32(255,255,255,255);
