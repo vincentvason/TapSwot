@@ -39,12 +39,14 @@ public class MainMenuAnimation : MonoBehaviour
     {
         lobbyWaitingWindow.DOAnchorPosY(540f,0.5f,false);
         yield return new WaitForSeconds(0.4f);
+        
     }
 
     public IEnumerator CloseLobbyWaitingWindowAndLoadScene(int scene)
     {
+       
         lobbyWaitingWindow.DOAnchorPosY(540f,0.5f,false);
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.4f);  
         SceneManager.LoadScene(scene);
     }    
 }

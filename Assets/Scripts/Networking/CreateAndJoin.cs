@@ -20,6 +20,7 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
     public Lobby lobby;
 
     public GameObject emptySeatPrefab;
+    public GameObject LobbyWaitingWindow;
 
     public Color[] playerColor;
 
@@ -218,6 +219,7 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
     {
         if (SceneManager.GetActiveScene().name != "MainGame2")
         {
+            LobbyWaitingWindow.SetActive(false);
             yield return StartCoroutine(sceneTransition.SceneTransitionBegin());
             PhotonNetwork.LoadLevel("MainGame2");
         }
