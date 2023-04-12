@@ -7,6 +7,10 @@ using Photon.Realtime;
 
 public class SceneChange : MonoBehaviourPunCallbacks 
 {
+    public MainMenuAnimation transition;
+    private float time = 0;
+
+
     public void onSelectQuit()
     {
         Application.Quit();
@@ -15,13 +19,15 @@ public class SceneChange : MonoBehaviourPunCallbacks
 
     public void OnSelectLeaveRoom()
     {
+        
         PhotonNetwork.LeaveRoom();
         Debug.Log("Room Left : " + PhotonNetwork.CurrentRoom.Name);
     }
 
     public override void OnLeftRoom()
     {
-        SceneManager.LoadScene(1);
+        StartCoroutine(transition.CloseLobbyWaitingWindowAndLoadScene(1));
+        // SceneManager.LoadScene(1);
     }
 
 }
