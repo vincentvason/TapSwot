@@ -28,6 +28,11 @@ public class PlayerManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public int CurrentPlayerTurn()
+    {
+        return CardGameManager.instance.CurrentTurn();
+    }
+
     public void InitializeNetworkPlayers(Dictionary<int, Photon.Realtime.Player> players)
     {
         Debug.Log(PhotonNetwork.CurrentRoom.Players.Count);
@@ -88,19 +93,18 @@ public class PlayerManager : MonoBehaviour
                 cardId.Add(c.cardId.ToString());
             }
 
-            gameObject.GetComponent<PhotonView>().RPC("ReceiveCards", RpcTarget.All, actorsNumber,
+            gameObject.GetComponent<PhotonView>().RPC("ReceiveShuffledCards", RpcTarget.All, actorsNumber,
                 cardId[0],
                 cardId[1],
                 cardId[2],
                 cardId[3],
                 cardId[4]);
-
         }
 
     }
 
     [PunRPC]
-    public void ReceiveCards(string actorID, string c1, string c2, string c3, string c4, string c5)
+    public void ReceiveShuffledCards(string actorID, string c1, string c2, string c3, string c4, string c5)
     {
         Debug.Log("actorID other" + actorID);
         Debug.Log(c1 + "," + c2 + "," + c3 + "," + c4 + "," + c5);
@@ -110,7 +114,7 @@ public class PlayerManager : MonoBehaviour
             if (p.playerID.ToString() == actorID)
             {
                 Debug.Log("actorID self" + actorID);
-                p.ReceiveCards(c1,c2,c3,c4,c5);
+                p.ReceiveShuffledCards(c1,c2,c3,c4,c5);
             }
         }
     }

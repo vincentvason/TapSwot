@@ -8674,7 +8674,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &534317666
 Transform:
   m_ObjectHideFlags: 0
@@ -25289,6 +25289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e21276141c8a0c47906bf1493f73f68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentGameState: 0
 --- !u!114 &1571808899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31373,11 +31374,11 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 3
   m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
@@ -32846,6 +32847,10 @@ PrefabInstance:
     - target: {fileID: 4534977016279505497, guid: 4177b23792098754f99cdee2516a60f6, type: 3}
       propertyPath: m_Name
       value: ShuffingAnimation 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4534977016279505497, guid: 4177b23792098754f99cdee2516a60f6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4548499604346102683, guid: 4177b23792098754f99cdee2516a60f6, type: 3}
       propertyPath: m_Name

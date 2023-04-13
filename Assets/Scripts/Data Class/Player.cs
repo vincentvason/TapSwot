@@ -28,16 +28,7 @@ public class Player : MonoBehaviour
         playerNameText.text = this.playerName;
     }
 
-
-    public void InitializeCards (List<CardSO> playercards, int actorNumber)
-    {
-        if(this.playerID == actorNumber)
-        {
-            this.playerCards = playercards;
-        }        
-    }
-
-    public void ReceiveCards(string c1, string c2, string c3, string c4, string c5)
+    public void ReceiveShuffledCards(string c1, string c2, string c3, string c4, string c5)
     {
         cardIds.Add(c1);
         cardIds.Add(c2);
@@ -64,6 +55,15 @@ public class Player : MonoBehaviour
 
             CardManager.instance.UpdateDiscardedDeckUI();
         }
+
+    }
+
+    public void DisableMyPlayerUI()
+    {
+
+    }
+    public void EnableMyPlayerUI()
+    {
 
     }
 
