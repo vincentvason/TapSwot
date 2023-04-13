@@ -80,6 +80,7 @@ public class PlayerManager : MonoBehaviour
 
     public void SendForInitilizeCards()
     {
+        int i = 0;
         foreach (KeyValuePair<int, Photon.Realtime.Player> kvp in (PhotonNetwork.CurrentRoom.Players))
         {
             List<string> cardId = new List<string>();
@@ -91,6 +92,7 @@ public class PlayerManager : MonoBehaviour
                 CardSO c = CardManager.instance.GetShuffledCards().RandomElement();
                 CardManager.instance.RemoveCardFromDeck(c);
                 cardId.Add(c.cardId.ToString());
+                i++;
             }
 
             gameObject.GetComponent<PhotonView>().RPC("ReceiveShuffledCards", RpcTarget.All, actorsNumber,
@@ -100,6 +102,8 @@ public class PlayerManager : MonoBehaviour
                 cardId[3],
                 cardId[4]);
         }
+        Debug.Log("[Distributed cards] " + i);
+        Debug.Log("[GetRemaingCards length] " + CardManager.instance.GetRemaingCards().Count);
 
         //get the ids of remaining cards
         List<string> remainingCardsID = new List<string>();
@@ -109,6 +113,23 @@ public class PlayerManager : MonoBehaviour
         }
         //update all clients with the remaining cards
         gameObject.GetComponent<PhotonView>().RPC("ReceiveRemainingShuffleCards", RpcTarget.All, (object)remainingCardsID.ToArray());
+    }
+
+    public void SendPlayerCardChanged(string actorID, string cardSlot, string cardId)
+    {
+        gameObject.GetComponent<PhotonView>().RPC("ReceivePlayerCardChanged", RpcTarget.All, actorID, cardSlot, cardId);
+    }
+
+    [PunRPC]
+    public void ReceivePlayerCardChanged(string actorID, string cardSlot, string cardId)
+    {
+        foreach (Player p in currentPlayersList)
+        {
+            if (p.playerID.ToString() == actorID)
+            {   
+                p.ReceiveUpdatedCardInSlot(cardSlot, cardId);
+            }
+        }
     }
 
     [PunRPC]

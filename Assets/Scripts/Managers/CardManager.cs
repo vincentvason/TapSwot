@@ -79,6 +79,11 @@ public class CardManager : MonoBehaviour
         return System.Linq.Enumerable.ToList(cardDatabase.cards.Where(c => ids.Contains(c.cardId.ToString())));
     }
 
+    public CardSO GetCardBasedOnId(string id)
+    {
+        return cardDatabase.cards.FirstOrDefault(c => c.cardId.ToString().Equals(id));
+    }
+
     private void Awake()
     {
         if (instance == null)

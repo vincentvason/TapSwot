@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI.Extensions;
 
 public class CardGameManagerUI : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class CardGameManagerUI : MonoBehaviour
     public TMPro.TextMeshProUGUI CurrentRoundText, CurrentObjective, CurrentStageDescription;
 
     public List<CardUI> clientCardsUI = new List<CardUI>();
+    public List<ReorderableList> playerDraggableCards = new List<ReorderableList>();
+
     private void Awake()
     {
         instance = this;
