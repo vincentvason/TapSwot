@@ -88,8 +88,8 @@ public class PlayerManager : MonoBehaviour
 
             for (int j = 0; j < 5; j++)
             {
-                CardSO c = CardManager.instance.GetShuffledCards()[CardManager.instance.GetShuffledCards().Count - 1];
-                CardManager.instance.GetShuffledCards().RemoveAt(CardManager.instance.GetShuffledCards().Count - 1);
+                CardSO c = CardManager.instance.GetShuffledCards().RandomElement();
+                CardManager.instance.RemoveCardFromDeck(c);
                 cardId.Add(c.cardId.ToString());
             }
 
@@ -101,6 +101,25 @@ public class PlayerManager : MonoBehaviour
                 cardId[4]);
         }
 
+        //get the ids of remaining cards
+        List<string> remainingCardsID = new List<string>();
+        foreach(CardSO so in CardManager.instance.GetRemaingCards())
+        {
+            remainingCardsID.Add(so.cardId.ToString());
+        }
+        //update all clients with the remaining cards
+        gameObject.GetComponent<PhotonView>().RPC("ReceiveRemainingShuffleCards", RpcTarget.All, (object)remainingCardsID.ToArray());
+    }
+
+    [PunRPC]
+    public void ReceiveRemainingShuffleCards(string[] ids)
+    {
+        Debug.Log("[ReceiveRemainingShuffleCards] ids length" + ids.Length);
+        var list = new List<string>(ids);
+        var cardSOs = CardManager.instance.GetCardListBasedOnIds(list);
+        Debug.Log("[ReceiveRemainingShuffleCards] ids length" + cardSOs.Count);
+        CardManager.instance.UpdateDeckFromData(cardSOs);        
+        CardManager.instance.UpdateDiscardedDeckUI();
     }
 
     [PunRPC]

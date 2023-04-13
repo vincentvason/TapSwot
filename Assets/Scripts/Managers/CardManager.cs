@@ -12,7 +12,7 @@ public class CardManager : MonoBehaviour
     public static CardManager instance;
 
     [SerializeField]private List<CardSO> mainDeck = new List<CardSO>();
-    [SerializeField]private List<CardSO> discardedDeck = new List<CardSO>();
+    [SerializeField]private List<CardSO> remainingCards = new List<CardSO>();
 
     public RectTransform mainDeckRect;
     public GameObject card;
@@ -23,12 +23,25 @@ public class CardManager : MonoBehaviour
     private void Start()
     {
         mainDeck = cardDatabase.cards.Select(c => new CardSO(c)).ToList();
-
+        remainingCards = cardDatabase.cards.Select(c => new CardSO(c)).ToList();
     }
 
-    public void UpdateDiscardedCards(CardSO c)
+    public void RemoveCardFromDeck(CardSO c)
     {
-        discardedDeck.Remove(c);      
+        foreach(CardSO so in remainingCards.ToList())
+        {
+            if(so.cardId == c.cardId)
+            {
+                remainingCards.Remove(so);
+                Debug.Log("[UpdateDiscardedCards] remainingCards length" + remainingCards.Count);
+            }
+        }        
+    }
+
+    public void UpdateDeckFromData(List<CardSO> cards)
+    {
+        remainingCards.Clear();
+        remainingCards = cards;
     }
 
     public void UpdateDiscardedDeckUI()
@@ -40,18 +53,25 @@ public class CardManager : MonoBehaviour
     public void CleanDiscarded()
     {
         //delete all child in discarded deck content transform
+        if (mainDeckRect.transform.childCount > 0)
+        {
+            for(int i=0;i< mainDeckRect.transform.childCount; i++)
+            {
+                Destroy(mainDeckRect.transform.GetChild(i).gameObject);
+            }
+        }
     }
 
     public void DisplayRemainingCard()
     {
-        for (int i = 0; i < mainDeck.Count; i++)
+        Debug.Log("[DisplayRemainingCard] remainingCards length" + remainingCards.Count);
+
+        for (int i = 0; i < remainingCards.Count; i++)
         {
             GameObject a = GameObject.Instantiate(card, new Vector3(0, 0, 0), Quaternion.identity);
             a.transform.SetParent(mainDeckRect);
-            a.GetComponent<CardUI>().Initialize(mainDeck[i]);
-
+            a.GetComponent<CardUI>().Initialize(remainingCards[i]);
         }
-
     }
 
     public List<CardSO> GetCardListBasedOnIds(List<string> ids)
@@ -77,22 +97,17 @@ public class CardManager : MonoBehaviour
         {
            ShuffleCards();
         }
-        return mainDeck;
+        return remainingCards;
+    }
+
+    public List<CardSO> GetRemaingCards()
+    {
+        return remainingCards;
     }
     //to shuffle the cards before distributing to players
     public void ShuffleCards()
     {
-        // Shuffle the cards using the discardedDeck list as a temporary container
-        for (int i=0;i <mainDeck.Count;i++)
-        {
-            discardedDeck[0]=mainDeck[i];
-            int randomValue = UnityEngine.Random.Range(i, mainDeck.Count);
-            mainDeck[i]=mainDeck[randomValue];
-            mainDeck[randomValue]= discardedDeck[0];
-            
-        }
-        discardedDeck.Clear();
+        remainingCards.Shuffle();
         shuffleCheck = true;
-
     }
 }

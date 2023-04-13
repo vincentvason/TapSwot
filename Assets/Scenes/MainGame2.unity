@@ -3585,10 +3585,10 @@ RectTransform:
   m_Father: {fileID: 1492092981}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000013589859, y: 22}
-  m_SizeDelta: {x: 915.5445, y: 51.6429}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.000015258789, y: 1.9108}
+  m_SizeDelta: {x: 0, y: 3.8214}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &244212049
 MonoBehaviour:
@@ -3619,8 +3619,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3645,7 +3645,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -18264,7 +18264,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <font-weight=900>DISCARDED CARD
+  m_text: <font-weight=900>REMAINING CARDS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 262b2635ce125ae4d9d2498c257e720d, type: 2}
   m_sharedMaterial: {fileID: -8059178355782199316, guid: 262b2635ce125ae4d9d2498c257e720d, type: 2}
@@ -21031,7 +21031,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1325454706
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21047,10 +21047,10 @@ RectTransform:
   m_Father: {fileID: 1492092981}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.4601, y: -27.495}
-  m_SizeDelta: {x: 920.46, y: 47.348}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.000015258789, y: -27.495}
+  m_SizeDelta: {x: 0, y: -40.652}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1325454707
 MonoBehaviour:
@@ -21081,8 +21081,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -23134,6 +23134,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1417284998}
   m_CullTransparentMesh: 1
+--- !u!1 &1430442608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1430442609}
+  m_Layer: 0
+  m_Name: ----------------------------------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1430442609
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430442608}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1448325377 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2210593500850165171, guid: 4177b23792098754f99cdee2516a60f6, type: 3}
@@ -23998,8 +24029,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.6015, y: 248.6157}
-  m_SizeDelta: {x: 925.3804, y: 102.3382}
+  m_AnchoredPosition: {x: -769, y: 220}
+  m_SizeDelta: {x: 338.9256, y: 87.4649}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1492092982
 MonoBehaviour:
@@ -25197,6 +25228,7 @@ GameObject:
   - component: {fileID: 1571808897}
   - component: {fileID: 1571808898}
   - component: {fileID: 1571808899}
+  - component: {fileID: 1571808900}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -25217,7 +25249,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1571808895
 MonoBehaviour:
@@ -25268,13 +25300,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardDatabase: {fileID: 11400000, guid: 7483358b5db514a43980b3a00f33ceb4, type: 2}
   mainDeck: []
-  discardedDeck:
-  - cardId: 0
-    cardTitle: 
-    cardDescription: 
-    cardBrief: 
-    cardCategory: 
-    cardRank: 0
+  discardedDeck: []
   mainDeckRect: {fileID: 701554289}
   card: {fileID: 244837630797399863, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
 --- !u!114 &1571808898
@@ -25289,7 +25315,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e21276141c8a0c47906bf1493f73f68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentGameState: 0
 --- !u!114 &1571808899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25312,6 +25337,22 @@ MonoBehaviour:
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1571808900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571808893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f9cea91f7cdcf840a86480492a1d01f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerTurnText: {fileID: 244212049}
+  CurrentRoundText: {fileID: 607775322}
+  CurrentObjective: {fileID: 11762772}
+  CurrentStageDescription: {fileID: 2110451391}
 --- !u!1 &1573099912
 GameObject:
   m_ObjectHideFlags: 0
@@ -32236,11 +32277,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 211977263648776093, guid: f39d1cfdb63ede042ac4dc82ad30c6b9, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5874302255109789173, guid: f39d1cfdb63ede042ac4dc82ad30c6b9, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5899792946225024114, guid: f39d1cfdb63ede042ac4dc82ad30c6b9, type: 3}
       propertyPath: m_Name
@@ -32248,7 +32289,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5899792946225024114, guid: f39d1cfdb63ede042ac4dc82ad30c6b9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6986187301420892494, guid: f39d1cfdb63ede042ac4dc82ad30c6b9, type: 3}
       propertyPath: m_IsActive

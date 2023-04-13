@@ -45,15 +45,6 @@ public class Player : MonoBehaviour
             cardsUI[2].Initialize(playerCards[2]);
             cardsUI[3].Initialize(playerCards[3]);
             cardsUI[4].Initialize(playerCards[4]);
-
-
-            CardManager.instance.UpdateDiscardedCards(playerCards[0]);
-            CardManager.instance.UpdateDiscardedCards(playerCards[1]);
-            CardManager.instance.UpdateDiscardedCards(playerCards[2]);
-            CardManager.instance.UpdateDiscardedCards(playerCards[3]);
-            CardManager.instance.UpdateDiscardedCards(playerCards[4]);
-
-            CardManager.instance.UpdateDiscardedDeckUI();
         }
 
     }
