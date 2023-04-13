@@ -22,10 +22,12 @@ public class Player : MonoBehaviour
     public List<CardUI> cardsUI = new List<CardUI>();
     public void InitialiseNetworkPlayer(Photon.Realtime.Player player)
     {
+        cardsUI = new List<CardUI>();
         MyPlayer = player;
         this.playerName = MyPlayer.NickName;
         this.playerID = MyPlayer.ActorNumber;
         playerNameText.text = this.playerName;
+        cardsUI = CardGameManagerUI.instance.clientCardsUI;
     }
 
     public void ReceiveShuffledCards(string c1, string c2, string c3, string c4, string c5)
@@ -37,6 +39,11 @@ public class Player : MonoBehaviour
         cardIds.Add(c5);
 
         playerCards = CardManager.instance.GetCardListBasedOnIds(cardIds);
+
+        foreach(CardUI c in cardsUI)
+        {
+            c.gameObject.SetActive(true);
+        }
 
         if (cardsUI.Count > 0)
         {

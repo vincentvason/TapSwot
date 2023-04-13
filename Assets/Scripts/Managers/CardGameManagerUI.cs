@@ -9,6 +9,7 @@ public class CardGameManagerUI : MonoBehaviour
     public TMPro.TextMeshProUGUI PlayerTurnText;
     public TMPro.TextMeshProUGUI CurrentRoundText, CurrentObjective, CurrentStageDescription;
 
+    public List<CardUI> clientCardsUI = new List<CardUI>();
     private void Awake()
     {
         instance = this;
