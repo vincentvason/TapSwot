@@ -13,14 +13,58 @@ public class CardGameManagerUI : MonoBehaviour
     public List<CardUI> clientCardsUI = new List<CardUI>();
     public List<ReorderableList> playerDraggableCards = new List<ReorderableList>();
 
+    public ReorderableList DiscardedDeckScroll;
+    public ReorderableList RemainingDeckScroll;
+
+    public GameObject WaitForOtherPlayer;
+    public GameObject ItsYourTurn;
+    public GameObject SelectFromRemaining;
+    public GameObject ConfirmReplace;
+
+
     private void Awake()
     {
         instance = this;
     }
 
+    private void Start()
+    {
+        DisableAllHelperEmojis();
+    }
+
     public void UpdatePlayerTurnText()
     {
         PlayerTurnText.text = "Current Turn:" + CardGameManager.instance.GetPlayerNameFromTurn();
+    }
+
+    public void DisableAllHelperEmojis()
+    {
+        WaitForOtherPlayer.SetActive(false);
+        ItsYourTurn.SetActive(false);
+        SelectFromRemaining.SetActive(false);
+        ConfirmReplace.SetActive(false);
+    }
+    public void ShowConfirmReplace()
+    {
+        DisableAllHelperEmojis();
+        ConfirmReplace.SetActive(true);
+    }
+
+    public void ShowSelectFromRemaining()
+    {
+        DisableAllHelperEmojis();
+        SelectFromRemaining.SetActive(true);
+    }
+    public void ShowItsYourTurn()
+    {
+        DisableAllHelperEmojis();
+        ItsYourTurn.SetActive(true);
+    }
+
+    public void ShowWaitForTurn()
+    {
+        DisableAllHelperEmojis();
+        WaitForOtherPlayer.SetActive(true);
     }
 
     public void UpdateCurrentRoundText()

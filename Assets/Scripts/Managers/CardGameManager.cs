@@ -55,7 +55,7 @@ public class CardGameManager : MonoBehaviourPunCallbacks
         return currentTurn;
     }
 
-    public void UpdateTurn()
+    private void UpdateTurn()
     {
         currentTurn++;
         if(currentTurn> PhotonNetwork.CurrentRoom.PlayerCount)
@@ -63,12 +63,19 @@ public class CardGameManager : MonoBehaviourPunCallbacks
             currentTurn = 1;
         }
         CardGameManagerUI.instance.UpdatePlayerTurnText();
+
+        //SendRPC here to update turn of player
     }
 
     public void UpdateGameState(GameStateEnum state)
     {
         currentGameState = state;
         CardGameManagerUI.instance.UpdateCurrentRoundText();
+    }
+
+    public void OnConfirmButtonPressed()
+    {
+        UpdateTurn();
     }
 
 }

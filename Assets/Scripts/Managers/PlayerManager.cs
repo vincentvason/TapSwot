@@ -113,11 +113,31 @@ public class PlayerManager : MonoBehaviour
         }
         //update all clients with the remaining cards
         gameObject.GetComponent<PhotonView>().RPC("ReceiveRemainingShuffleCards", RpcTarget.All, (object)remainingCardsID.ToArray());
+
+        //Start First Players Turn here
+        gameObject.GetComponent<PhotonView>().RPC("FirstPlayerTurn", RpcTarget.All);
     }
 
     public void SendPlayerCardChanged(string actorID, string cardSlot, string cardId)
     {
         gameObject.GetComponent<PhotonView>().RPC("ReceivePlayerCardChanged", RpcTarget.All, actorID, cardSlot, cardId);
+    }
+
+    [PunRPC]
+    public void FirstPlayerTurn()
+    {
+        foreach (Player p in currentPlayersList)
+        {
+            if (p.playerID.ToString() == "1")
+            {
+                p.OnTurnReceived();
+            }
+            else
+            {
+                p.OtherPlayerTurn();
+            }
+            CardGameManagerUI.instance.UpdatePlayerTurnText();
+        }
     }
 
     [PunRPC]

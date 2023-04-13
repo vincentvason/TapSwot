@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using UnityEngine.UI.Extensions;
 
 public class CardManager : MonoBehaviour
 {
@@ -17,7 +18,6 @@ public class CardManager : MonoBehaviour
     public RectTransform mainDeckRect;
     public GameObject card;
 
-  
     private bool shuffleCheck = false;
 
     private void Start()
