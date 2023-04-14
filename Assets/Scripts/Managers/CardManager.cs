@@ -15,10 +15,12 @@ public class CardManager : MonoBehaviour
     [SerializeField]private List<CardSO> mainDeck = new List<CardSO>();
     [SerializeField]private List<CardSO> remainingCards = new List<CardSO>();
 
-    public RectTransform mainDeckRect;
+    public RectTransform mainDeckRect,discardedDeckRect;
     public GameObject card;
 
     private bool shuffleCheck = false;
+
+    [SerializeField] private List<CardSO> discardedCards = new List<CardSO>();
 
     private void Start()
     {
@@ -26,7 +28,42 @@ public class CardManager : MonoBehaviour
         remainingCards = cardDatabase.cards.Select(c => new CardSO(c)).ToList();
     }
 
-    public void RemoveCardFromDeck(CardSO c)
+    public void AddCardToDiscardedCards(string cardID)
+    {
+        CardSO co = GetCardBasedOnId(cardID);
+        CardSO findCard = cardDatabase.cards.FirstOrDefault(c => c.cardId.ToString().Equals(co.cardId));
+        if (findCard == null)
+        {
+            discardedCards.Add(co);
+            Debug.Log("[AddCardToDiscardedCards] remainingCards length" + remainingCards.Count);
+        }
+    }
+
+    public void RemoveCardFromDiscardedCards(string cardID)
+    {
+        CardSO c = GetCardBasedOnId(cardID);
+        foreach (CardSO so in remainingCards.ToList())
+        {
+            if (so.cardId == c.cardId)
+            {
+                discardedCards.Remove(so);
+                Debug.Log("[RemoveCardFromDiscardedCards] remainingCards length" + remainingCards.Count);
+            }
+        }
+    }
+
+    public void AddCardToRemainingCards(string cardID)
+    {
+        CardSO co = GetCardBasedOnId(cardID);
+        CardSO findCard = cardDatabase.cards.FirstOrDefault(c => c.cardId.ToString().Equals(co.cardId));
+        if (findCard == null)
+        {
+            remainingCards.Add(co);
+            Debug.Log("[AddCardToRemainingCards] remainingCards length" + remainingCards.Count);
+        }
+    }
+
+    public void RemoveCardFromRemainingDeck(CardSO c)
     {
         foreach(CardSO so in remainingCards.ToList())
         {
@@ -47,10 +84,54 @@ public class CardManager : MonoBehaviour
     public void UpdateDiscardedDeckUI()
     {
         CleanDiscarded();
-        DisplayRemainingCard();
+        DisplayDiscardedCard();
+        CardGameManagerUI.instance.UpdateDiscardedScrollText(discardedCards.Count.ToString());
+
+        //if remainging cards.count <=0 and all players has taken turn atlest once... change game state to stage 2
+        if (remainingCards.Count <= 0)
+        {
+            CardGameManager.instance.CheckAllPlayersAndUpdateGameStage();
+        }
     }
 
     public void CleanDiscarded()
+    {
+        //delete all child in discarded deck content transform
+        if (discardedDeckRect.transform.childCount > 0)
+        {
+            for (int i = 0; i < discardedDeckRect.transform.childCount; i++)
+            {
+                Destroy(discardedDeckRect.transform.GetChild(i).gameObject);
+            }
+        }
+    }
+
+    public void DisplayDiscardedCard()
+    {
+        Debug.Log("[DisplayRemainingCard] discardedCards length" + discardedCards.Count);
+
+        for (int i = 0; i < discardedCards.Count; i++)
+        {
+            GameObject a = GameObject.Instantiate(card, new Vector3(0, 0, 0), Quaternion.identity);
+            a.transform.SetParent(discardedDeckRect);
+            a.GetComponent<CardUI>().Initialize(discardedCards[i]);
+        }
+    }
+
+    public void UpdateRemainingDeckUI()
+    {
+        CleanRemaining();
+        DisplayRemainingCard();
+        CardGameManagerUI.instance.UpdateRemainingScrollText(remainingCards.Count.ToString());
+
+        //if remainging cards.count <=0 and all players has taken turn atlest once... change game state to stage 2
+        if(remainingCards.Count <=0)
+        {
+            CardGameManager.instance.CheckAllPlayersAndUpdateGameStage();
+        }
+    }
+
+    public void CleanRemaining()
     {
         //delete all child in discarded deck content transform
         if (mainDeckRect.transform.childCount > 0)

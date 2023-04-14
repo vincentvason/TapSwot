@@ -37,18 +37,19 @@ public class Player : MonoBehaviour
         {
             cardsUI = CardGameManagerUI.instance.clientCardsUI;
             playerDraggableCards = CardGameManagerUI.instance.playerDraggableCards;
+
+            CardGameManagerUI.instance.DiscardedDeckScroll.OnElementAdded.AddListener(OnDiscardedElementAdded);
+            CardGameManagerUI.instance.DiscardedDeckScroll.OnElementDropped.AddListener(OnDiscardedElementDropped);
+
+            CardGameManagerUI.instance.DiscardedDeckScroll.OnElementGrabbed.AddListener(OnElementDraggedFromDiscarded);
+
+            CardGameManagerUI.instance.RemainingDeckScroll.OnElementAdded.AddListener(OnRemainingElementAdded);
+            CardGameManagerUI.instance.RemainingDeckScroll.OnElementDropped.AddListener(OnRemainingElementDropped);
         }
+        //to-do     //update when something is added to remaining cards or removed from remaining cards
 
-        CardGameManagerUI.instance.DiscardedDeckScroll.OnElementAdded.AddListener(OnDiscardedElementAdded);
-        CardGameManagerUI.instance.DiscardedDeckScroll.OnElementDropped.AddListener(OnDiscardedElementDropped);
-
-        CardGameManagerUI.instance.DiscardedDeckScroll.OnElementGrabbed.AddListener(OnElementDraggedFromDiscarded);
-
-        CardGameManagerUI.instance.RemainingDeckScroll.OnElementAdded.AddListener(OnRemainingElementAdded);
-        CardGameManagerUI.instance.RemainingDeckScroll.OnElementDropped.AddListener(OnRemainingElementDropped);
-
-        DisableMyPlayerUI(); //we disable interactions until it is our turn to play
     }
+
 
     /// <summary>
     /// on drag started from discared scroll, then disable drop in remaining scroll
@@ -91,22 +92,43 @@ public class Player : MonoBehaviour
 
     public void OnTurnReceived()
     {
-        //show our turn received and update UI from CardGameManager based on that.
-        EnableMyPlayerUI();
-        CardGameManagerUI.instance.ShowItsYourTurn();
+        Debug.Log("[OnTurnReceived int]:" + "[playerID]:" + playerID);
+        if (this == PlayerManager.instance.myPlayer)
+        {
+            //show our turn received and update UI from CardGameManager based on that.
+            EnableMyPlayerUI();
+            CardGameManagerUI.instance.ShowItsYourTurn();
+        }
     }
 
     public void OtherPlayerTurn()
     {
-        DisableMyPlayerUI();
-        CardGameManagerUI.instance.ShowWaitForTurn();
+        if (this == PlayerManager.instance.myPlayer)
+        {
+            Debug.Log("[OtherPlayerTurn int]:" + "[playerID]:" + playerID);
+
+            DisableMyPlayerUI();
+            CardGameManagerUI.instance.ShowWaitForTurn();
+        }
+    }
+
+    public void CheckAndSendRPC(ReorderableList.ReorderableListEventStruct droppedStruct, string cardSlot)
+    {
+        if (droppedStruct.FromList.name == "DiscardedCardsScroll" && droppedStruct.ToList.name == cardSlot)
+        {
+            PlayerManager.instance.Send_RemoveFromDiscardedCards(droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString());
+        }
+        if (droppedStruct.FromList.name == "RemainingCardsScroll" && droppedStruct.ToList.name == cardSlot)
+        {
+            PlayerManager.instance.Send_RemoveFromRemainingCards(droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString());
+        }
     }
 
     private void ElementDropped0(ReorderableList.ReorderableListEventStruct droppedStruct)
     {
         if(droppedStruct.ToList!=null)
         {
-            if (droppedStruct.ToList.name == "Card1")
+            if (droppedStruct.FromList.name != "Card1" && droppedStruct.ToList.name == "Card1")
             {
                 CardGameManagerUI.instance.ShowConfirmReplace();
                 DisableMyPlayerUI();
@@ -115,13 +137,14 @@ public class Player : MonoBehaviour
                 Debug.Log("card dropped in slot 1, card id :" + id);
                 PlayerManager.instance.SendPlayerCardChanged(this.playerID.ToString(), "0", id); //if card is added to slot, turn is complete
             }
+            CheckAndSendRPC(droppedStruct, "Card1");
         }
     }
     private void ElementDropped1(ReorderableList.ReorderableListEventStruct droppedStruct)
     {
         if (droppedStruct.ToList != null)
         {
-            if (droppedStruct.ToList.name == "Card2")
+            if (droppedStruct.FromList.name != "Card2" && droppedStruct.ToList.name == "Card2")
             {
                 CardGameManagerUI.instance.ShowConfirmReplace();
                 DisableMyPlayerUI();
@@ -130,13 +153,14 @@ public class Player : MonoBehaviour
                 Debug.Log("card dropped in slot 2, card id :" + id);
                 PlayerManager.instance.SendPlayerCardChanged(this.playerID.ToString(), "1", id); //if card is added to slot, turn is complete
             }
+            CheckAndSendRPC(droppedStruct, "Card2");
         }
     }
     private void ElementDropped2(ReorderableList.ReorderableListEventStruct droppedStruct)
     {
         if (droppedStruct.ToList != null)
         {
-            if (droppedStruct.ToList.name == "Card3")
+            if (droppedStruct.FromList.name != "Card3" && droppedStruct.ToList.name == "Card3")
             {
                 CardGameManagerUI.instance.ShowConfirmReplace();
                 DisableMyPlayerUI();
@@ -145,13 +169,14 @@ public class Player : MonoBehaviour
                 Debug.Log("card dropped in slot 3, card id :" + id);
                 PlayerManager.instance.SendPlayerCardChanged(this.playerID.ToString(), "2", id); //if card is added to slot, turn is complete
             }
+            CheckAndSendRPC(droppedStruct, "Card3");
         }
     }
     private void ElementDropped3(ReorderableList.ReorderableListEventStruct droppedStruct)
     {
         if (droppedStruct.ToList != null)
         {
-            if (droppedStruct.ToList.name == "Card4")
+            if (droppedStruct.FromList.name != "Card4" && droppedStruct.ToList.name == "Card4")
             {
                 CardGameManagerUI.instance.ShowConfirmReplace();
                 DisableMyPlayerUI();
@@ -160,13 +185,14 @@ public class Player : MonoBehaviour
                 Debug.Log("card dropped in slot 4, card id :" + id);
                 PlayerManager.instance.SendPlayerCardChanged(this.playerID.ToString(), "3", id); //if card is added to slot, turn is complete
             }
+            CheckAndSendRPC(droppedStruct, "Card4");
         }
     }
     private void ElementDropped4(ReorderableList.ReorderableListEventStruct droppedStruct)
     {
         if (droppedStruct.ToList != null)
         {
-            if(droppedStruct.ToList.name == "Card5")
+            if(droppedStruct.FromList.name != "Card5" && droppedStruct.ToList.name == "Card5")
             {
                 CardGameManagerUI.instance.ShowConfirmReplace();
                 DisableMyPlayerUI();
@@ -175,6 +201,7 @@ public class Player : MonoBehaviour
                 Debug.Log("card dropped in slot 5, card id :" + id);
                 PlayerManager.instance.SendPlayerCardChanged(this.playerID.ToString(), "4", id); //if card is added to slot, turn is complete
             }
+            CheckAndSendRPC(droppedStruct, "Card5");
         }
     }
 
@@ -186,6 +213,7 @@ public class Player : MonoBehaviour
             if (droppedStruct.FromList != null && droppedStruct.FromList.name == "Card1" || droppedStruct.FromList.name == "Card2" || droppedStruct.FromList.name == "Card3"
                 || droppedStruct.FromList.name == "Card4" || droppedStruct.FromList.name == "Card5")
             {
+                PlayerManager.instance.Send_AddToDiscardedCards(droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString());
                 cardRemovedFromSlot = true;
                 Debug.Log("dropped to discarded from card slot");
                 CardGameManagerUI.instance.ShowSelectFromRemaining();
@@ -193,6 +221,8 @@ public class Player : MonoBehaviour
             //added from remaining cards scroll
             else if (droppedStruct.FromList != null && droppedStruct.FromList.name == "RemainingCardsScroll")
             {
+                PlayerManager.instance.Send_AddToDiscardedCards(droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString());
+                PlayerManager.instance.Send_RemoveFromRemainingCards(droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString());
                 Debug.Log("dropped to discarded from RemainingCardsScroll");
             }
         }
@@ -206,6 +236,7 @@ public class Player : MonoBehaviour
             if(droppedStruct.FromList!=null && droppedStruct.FromList.name == "Card1" || droppedStruct.FromList.name == "Card2" || droppedStruct.FromList.name == "Card3"
                 || droppedStruct.FromList.name == "Card4" || droppedStruct.FromList.name == "Card5")
             {
+                PlayerManager.instance.Send_AddToDiscardedCards(droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString());
                 cardRemovedFromSlot = true;
                 CardGameManagerUI.instance.RemainingDeckScroll.IsDropable = true;
                 CardGameManagerUI.instance.ShowSelectFromRemaining();
@@ -214,6 +245,8 @@ public class Player : MonoBehaviour
             //added from remaining cards scroll
             else if (droppedStruct.FromList != null && droppedStruct.FromList.name == "RemainingCardsScroll")
             {
+                PlayerManager.instance.Send_AddToDiscardedCards(droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString());
+                PlayerManager.instance.Send_RemoveFromRemainingCards(droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString());
                 Debug.Log("added to discarded from RemainingCardsScroll");
             }
         }
@@ -227,6 +260,7 @@ public class Player : MonoBehaviour
             if (droppedStruct.FromList != null && droppedStruct.FromList.name == "Card1" || droppedStruct.FromList.name == "Card2" || droppedStruct.FromList.name == "Card3"
                 || droppedStruct.FromList.name == "Card4" || droppedStruct.FromList.name == "Card5")
             {
+                PlayerManager.instance.Send_AddToRemainingCards(droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString());
                 cardRemovedFromSlot = true;
                 CardGameManagerUI.instance.RemainingDeckScroll.IsDropable = true;
                 CardGameManagerUI.instance.ShowSelectFromRemaining();
@@ -248,6 +282,7 @@ public class Player : MonoBehaviour
             if (droppedStruct.FromList != null && droppedStruct.FromList.name == "Card1" || droppedStruct.FromList.name == "Card2" || droppedStruct.FromList.name == "Card3"
                 || droppedStruct.FromList.name == "Card4" || droppedStruct.FromList.name == "Card5")
             {
+                PlayerManager.instance.Send_AddToRemainingCards(droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString());
                 cardRemovedFromSlot = true;
                 CardGameManagerUI.instance.RemainingDeckScroll.IsDropable = true;
                 CardGameManagerUI.instance.ShowSelectFromRemaining();
@@ -269,8 +304,11 @@ public class Player : MonoBehaviour
         int.TryParse(cardSlot, out slot);
 
         cardIds[slot] = cardId;
-        cardsUI[slot].card = card;
-        cardsUI[slot].Initialize(card);
+        if (this == PlayerManager.instance.myPlayer)
+        {
+            cardsUI[slot].card = card;
+            cardsUI[slot].Initialize(card);
+        }
     }
 
     public void ReceiveShuffledCards(string c1, string c2, string c3, string c4, string c5)
@@ -314,21 +352,27 @@ public class Player : MonoBehaviour
             playerDraggableCards[3].OnElementGrabbed.AddListener(OnElementDraggedFromSlot);
             playerDraggableCards[4].OnElementGrabbed.AddListener(OnElementDraggedFromSlot);
 
+            DisableMyPlayerUI(); //we disable interactions until it is our turn to play
         }
     }
 
     public void DisableMyPlayerUI()
     {
-        DisableDragOnAllCardSlots();
-        CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = false;
-        CardGameManagerUI.instance.DiscardedDeckScroll.IsDraggable = false;
-
+        if (this == PlayerManager.instance.myPlayer)
+        {
+            DisableDragOnAllCardSlots();
+            CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = false;
+            CardGameManagerUI.instance.DiscardedDeckScroll.IsDraggable = false;
+        }
     }
     public void EnableMyPlayerUI()
     {
-        EnableDragOnAllCardSlots(); //only enable drag on slots when it is my turn
-        CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = true;
-        CardGameManagerUI.instance.DiscardedDeckScroll.IsDraggable = true;
+        if (this == PlayerManager.instance.myPlayer)
+        {
+            EnableDragOnAllCardSlots(); //only enable drag on slots when it is my turn
+            CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = true;
+            CardGameManagerUI.instance.DiscardedDeckScroll.IsDraggable = true;
+        }
     }
 
 

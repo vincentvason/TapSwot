@@ -47,6 +47,11 @@ MonoBehaviour:
   - ReceiveRemainingShuffleCards
   - ReceivePlayerCardChanged
   - FirstPlayerTurn
+  - ReceivePlayerTurnValue
+  - Receive_AddToRemainingCards
+  - Receive_RemoveFromDiscardedCards
+  - Receive_RemoveFromRemainingCards
+  - ReceiveSend_AddToDiscardedCards
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

@@ -66,9 +66,8 @@ public class PlayerManager : MonoBehaviour
                 //localPlayer.transform.SetParent(allPlayersGameobject[kvp.Value.ActorNumber - 1]);
                 //localPlayer.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
                 //localPlayer.GetComponent<RectTransform>().transform.localPosition = new Vector3(0, 0, 0);
-
-                localPlayer.GetComponent<Player>().InitialiseNetworkPlayer(PhotonNetwork.LocalPlayer);
                 myPlayer = localPlayer.GetComponent<Player>();
+                localPlayer.GetComponent<Player>().InitialiseNetworkPlayer(PhotonNetwork.LocalPlayer);
                 currentPlayersList.Add(myPlayer);
             }
         }
@@ -77,6 +76,57 @@ public class PlayerManager : MonoBehaviour
             SendForInitilizeCards();
         }
     }
+
+    public void Send_AddToRemainingCards(string cardID)
+    {
+        gameObject.GetComponent<PhotonView>().RPC("Receive_AddToRemainingCards", RpcTarget.All, cardID);
+    }
+
+    public void Send_RemoveFromRemainingCards(string cardID)
+    {
+        gameObject.GetComponent<PhotonView>().RPC("Receive_RemoveFromRemainingCards", RpcTarget.All, cardID);
+    }
+
+    public void Send_AddToDiscardedCards(string cardID)
+    {
+        gameObject.GetComponent<PhotonView>().RPC("ReceiveSend_AddToDiscardedCards", RpcTarget.All, cardID);
+    }
+
+    public void Send_RemoveFromDiscardedCards(string cardID)
+    {
+        gameObject.GetComponent<PhotonView>().RPC("Receive_RemoveFromDiscardedCards", RpcTarget.All, cardID);
+    }
+
+    [PunRPC]
+    public void Receive_AddToRemainingCards(string cardID)
+    {
+        CardManager.instance.AddCardToRemainingCards(cardID);
+        CardManager.instance.UpdateRemainingDeckUI();
+    }
+
+    [PunRPC]
+    public void Receive_RemoveFromRemainingCards(string cardID)
+    {
+        CardSO co = CardManager.instance.GetCardBasedOnId(cardID);
+        CardManager.instance.RemoveCardFromRemainingDeck(co);
+        CardManager.instance.UpdateRemainingDeckUI();
+    }
+
+    [PunRPC]
+    public void ReceiveSend_AddToDiscardedCards(string cardID)
+    {
+        CardManager.instance.AddCardToDiscardedCards(cardID);
+        CardManager.instance.UpdateDiscardedDeckUI();
+    }
+
+    [PunRPC]
+    public void Receive_RemoveFromDiscardedCards(string cardID)
+    {
+        CardManager.instance.RemoveCardFromDiscardedCards(cardID);
+        CardManager.instance.UpdateDiscardedDeckUI();
+    }
+
+
 
     public void SendForInitilizeCards()
     {
@@ -90,7 +140,7 @@ public class PlayerManager : MonoBehaviour
             for (int j = 0; j < 5; j++)
             {
                 CardSO c = CardManager.instance.GetShuffledCards().RandomElement();
-                CardManager.instance.RemoveCardFromDeck(c);
+                CardManager.instance.RemoveCardFromRemainingDeck(c);
                 cardId.Add(c.cardId.ToString());
                 i++;
             }
@@ -115,7 +165,11 @@ public class PlayerManager : MonoBehaviour
         gameObject.GetComponent<PhotonView>().RPC("ReceiveRemainingShuffleCards", RpcTarget.All, (object)remainingCardsID.ToArray());
 
         //Start First Players Turn here
-        gameObject.GetComponent<PhotonView>().RPC("FirstPlayerTurn", RpcTarget.All);
+        SendPlayerTurnUpdate("0", "1");
+        if (!CardGameManager.instance.Stage1_PlayersThatHaveTakenTurn.Contains("1"))
+        {
+            CardGameManager.instance.Stage1_PlayersThatHaveTakenTurn.Add("1");
+        }
     }
 
     public void SendPlayerCardChanged(string actorID, string cardSlot, string cardId)
@@ -123,12 +177,31 @@ public class PlayerManager : MonoBehaviour
         gameObject.GetComponent<PhotonView>().RPC("ReceivePlayerCardChanged", RpcTarget.All, actorID, cardSlot, cardId);
     }
 
-    [PunRPC]
-    public void FirstPlayerTurn()
+    public void SendPlayerTurnUpdate(string lastTurn, string currentTurn)
     {
+        gameObject.GetComponent<PhotonView>().RPC("ReceivePlayerTurnValue", RpcTarget.All, lastTurn, currentTurn);
+    }
+
+    [PunRPC]
+    public void ReceivePlayerTurnValue(string lastTurn, string currentTurn)
+    {
+        CardGameManager.instance.UpdateTurnValueFromRPC(currentTurn);
+        int last = 0;
+        int current = 0;
+        int.TryParse(lastTurn, out last);
+        int.TryParse(currentTurn, out current);
+
+        Debug.Log("[ReceivePlayerTurnValue]:" + "[lastTurn]:" + lastTurn + "[currentTurn]" + currentTurn);
+        Debug.Log("[ReceivePlayerTurnValue int]:" + "[lastTurn]:" + last + "[currentTurn]" + current);
+
         foreach (Player p in currentPlayersList)
         {
-            if (p.playerID.ToString() == "1")
+            if (p.playerID.ToString() == last.ToString())
+            {
+                p.OtherPlayerTurn();
+            }
+            
+            if(p.playerID.ToString() == current.ToString())
             {
                 p.OnTurnReceived();
             }
@@ -136,8 +209,8 @@ public class PlayerManager : MonoBehaviour
             {
                 p.OtherPlayerTurn();
             }
-            CardGameManagerUI.instance.UpdatePlayerTurnText();
         }
+        CardGameManagerUI.instance.UpdatePlayerTurnText();
     }
 
     [PunRPC]
@@ -160,7 +233,7 @@ public class PlayerManager : MonoBehaviour
         var cardSOs = CardManager.instance.GetCardListBasedOnIds(list);
         Debug.Log("[ReceiveRemainingShuffleCards] ids length" + cardSOs.Count);
         CardManager.instance.UpdateDeckFromData(cardSOs);        
-        CardManager.instance.UpdateDiscardedDeckUI();
+        CardManager.instance.UpdateRemainingDeckUI();
     }
 
     [PunRPC]
@@ -177,6 +250,12 @@ public class PlayerManager : MonoBehaviour
                 p.ReceiveShuffledCards(c1,c2,c3,c4,c5);
             }
         }
+        CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_ONE);
+    }
+
+    public List<Player> GetCurrentPlayersList()
+    {
+        return currentPlayersList;
     }
 
 }

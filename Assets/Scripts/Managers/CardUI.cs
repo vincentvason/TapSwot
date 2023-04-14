@@ -14,7 +14,6 @@ public class CardUI : MonoBehaviour
     public void Initialize(CardSO card)
     {
         this.card = card;
-        Debug.Log("Iniyialising card cvalue :" + card.cardTitle);
         cardTitle.text = card.cardTitle;
         cardDescription.text = card.cardDescription;
         cardRank.text = card.cardRank.ToString();

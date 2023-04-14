@@ -21,6 +21,8 @@ public class CardGameManagerUI : MonoBehaviour
     public GameObject SelectFromRemaining;
     public GameObject ConfirmReplace;
 
+    public TMPro.TextMeshProUGUI DiscardedScrollText, RemainingScrollText;
+
 
     private void Awake()
     {
@@ -30,6 +32,15 @@ public class CardGameManagerUI : MonoBehaviour
     private void Start()
     {
         DisableAllHelperEmojis();
+    }
+    public void UpdateDiscardedScrollText(string count)
+    {
+        DiscardedScrollText.text = "<font-weight=900>DISCARDED CARDS (" + count + ")";
+    }
+
+    public void UpdateRemainingScrollText(string count)
+    {
+        RemainingScrollText.text = "<font-weight=900>REMAINING CARDS (" + count + ")"; 
     }
 
     public void UpdatePlayerTurnText()
