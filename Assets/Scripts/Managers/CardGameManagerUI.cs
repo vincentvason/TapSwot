@@ -23,6 +23,7 @@ public class CardGameManagerUI : MonoBehaviour
 
     public TMPro.TextMeshProUGUI DiscardedScrollText, RemainingScrollText;
 
+    public GameObject FullCard;
 
     private void Awake()
     {
@@ -104,5 +105,16 @@ public class CardGameManagerUI : MonoBehaviour
         }
     }
 
+    public void ShowFullCard(CardSO card)
+    {
+        FullCard.SetActive(true);
+        FullCard.transform.GetChild(0).GetComponent<CardUI>().InitializeFullCard(card);
+    }
+
+    public void HideFullCard()
+    {
+        FullCard.transform.GetChild(0).GetComponent<CardUI>().ClearCard();
+        FullCard.SetActive(true);
+    }
 
 }

@@ -25,5 +25,7 @@ public class CardSO
         this.cardCategory = card.cardCategory;
         this.cardRank = card.cardRank;
     }
+
+    public CardSO() { }
 }
 
