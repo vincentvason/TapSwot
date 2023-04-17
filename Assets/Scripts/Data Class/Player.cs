@@ -85,11 +85,11 @@ public class Player : MonoBehaviour
 
     private void DisableDragOnAllCardSlots()
     {
-        playerDraggableCards[0].IsDraggable = false;
-        playerDraggableCards[1].IsDraggable = false;
-        playerDraggableCards[2].IsDraggable = false;
-        playerDraggableCards[3].IsDraggable = false;
-        playerDraggableCards[4].IsDraggable = false;
+        //playerDraggableCards[0].IsDraggable = false;
+        //playerDraggableCards[1].IsDraggable = false;
+        //playerDraggableCards[2].IsDraggable = false;
+        //playerDraggableCards[3].IsDraggable = false;
+        //playerDraggableCards[4].IsDraggable = false;
     }
 
     private void EnableDragOnAllCardSlots()
