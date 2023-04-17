@@ -11,8 +11,15 @@ public class CardGameManager : MonoBehaviourPunCallbacks
 
     public static CardGameManager instance = null;
 
-    public bool Stage1AllPlayersPlayed = false;
-    public List<string> Stage1_PlayersThatHaveTakenTurn = new List<string>(); // a list of players who have taken their turn
+    public bool RoundOneAllPlayersPlayed = false;
+    public List<string> ROUND_ONE_PlayersThatHaveTakenTurn = new List<string>(); // a list of players who have taken their turn
+
+    public bool startCountingRoundTwoPLayers = false;
+    public bool RoundTwoAllPlayersPlayed = false;
+    public List<string> ROUND_TWO_PlayersThatHaveTakenTurn = new List<string>(); // a list of players who have taken their turn
+
+
+    public static event Action<GameStateEnum> OnGameStateChanged;
 
     private void Awake()
     {
@@ -72,9 +79,24 @@ public class CardGameManager : MonoBehaviourPunCallbacks
 
         //SendRPC here to update turn of player
         PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
-        if (!CardGameManager.instance.Stage1_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
+        if (!CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
         {
-            CardGameManager.instance.Stage1_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
+            CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
+        }
+
+        if (startCountingRoundTwoPLayers)
+        {
+            if (!CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
+            {
+                CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
+            }
+
+            if (ROUND_TWO_PlayersThatHaveTakenTurn.Count == PlayerManager.instance.GetCurrentPlayersList().Count)
+            {
+                RoundTwoAllPlayersPlayed = true;
+                //This round 2 also has ended. now its timr to hide discarded cards and
+                //show all players card on table with their ranks
+            }
         }
     }
 
@@ -87,6 +109,7 @@ public class CardGameManager : MonoBehaviourPunCallbacks
     {
         currentGameState = state;
         CardGameManagerUI.instance.UpdateCurrentRoundText();
+        OnGameStateChanged?.Invoke(currentGameState);
     }
 
     public void OnConfirmButtonPressed()
@@ -96,16 +119,16 @@ public class CardGameManager : MonoBehaviourPunCallbacks
 
     internal void CheckAllPlayersAndUpdateGameStage()
     {
-        if(Stage1_PlayersThatHaveTakenTurn.Count == PlayerManager.instance.GetCurrentPlayersList().Count)
+        if(ROUND_ONE_PlayersThatHaveTakenTurn.Count == PlayerManager.instance.GetCurrentPlayersList().Count)
         {
-            Stage1AllPlayersPlayed = true;
+            RoundOneAllPlayersPlayed = true;
         }
         
-        if (Stage1AllPlayersPlayed)
+        if (RoundOneAllPlayersPlayed)
         {
             CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_TWO);
             PlayerManager.instance.SendPlayerTurnUpdate("0","0"); //reset turn
-
+            startCountingRoundTwoPLayers = true;
             //to-do. ask player to do card ranking and select once from discared card or create a new joker card if they want. do this in the above called function.
         }
     }

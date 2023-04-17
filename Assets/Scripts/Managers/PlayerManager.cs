@@ -166,9 +166,9 @@ public class PlayerManager : MonoBehaviour
 
         //Start First Players Turn here
         SendPlayerTurnUpdate("0", "1");
-        if (!CardGameManager.instance.Stage1_PlayersThatHaveTakenTurn.Contains("1"))
+        if (!CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Contains("1"))
         {
-            CardGameManager.instance.Stage1_PlayersThatHaveTakenTurn.Add("1");
+            CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Add("1");
         }
     }
 

@@ -25,6 +25,9 @@ public class CardGameManagerUI : MonoBehaviour
 
     public GameObject FullCard;
 
+    public GameObject cardRankingAndActions_1, cardRankingAndActions_2;
+    public GameObject discardedDeckGameObject, remaingingDeckGameObject;
+
     private void Awake()
     {
         instance = this;
@@ -32,7 +35,7 @@ public class CardGameManagerUI : MonoBehaviour
 
     private void Start()
     {
-        DisableAllHelperEmojis();
+        DisableAllHelperEmojisOfRoundOne();
     }
     public void UpdateDiscardedScrollText(string count)
     {
@@ -49,33 +52,45 @@ public class CardGameManagerUI : MonoBehaviour
         PlayerTurnText.text = "Current Turn:" + CardGameManager.instance.GetPlayerNameFromTurn();
     }
 
-    public void DisableAllHelperEmojis()
+    public void DisableAllHelperEmojisOfRoundOne()
     {
         WaitForOtherPlayer.SetActive(false);
         ItsYourTurn.SetActive(false);
         SelectFromRemaining.SetActive(false);
         ConfirmReplace.SetActive(false);
     }
+
     public void ShowConfirmReplace()
     {
-        DisableAllHelperEmojis();
-        ConfirmReplace.SetActive(true);
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.SETUP || CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_ONE)
+        {
+            DisableAllHelperEmojisOfRoundOne();
+            ConfirmReplace.SetActive(true);
+        }
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO)
+        {
+            DisableAllHelperEmojisOfRoundOne();
+
+        }
     }
 
     public void ShowSelectFromRemaining()
     {
-        DisableAllHelperEmojis();
-        SelectFromRemaining.SetActive(true);
+        if(CardGameManager.instance.GetGameState() == GameStateEnum.SETUP || CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_ONE)
+        {
+            DisableAllHelperEmojisOfRoundOne();
+            SelectFromRemaining.SetActive(true);
+        }
     }
     public void ShowItsYourTurn()
     {
-        DisableAllHelperEmojis();
+        DisableAllHelperEmojisOfRoundOne();
         ItsYourTurn.SetActive(true);
     }
 
     public void ShowWaitForTurn()
     {
-        DisableAllHelperEmojis();
+        DisableAllHelperEmojisOfRoundOne();
         WaitForOtherPlayer.SetActive(true);
     }
 
@@ -92,6 +107,10 @@ public class CardGameManagerUI : MonoBehaviour
                 break;
             case GameStateEnum.ROUND_TWO:
                 CurrentRoundText.text = "Stage 3";//ranking + select from pile
+                cardRankingAndActions_1.SetActive(true);
+                cardRankingAndActions_2.SetActive(true);
+                remaingingDeckGameObject.SetActive(false);
+                //maybe we dont need below stage? 
                 break;
             case GameStateEnum.ROUND_TWO_END:
                 CurrentRoundText.text = "Stage 3"; //rankin + select from discarded pile + joker(new card)

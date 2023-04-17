@@ -47,7 +47,18 @@ public class Player : MonoBehaviour
             CardGameManagerUI.instance.RemainingDeckScroll.OnElementDropped.AddListener(OnRemainingElementDropped);
         }
         //to-do     //update when something is added to remaining cards or removed from remaining cards
+        CardGameManager.OnGameStateChanged += Instance_OnGameStateChanged;
+    }
 
+    private void Instance_OnGameStateChanged(GameStateEnum gameState)
+    {
+        if (this == PlayerManager.instance.myPlayer)
+        {
+            foreach(CardUI c in cardsUI)
+            {
+                c.EnableRankDropdown();
+            }
+        }
     }
 
 
