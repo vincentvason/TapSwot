@@ -172,6 +172,11 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void SendRoundRPC(string round)
+    {
+        gameObject.GetComponent<PhotonView>().RPC("ReceiveRound", RpcTarget.All, round);
+    }
+
     public void SendPlayerCardChanged(string actorID, string cardSlot, string cardId)
     {
         gameObject.GetComponent<PhotonView>().RPC("ReceivePlayerCardChanged", RpcTarget.All, actorID, cardSlot, cardId);
@@ -180,6 +185,26 @@ public class PlayerManager : MonoBehaviour
     public void SendPlayerTurnUpdate(string lastTurn, string currentTurn)
     {
         gameObject.GetComponent<PhotonView>().RPC("ReceivePlayerTurnValue", RpcTarget.All, lastTurn, currentTurn);
+    }
+
+    [PunRPC]
+    public void ReceiveRound(string round)
+    {
+        switch (round)
+        {
+            case "ROUND_TWO":
+                CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_TWO);
+                break;
+            case "ROUND_TWO_END":
+                CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_TWO_END);
+                break;
+            case "ROUND_THREE":
+                CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_THREE);
+                break;
+            case "ROUND_FOUR":
+                CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_FOUR);
+                break;
+        }
     }
 
     [PunRPC]

@@ -103,7 +103,7 @@ public class CardGameManagerUI : MonoBehaviour
                 CurrentRoundText.text = "Stage 1";
                 break;
             case GameStateEnum.ROUND_ONE:
-                CurrentRoundText.text = "Stage 2";//card selection
+                CurrentRoundText.text = "Stage 2";//card selection from remaining
                 break;
             case GameStateEnum.ROUND_TWO:
                 CurrentRoundText.text = "Stage 3";//ranking + select from pile

@@ -66,10 +66,10 @@ public class CardGameManager : MonoBehaviourPunCallbacks
         return currentTurn;
     }
 
-
+    int lastTurn;
     private void UpdateTurn()
     {
-        int lastTurn = currentTurn;
+        lastTurn = currentTurn;
         currentTurn++;
         if(currentTurn> PhotonNetwork.CurrentRoom.PlayerCount)
         {
@@ -126,8 +126,9 @@ public class CardGameManager : MonoBehaviourPunCallbacks
         
         if (RoundOneAllPlayersPlayed)
         {
-            CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_TWO);
-            PlayerManager.instance.SendPlayerTurnUpdate("0","0"); //reset turn
+            //SEND RPC for round update
+            PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_TWO.ToString());
+            PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
             startCountingRoundTwoPLayers = true;
             //to-do. ask player to do card ranking and select once from discared card or create a new joker card if they want. do this in the above called function.
         }

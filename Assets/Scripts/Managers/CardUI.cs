@@ -26,11 +26,12 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
         cardDescription.text = card.cardDescription;
         cardRank.text = card.cardRank.ToString();
         cardCategory.text = card.cardCategory;
-
-        rankDropdown.onValueChanged.AddListener(OnRankChanged);
-
-        rankDropdown.value = card.cardRank;
-        DisableRankDropdown();
+        if (rankDropdown != null)
+        {
+            rankDropdown.onValueChanged.AddListener(OnRankChanged);
+            rankDropdown.value = card.cardRank;
+            DisableRankDropdown();
+        }
     }
     public void OnRankChanged(int value)
     {
@@ -45,9 +46,11 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
         CardBrief.text = card.cardBrief;
         cardRank.text = card.cardRank.ToString();
         cardCategory.text = card.cardCategory;
-
-        rankDropdown.gameObject.SetActive(true);
-        rankDropdown.value = card.cardRank;
+        if (rankDropdown != null)
+        {
+            rankDropdown.gameObject.SetActive(true);
+            rankDropdown.value = card.cardRank;
+        }
     }
 
     public void ClearCard()
@@ -57,21 +60,29 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
         cardDescription.text = string.Empty;
         cardRank.text = string.Empty;
         cardCategory.text = string.Empty;
-
-        rankDropdown.value = 0;
+        if (rankDropdown != null)
+        {
+            rankDropdown.value = 0;
+        }
     }
 
     public void EnableRankDropdown()
     {
-        rankDropdown.gameObject.SetActive(true);
-        rankDropdown.enabled = true;
-        rankDropdown.value = card.cardRank;
+        if (rankDropdown != null)
+        {
+            rankDropdown.gameObject.SetActive(true);
+            rankDropdown.enabled = true;
+            rankDropdown.value = card.cardRank;
+        }
     }
 
     public void DisableRankDropdown()
     {
-        rankDropdown.enabled = false;
-        rankDropdown.gameObject.SetActive(false);
+        if (rankDropdown != null)
+        {
+            rankDropdown.enabled = false;
+            rankDropdown.gameObject.SetActive(false);
+        }
     }
 
     //Detect if a click occurs
