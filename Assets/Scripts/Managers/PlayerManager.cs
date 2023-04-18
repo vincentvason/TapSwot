@@ -26,6 +26,8 @@ public class PlayerManager : MonoBehaviour
             Destroy(gameObject);
         }
         DontDestroyOnLoad(gameObject);
+
+        PlayerManager.instance.ShuffleAnimation.SetActive(false);
     }
 
     public int CurrentPlayerTurn()
@@ -237,6 +239,8 @@ public class PlayerManager : MonoBehaviour
         }
         CardGameManagerUI.instance.UpdatePlayerTurnText();
     }
+
+    public GameObject ShuffleAnimation;
 
     [PunRPC]
     public void ReceivePlayerCardChanged(string actorID, string cardSlot, string cardId)

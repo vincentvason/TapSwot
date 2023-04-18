@@ -332,6 +332,8 @@ public class Player : MonoBehaviour
 
         if (this == PlayerManager.instance.myPlayer)
         {
+            PlayerManager.instance.ShuffleAnimation.SetActive(false);
+
             cardsUI = CardGameManagerUI.instance.clientCardsUI;
 
             foreach (CardUI c in cardsUI)
@@ -364,6 +366,14 @@ public class Player : MonoBehaviour
             playerDraggableCards[4].OnElementGrabbed.AddListener(OnElementDraggedFromSlot);
 
             DisableMyPlayerUI(); //we disable interactions until it is our turn to play
+
+            PlayerManager.instance.ShuffleAnimation.SetActive(true);
+            cardsUI[0].gameObject.SetActive(false);
+            cardsUI[1].gameObject.SetActive(false);
+            cardsUI[2].gameObject.SetActive(false);
+            cardsUI[3].gameObject.SetActive(false);
+            cardsUI[4].gameObject.SetActive(false);
+            PlayerManager.instance.ShuffleAnimation.GetComponent<CardShuffling>().StartShuffleAnimation();
         }
     }
 

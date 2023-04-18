@@ -12,6 +12,9 @@ public class CardShuffling : MonoBehaviour
     [SerializeField] private GameObject cardDraw;
     [SerializeField] private GameObject pileLeft;
 
+    [SerializeField] private GameObject[] clientCard;
+
+
     /**
     * startPlayer - Player no. who get a card first.
     * 1 - you (1 -> 2 -> 3 -> 4)
@@ -157,6 +160,13 @@ public class CardShuffling : MonoBehaviour
                 cardDraw.SetActive(false);
             }
         }
+        yield return new WaitForSeconds(6f);
+
+        for (int x = 0; x < clientCard.Length; x++)
+        {
+            clientCard[x].SetActive(true);
+        }
+        gameObject.SetActive(false);
         yield return null;
     }
 
