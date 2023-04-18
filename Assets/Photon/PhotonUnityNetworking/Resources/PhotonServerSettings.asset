@@ -52,6 +52,7 @@ MonoBehaviour:
   - Receive_RemoveFromDiscardedCards
   - Receive_RemoveFromRemainingCards
   - ReceiveSend_AddToDiscardedCards
+  - ReceiveRound
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
