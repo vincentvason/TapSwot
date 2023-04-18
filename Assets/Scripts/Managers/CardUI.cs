@@ -33,6 +33,27 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
             DisableRankDropdown();
         }
     }
+
+    private void Update()
+    {
+        if (rankDropdown != null)
+        {
+            if (gameObject.transform.parent.parent.name == "RemainingCardsScroll" ||
+                    gameObject.transform.parent.parent.name == "DiscardedCardsScroll")
+            {
+                rankDropdown.enabled = false;
+            }
+            else
+            {
+                if (rankDropdown.enabled) return;                
+                if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO ||
+                    CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO_END)
+                {
+                    rankDropdown.enabled = true;
+                }
+            }
+        }
+    }
     public void OnRankChanged(int value)
     {
         //send RPC of player, cardID, and rank value
@@ -81,7 +102,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
         if (rankDropdown != null)
         {
             rankDropdown.enabled = false;
-            rankDropdown.gameObject.SetActive(false);
+            //rankDropdown.gameObject.SetActive(false);
         }
     }
 

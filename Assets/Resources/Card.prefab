@@ -108,7 +108,7 @@ MonoBehaviour:
   cardDescription: {fileID: 3595375148478104122}
   cardRank: {fileID: 2748152097754542093}
   cardCategory: {fileID: 6398731622763652891}
-  rankDropdown: {fileID: 0}
+  rankDropdown: {fileID: 8701734451930480195}
   CardBrief: {fileID: 0}
 --- !u!114 &-652023944357158551
 MonoBehaviour:
