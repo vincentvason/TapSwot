@@ -127,6 +127,7 @@ public class CardManager : MonoBehaviour
         //if remainging cards.count <=0 and all players has taken turn atlest once... change game state to stage 2
         if(remainingCards.Count <=0)
         {
+            Debug.Log("CheckAllPlayersAndUpdateGameStage");
             CardGameManager.instance.CheckAllPlayersAndUpdateGameStage();
         }
     }

@@ -119,13 +119,18 @@ public class CardGameManager : MonoBehaviourPunCallbacks
 
     internal void CheckAllPlayersAndUpdateGameStage()
     {
-        if(ROUND_ONE_PlayersThatHaveTakenTurn.Count == PlayerManager.instance.GetCurrentPlayersList().Count)
+        Debug.Log("ROUND_ONE_PlayersThatHaveTakenTurn.Count" + ROUND_ONE_PlayersThatHaveTakenTurn.Count);
+        Debug.Log(" PlayerManager.instance.GetCurrentPlayersList().Count" + PlayerManager.instance.GetCurrentPlayersList().Count);
+        if (ROUND_ONE_PlayersThatHaveTakenTurn.Count >= PlayerManager.instance.GetCurrentPlayersList().Count)
         {
             RoundOneAllPlayersPlayed = true;
+            Debug.Log("RoundOneAllPlayersPlayed");
         }
         
         if (RoundOneAllPlayersPlayed)
         {
+            Debug.Log("SendRoundRPC");
+
             //SEND RPC for round update
             PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_TWO.ToString());
             PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
