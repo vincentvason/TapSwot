@@ -48,8 +48,6 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
             }
         }
         lastDropDownValue = 0;
-        myHierarchy = transform.parent.GetSiblingIndex();
-
         // Save the original parent transform
         originalParent = transform.parent;
         
@@ -63,7 +61,9 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         {
             // Create a new Canvas object as a child of the root canvas
             GameObject canvasObject = new GameObject("Top Canvas");
-            canvasObject.transform.SetParent(transform.root, false);
+            canvasObject.AddComponent<LayoutElement>();
+            canvasObject.GetComponent<LayoutElement>().ignoreLayout = true;
+            canvasObject.transform.SetParent(transform.parent.parent, false);
 
             // Add a Canvas component to the new canvas object
             canvas = canvasObject.AddComponent<Canvas>();
@@ -75,6 +75,14 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
             // Set the Canvas Sorting Order to a high value so it's rendered on top of other UI elements
             canvas.sortingOrder = 999;
             createdCanvas = true;
+
+            RectTransform sourceRectTransform = transform.parent.GetComponent<RectTransform>();
+            RectTransform destinationRectTransform = canvasObject.GetComponent<RectTransform>();
+
+            destinationRectTransform.anchoredPosition = sourceRectTransform.anchoredPosition;
+            destinationRectTransform.sizeDelta = sourceRectTransform.sizeDelta;
+            destinationRectTransform.anchorMin = sourceRectTransform.anchorMin;
+            destinationRectTransform.anchorMax = sourceRectTransform.anchorMax;
         }
     }
 
@@ -128,15 +136,11 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
             if (mouse_over)
             {
                 transform.SetParent(canvas.transform, false);
-
-                transform.parent.SetAsLastSibling();
                 transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             }
             else
             {
                 transform.SetParent(originalParent, false);
-
-                transform.parent.SetSiblingIndex(myHierarchy);
                 transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             }
         }

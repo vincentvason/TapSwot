@@ -194,24 +194,7 @@ public class CardGameManagerUI : MonoBehaviour
                 CardsRemaining.SetActive(true);
                 AlLCards.SetActive(true);
 
-                for (int x=0;x< VotingCardHolders.Count; x++)
-                {
-                    if (VotingCardHolders[x].childCount > 0)
-                    {
-                        Destroy(VotingCardHolders[x].GetChild(0).gameObject);
-                    }
-                }
-
-                for(int i =0;i< PlayerManager.instance.ReceivedCardsFromAllPlayersAfterRanking.Count; i++)
-                {
-                    GameObject a = GameObject.Instantiate(CardManager.instance.card, new Vector3(0, 0, 0), Quaternion.identity);
-                    a.SetActive(true);
-                    a.transform.SetParent(VotingCardHolders[i]);
-                    
-                    a.GetComponent<CardUI>().Initialize(PlayerManager.instance.ReceivedCardsFromAllPlayersAfterRanking[i]);
-                    a.GetComponent<CardUI>().DisableBackCard();
-                    a.GetComponent<CardUI>().ShowRanking();
-                }
+                CardManager.instance.CreateCardsForVotingDiscard();
 
                 break;
             case GameStateEnum.ROUND_FOUR:

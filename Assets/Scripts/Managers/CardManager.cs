@@ -121,6 +121,106 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    public void CreateCardsForVotingDiscard()
+    {
+        List<CardSO> RankOne = new List<CardSO>();
+        List<CardSO> RankTwo = new List<CardSO>();
+        List<CardSO> RankThree = new List<CardSO>();
+        List<CardSO> RankFour = new List<CardSO>();
+        List<CardSO> RankFive = new List<CardSO>();
+
+        for (int i = 0; i < PlayerManager.instance.ReceivedCardsFromAllPlayersAfterRanking.Count; i++)
+        {
+            switch (PlayerManager.instance.ReceivedCardsFromAllPlayersAfterRanking[i].cardRank)
+            {
+                case 1:
+                    RankOne.Add(PlayerManager.instance.ReceivedCardsFromAllPlayersAfterRanking[i]);
+                    break;
+                case 2:
+                    RankTwo.Add(PlayerManager.instance.ReceivedCardsFromAllPlayersAfterRanking[i]);
+                    break;
+                case 3:
+                    RankThree.Add(PlayerManager.instance.ReceivedCardsFromAllPlayersAfterRanking[i]);
+                    break;
+                case 4:
+                    RankFour.Add(PlayerManager.instance.ReceivedCardsFromAllPlayersAfterRanking[i]);
+                    break;
+                case 5:
+                    RankFive.Add(PlayerManager.instance.ReceivedCardsFromAllPlayersAfterRanking[i]);
+                    break;
+            }
+
+        }
+
+        for (int x = 0; x < CardGameManagerUI.instance.VotingCardHolders.Count; x++)
+        {
+            if (CardGameManagerUI.instance.VotingCardHolders[x].childCount > 0)
+            {
+                Destroy(CardGameManagerUI.instance.VotingCardHolders[x].GetChild(0).gameObject);
+            }
+        }
+
+        for (int i = 0; i < RankOne.Count; i++)
+        {
+            GameObject a = GameObject.Instantiate(CardManager.instance.card, new Vector3(0, 0, 0), Quaternion.identity);
+            a.SetActive(true);
+            a.transform.SetParent(CardGameManagerUI.instance.VotingCardHolders[i]);
+
+            a.GetComponent<CardUI>().Initialize(RankOne[i]);
+            a.GetComponent<CardUI>().DisableBackCard();
+            a.GetComponent<CardUI>().ShowRanking();
+        }
+
+        for (int i = 0; i < RankTwo.Count; i++)
+        {
+            GameObject a = GameObject.Instantiate(CardManager.instance.card, new Vector3(0, 0, 0), Quaternion.identity);
+            a.SetActive(true);
+            a.transform.SetParent(CardGameManagerUI.instance.VotingCardHolders[i]);
+
+            a.GetComponent<CardUI>().Initialize(RankTwo[i]);
+            a.GetComponent<CardUI>().DisableBackCard();
+            a.GetComponent<CardUI>().ShowRanking();
+        }
+
+
+        for (int i = 0; i < RankThree.Count; i++)
+        {
+            GameObject a = GameObject.Instantiate(CardManager.instance.card, new Vector3(0, 0, 0), Quaternion.identity);
+            a.SetActive(true);
+            a.transform.SetParent(CardGameManagerUI.instance.VotingCardHolders[i]);
+
+            a.GetComponent<CardUI>().Initialize(RankThree[i]);
+            a.GetComponent<CardUI>().DisableBackCard();
+            a.GetComponent<CardUI>().ShowRanking();
+        }
+
+
+        for (int i = 0; i < RankFour.Count; i++)
+        {
+            GameObject a = GameObject.Instantiate(CardManager.instance.card, new Vector3(0, 0, 0), Quaternion.identity);
+            a.SetActive(true);
+            a.transform.SetParent(CardGameManagerUI.instance.VotingCardHolders[i]);
+
+            a.GetComponent<CardUI>().Initialize(RankFour[i]);
+            a.GetComponent<CardUI>().DisableBackCard();
+            a.GetComponent<CardUI>().ShowRanking();
+        }
+
+
+        for (int i = 0; i < RankFive.Count; i++)
+        {
+            GameObject a = GameObject.Instantiate(CardManager.instance.card, new Vector3(0, 0, 0), Quaternion.identity);
+            a.SetActive(true);
+            a.transform.SetParent(CardGameManagerUI.instance.VotingCardHolders[i]);
+
+            a.GetComponent<CardUI>().Initialize(RankFive[i]);
+            a.GetComponent<CardUI>().DisableBackCard();
+            a.GetComponent<CardUI>().ShowRanking();
+        }
+
+
+    }
+
     public void UpdateRemainingDeckUI()
     {
         CleanRemaining();
