@@ -16,11 +16,14 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
     public TextMeshProUGUI cardCategory;
 
     public TMPro.TMP_Dropdown rankDropdown;
+    public Transform rankDropdownTransform;
 
     [HeaderAttribute("For Full Card")]
     public TextMeshProUGUI CardBrief;
 
     public GameObject BackCard;
+
+    public int lastDropDownValue = 0;
 
     public void Initialize(CardSO card)
     {
@@ -31,8 +34,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
         cardCategory.text = card.cardCategory;
         if (rankDropdown != null)
         {
-            rankDropdown.onValueChanged.AddListener(OnRankChanged);
-            rankDropdown.value = card.cardRank;
+            rankDropdown.value = 0;
             DisableRankDropdown();
         }
         if (transform.parent != null)
@@ -42,6 +44,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
                 CheckParentAndSetBackCard();
             }
         }
+        lastDropDownValue = 0;
     }
 
     public void CheckParentAndSetBackCard()
@@ -114,36 +117,6 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
         }
     }
 
-
-    public void EnableAllRanks()
-    {
-        var toggles = rankDropdown.gameObject.transform.Find("Dropdown List").GetComponentsInChildren<Toggle>();
-        foreach (var toggle in toggles)
-        {
-            if(toggle.name== "Item") { toggle.interactable = false; toggle.gameObject.SetActive(false); }
-            toggle.interactable = true;            
-        }
-    }
-
-    public void DisableOneRank(int value)
-    {
-        string optionTextToDeactivate = "Item 1: " + value.ToString();
-        var toggles = rankDropdown.gameObject.transform.Find("Dropdown List").GetComponentsInChildren<Toggle>();
-        foreach (var toggle in toggles)
-        {
-            if (toggle.name == "Item") { toggle.interactable = false; toggle.gameObject.SetActive(false); }
-            if (toggle.name == optionTextToDeactivate)
-            {
-                toggle.interactable = false;
-            }
-        }
-    }
-
-    public void OnRankChanged(int value)
-    {
-        //send RPC of player, cardID, and rank value
-        PlayerManager.instance.myPlayer.SetCardRank(this, value);
-    }
 
     public void InitializeFullCard(CardSO card)
     {

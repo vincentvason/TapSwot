@@ -7,7 +7,7 @@ using UnityEngine;
 public class CardGameManager : MonoBehaviourPunCallbacks
 {
     private GameStateEnum currentGameState;
-    private int currentTurn = 1;
+    public int currentTurn = 1;
 
     public static CardGameManager instance = null;
 
@@ -66,7 +66,7 @@ public class CardGameManager : MonoBehaviourPunCallbacks
         return currentTurn;
     }
 
-    int lastTurn;
+    public int lastTurn;
     private void UpdateTurn()
     {
         lastTurn = currentTurn;
@@ -137,7 +137,6 @@ public class CardGameManager : MonoBehaviourPunCallbacks
             PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_TWO.ToString());
             PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
             startCountingRoundTwoPLayers = true;
-            //to-do. ask player to do card ranking and select once from discared card or create a new joker card if they want. do this in the above called function.
         }
     }
 }

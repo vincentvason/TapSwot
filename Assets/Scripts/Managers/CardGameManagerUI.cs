@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
 
 public class CardGameManagerUI : MonoBehaviour
@@ -11,6 +12,8 @@ public class CardGameManagerUI : MonoBehaviour
     public TMPro.TextMeshProUGUI CurrentRoundText, CurrentObjective, CurrentStageDescription;
 
     public List<CardUI> clientCardsUI = new List<CardUI>();
+    public List<Transform> clientCardsUIParent = new List<Transform>();
+
     public List<ReorderableList> playerDraggableCards = new List<ReorderableList>();
 
     public ReorderableList DiscardedDeckScroll;
@@ -27,6 +30,13 @@ public class CardGameManagerUI : MonoBehaviour
 
     public GameObject cardRankingAndActions_1, cardRankingAndActions_2;
     public GameObject discardedDeckGameObject, remaingingDeckGameObject;
+
+    public DropdownController dropdownController;
+
+    public GameObject RankingError;
+    public Button SendRankButton;
+
+    public GameObject RoundOne, RoundTwo, RoundTwoEnd, RoundThree;
 
     private void Awake()
     {
@@ -50,6 +60,29 @@ public class CardGameManagerUI : MonoBehaviour
     public void UpdatePlayerTurnText()
     {
         PlayerTurnText.text = "Current Turn:" + CardGameManager.instance.GetPlayerNameFromTurn();
+    }
+
+    [SerializeField]private bool rankValuesSent = false;
+    public void CheckIfPlayerHasRankedCardsAndSendTurnUpdate()
+    {
+        if (dropdownController.CheckIfAllDropdownsHasSetValue())
+        {
+            if (!rankValuesSent)
+            {
+                //send turn update
+                PlayerManager.instance.Send_PlayerRankUpdate();
+                //show wait for other players
+                DisableAllHelperEmojisOfRoundOne();
+                WaitForOtherPlayer.SetActive(true);
+                rankValuesSent = true;
+                SendRankButton.interactable = false;
+            }
+        }
+        else
+        {
+            //show error dialog to ask to rank all cards
+            RankingError.SetActive(true);
+        }
     }
 
     public void DisableAllHelperEmojisOfRoundOne()
@@ -84,14 +117,28 @@ public class CardGameManagerUI : MonoBehaviour
     }
     public void ShowItsYourTurn()
     {
-        DisableAllHelperEmojisOfRoundOne();
-        ItsYourTurn.SetActive(true);
+        if(CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
+        {
+
+        }
+        else
+        {
+            DisableAllHelperEmojisOfRoundOne();
+            ItsYourTurn.SetActive(true);
+        }
     }
 
     public void ShowWaitForTurn()
     {
-        DisableAllHelperEmojisOfRoundOne();
-        WaitForOtherPlayer.SetActive(true);
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
+        {
+
+        }
+        else
+        {
+            DisableAllHelperEmojisOfRoundOne();
+            WaitForOtherPlayer.SetActive(true);
+        }
     }
 
     public void UpdateCurrentRoundText()
@@ -109,10 +156,35 @@ public class CardGameManagerUI : MonoBehaviour
                 CurrentRoundText.text = "Stage 3";//ranking + select from pile
                 cardRankingAndActions_1.SetActive(true);
                 cardRankingAndActions_2.SetActive(true);
-                remaingingDeckGameObject.SetActive(false); //rankin + select from discarded pile                                                           
+                remaingingDeckGameObject.SetActive(false); //rankin + select from discarded pile
+
+                List<TMPro.TMP_Dropdown> dropdowns = new List<TMPro.TMP_Dropdown>();
+                foreach (CardUI c in PlayerManager.instance.myPlayer.cardsUI)
+                {
+                    dropdowns.Add(c.rankDropdown);
+                }
+                dropdownController.InitialiseAllDropdowns(dropdowns);
+                SendRankButton.interactable = false;
                 break;
             case GameStateEnum.ROUND_THREE:
                 CurrentRoundText.text = "Stage 4"; // joker(new card) + voting
+
+                //disable discarded or destroy all cards in discarded
+                //disable player cards
+                //instantiate and show all cards based on ranking. PlayerManager.instance.ReceivedCardsFromAllPlayersAfterRankingCount
+                DisableAllHelperEmojisOfRoundOne();
+                cardRankingAndActions_1.SetActive(false);
+                cardRankingAndActions_2.SetActive(false);
+                remaingingDeckGameObject.SetActive(false);
+                CardManager.instance.CleanDiscarded();
+                discardedDeckGameObject.SetActive(false);
+                RoundOne.SetActive(false);
+                RoundTwo.SetActive(false);
+                RoundTwoEnd.SetActive(false);
+
+                //there will be a separate discarded scrollview for voting stage and separate list
+                RoundThree.SetActive(true);
+
                 break;
             case GameStateEnum.ROUND_FOUR:
                 CurrentRoundText.text = "Stage 5 & 6";

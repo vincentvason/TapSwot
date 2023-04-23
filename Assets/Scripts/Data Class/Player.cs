@@ -330,29 +330,15 @@ public class Player : MonoBehaviour
         cardIds[slot] = cardId;
         if (this == PlayerManager.instance.myPlayer)
         {
-            if(cardsUI[slot] != null)
-            {
-                cardsUI[slot].card = card;
-                cardsUI[slot].Initialize(card);
-            }
-        }
-    }
+            cardsUI[slot] = CardGameManagerUI.instance.clientCardsUIParent[slot].transform.GetChild(0).GetComponent<CardUI>();
+            cardsUI[slot].Initialize(card);
+            CardGameManagerUI.instance.clientCardsUI[slot] = cardsUI[slot];
+            //if (cardsUI[slot] != null)
+            //{
 
-    public Dictionary<int, CardUI> SetRanks = new Dictionary<int, CardUI>();
-    public void SetCardRank(CardUI cardUI, int value)
-    {
-        if (!SetRanks.ContainsKey(value))
-        {
-            SetRanks.Add(value, cardUI);
-        }
-
-        foreach(CardUI c in cardsUI)
-        {
-            if(c!= cardUI)
-            {
-                c.EnableAllRanks();
-                c.DisableOneRank(value);
-            }
+            //    cardsUI[slot].card = card;
+            //    cardsUI[slot].Initialize(card);
+            //}
         }
     }
 

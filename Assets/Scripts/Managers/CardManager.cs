@@ -22,6 +22,9 @@ public class CardManager : MonoBehaviour
 
     [SerializeField] private List<CardSO> discardedCards = new List<CardSO>();
 
+    [SerializeField] private List<CardSO> VotingRoundDiscardedCards = new List<CardSO>();
+
+
     private void Start()
     {
         mainDeck = cardDatabase.cards.Select(c => new CardSO(c)).ToList();

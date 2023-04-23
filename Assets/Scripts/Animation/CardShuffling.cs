@@ -45,15 +45,17 @@ public class CardShuffling : MonoBehaviour
 
     [HideInInspector] private int cardLeft;
     [HideInInspector] private float drawDuration = 0.2f;
-    
 
-   
+    [SerializeField] private RectTransform[] cardPlayer1Rect;
 
     public void StartShuffleAnimation()
     {
+        for (int x = 0; x < cardPlayer1Rect.Length; x++)
+        {
+            cardPlayer1Position[x] = new Vector2(cardPlayer1Rect[x].rect.x, cardPlayer1Rect[x].rect.y);
+        }
         StartCoroutine(DrawCard());
     }
-
 
     IEnumerator DrawCard()
     {

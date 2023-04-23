@@ -99,6 +99,60 @@ public class PlayerManager : MonoBehaviour
         gameObject.GetComponent<PhotonView>().RPC("Receive_RemoveFromDiscardedCards", RpcTarget.All, cardID);
     }
 
+    public void Send_PlayerRankUpdate()
+    {
+        //playerID
+        //[string array] "cardID","cardRank"
+        string playerID = myPlayer.playerID.ToString();
+        List<CardUI> cards = myPlayer.cardsUI;
+
+        List<string> cardIDs = new List<string>();
+        List<string> cardRanks = new List<string>();
+
+        foreach (CardUI card in cards)
+        {
+            cardIDs.Add(card.card.cardId.ToString());
+            card.card.cardRank = card.rankDropdown.value;
+            cardRanks.Add(card.card.cardRank.ToString());
+        }
+
+        gameObject.GetComponent<PhotonView>().RPC("ReceiveCardsAndRankByPlayer", RpcTarget.All, playerID, (object)cardIDs.ToArray(), (object)cardRanks.ToArray());
+    }
+
+    public List<CardSO> ReceivedCardsFromAllPlayersAfterRanking = new List<CardSO>();
+    int ReceivedCardsFromAllPlayersAfterRankingCount = 0;
+    [PunRPC]
+    public void ReceiveCardsAndRankByPlayer(string playerID, string[] cardIDs, string[] rank)
+    {
+        Debug.Log("-------------------------------------");
+        Debug.Log("Player ID:" + playerID);
+        var idList = new List<string>(cardIDs);
+        var rankList = new List<string>(rank);
+
+
+        for(int i = 0; i < idList.Count; i++)
+        {
+            int r = 0;
+            int.TryParse(rankList[i], out r);
+
+            CardSO cardSO = CardManager.instance.GetCardBasedOnId(idList[i]);
+            cardSO.cardRank = r;
+            Debug.Log("CardID:" + cardSO.cardId + ",CardName:" + cardSO.cardTitle + "," + "CardRank:" + cardSO.cardRank);
+            ReceivedCardsFromAllPlayersAfterRanking.Add(cardSO);
+        }
+
+        Debug.Log("-------------------------------------");
+        ReceivedCardsFromAllPlayersAfterRankingCount++;
+
+        if(ReceivedCardsFromAllPlayersAfterRankingCount>= PlayerManager.instance.GetCurrentPlayersList().Count)
+        {
+            //all players have ranked. Send RPC for stage change
+            PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_THREE.ToString());
+            PlayerManager.instance.SendPlayerTurnUpdate(CardGameManager.instance.lastTurn.ToString(), CardGameManager.instance.currentTurn.ToString());
+        }
+    }
+
+
     [PunRPC]
     public void Receive_AddToRemainingCards(string cardID)
     {

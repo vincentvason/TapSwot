@@ -110,8 +110,10 @@ MonoBehaviour:
   cardRank: {fileID: 2748152097754542093}
   cardCategory: {fileID: 6398731622763652891}
   rankDropdown: {fileID: 8701734451930480195}
+  rankDropdownTransform: {fileID: 2058067740861718769}
   CardBrief: {fileID: 0}
   BackCard: {fileID: 2908439722759979891}
+  lastDropDownValue: 0
 --- !u!114 &-652023944357158551
 MonoBehaviour:
   m_ObjectHideFlags: 0
