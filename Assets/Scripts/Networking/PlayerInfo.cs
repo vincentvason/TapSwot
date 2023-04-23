@@ -12,6 +12,7 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
 
     public TextMeshProUGUI _nickname;
     public Image _playerColorImg;
+    public GameObject isHostIcon;
 
 
 
@@ -20,6 +21,15 @@ public class PlayerInfo : MonoBehaviourPunCallbacks
         Player = player;
         _nickname.text = player.NickName;
         _playerColorImg.color = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+
+        if (Player.IsMasterClient)
+        {
+            isHostIcon.gameObject.SetActive(true);
+        }
+        else
+        {
+            isHostIcon.gameObject.SetActive(false);
+        }
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
