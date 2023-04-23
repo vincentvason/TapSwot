@@ -656,6 +656,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 550891801}
+    - target: {fileID: 2737838045338653885, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2737838045385416169, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -764,6 +768,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainMenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 8383556686925487821, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
+      propertyPath: m_text
+      value: <font-weight="600">Max 4 Players
+      objectReference: {fileID: 0}
+    - target: {fileID: 8383556686925487821, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8383556686925487823, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
+      propertyPath: m_Name
+      value: PlayerLimit
+      objectReference: {fileID: 0}
     - target: {fileID: 8383556686951066528, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -784,6 +800,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8383556688815324869, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -911086648, guid: 8319bbd5d54496c478d392b1e1224e29, type: 3}
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}

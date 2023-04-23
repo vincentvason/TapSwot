@@ -307,6 +307,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _nickname: {fileID: 8325306204833572992}
+  _playerColorImg: {fileID: 6528373970420621791}
 --- !u!1 &3987301921206360040
 GameObject:
   m_ObjectHideFlags: 0
