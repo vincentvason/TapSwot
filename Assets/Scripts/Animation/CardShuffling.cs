@@ -50,10 +50,10 @@ public class CardShuffling : MonoBehaviour
 
     public void StartShuffleAnimation()
     {
-        for (int x = 0; x < cardPlayer1Rect.Length; x++)
-        {
-            cardPlayer1Position[x] = new Vector2(cardPlayer1Rect[x].rect.x, cardPlayer1Rect[x].rect.y);
-        }
+        //for (int x = 0; x < cardPlayer1Rect.Length; x++)
+        //{
+        //    cardPlayer1Position[x] = new Vector2(cardPlayer1Rect[x].rect.x, cardPlayer1Rect[x].rect.y);
+        //}
         StartCoroutine(DrawCard());
     }
 

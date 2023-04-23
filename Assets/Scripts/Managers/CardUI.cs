@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 //IPointerEnterHandler, IPointerExitHandler, 
-public class CardUI : MonoBehaviour, IPointerClickHandler
+public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     public CardSO card = new CardSO();
     public TextMeshProUGUI cardTitle;
@@ -24,6 +24,9 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
     public GameObject BackCard;
 
     public int lastDropDownValue = 0;
+
+    private Canvas canvas;
+    private Transform originalParent;
 
     public void Initialize(CardSO card)
     {
@@ -45,6 +48,34 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
             }
         }
         lastDropDownValue = 0;
+        myHierarchy = transform.parent.GetSiblingIndex();
+
+        // Save the original parent transform
+        originalParent = transform.parent;
+        
+    }
+    bool createdCanvas = false;
+
+
+    private void CreateCanvas()
+    {
+        if (!createdCanvas)
+        {
+            // Create a new Canvas object as a child of the root canvas
+            GameObject canvasObject = new GameObject("Top Canvas");
+            canvasObject.transform.SetParent(transform.root, false);
+
+            // Add a Canvas component to the new canvas object
+            canvas = canvasObject.AddComponent<Canvas>();
+            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+
+            // Add a GraphicRaycaster component to the new canvas object
+            canvasObject.AddComponent<GraphicRaycaster>();
+
+            // Set the Canvas Sorting Order to a high value so it's rendered on top of other UI elements
+            canvas.sortingOrder = 999;
+            createdCanvas = true;
+        }
     }
 
     public void CheckParentAndSetBackCard()
@@ -84,34 +115,59 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
     {
         BackCard.SetActive(false);
     }
-
+    int myHierarchy = 0;
     private void Update()
     {
-        //to-do this is not working
-        if (rankDropdown != null)
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
         {
-            if (gameObject.transform.parent.parent.name == "RemainingCardsScroll" ||
-                    gameObject.transform.parent.parent.name == "DiscardedCardsScroll")
+            if (canvas == null)
             {
-                rankDropdown.enabled = false;
+                CreateCanvas();
             }
-            if(gameObject.transform.parent.parent.name == "Card1" ||
-                gameObject.transform.parent.parent.name == "Card2" ||
-                gameObject.transform.parent.parent.name == "Card3" ||
-                gameObject.transform.parent.parent.name == "Card4" ||
-                gameObject.transform.parent.parent.name == "Card5")
+
+            if (mouse_over)
             {
-                if (CardGameManagerUI.instance.cardRankingAndActions_1.activeInHierarchy)
-                {
-                    if (rankDropdown.enabled) { return; }
-                    else
-                    {
-                        rankDropdown.enabled = true;
-                    }
-                }
-                else
+                transform.SetParent(canvas.transform, false);
+
+                transform.parent.SetAsLastSibling();
+                transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            }
+            else
+            {
+                transform.SetParent(originalParent, false);
+
+                transform.parent.SetSiblingIndex(myHierarchy);
+                transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            }
+        }
+
+        if(CardGameManager.instance.GetGameState() != GameStateEnum.ROUND_THREE)
+        {
+            if (rankDropdown != null)
+            {
+                if (gameObject.transform.parent.parent.name == "RemainingCardsScroll" ||
+                        gameObject.transform.parent.parent.name == "DiscardedCardsScroll")
                 {
                     rankDropdown.enabled = false;
+                }
+                if (gameObject.transform.parent.parent.name == "Card1" ||
+                    gameObject.transform.parent.parent.name == "Card2" ||
+                    gameObject.transform.parent.parent.name == "Card3" ||
+                    gameObject.transform.parent.parent.name == "Card4" ||
+                    gameObject.transform.parent.parent.name == "Card5")
+                {
+                    if (CardGameManagerUI.instance.cardRankingAndActions_1.activeInHierarchy)
+                    {
+                        if (rankDropdown.enabled) { return; }
+                        else
+                        {
+                            rankDropdown.enabled = true;
+                        }
+                    }
+                    else
+                    {
+                        rankDropdown.enabled = false;
+                    }
                 }
             }
         }
@@ -165,41 +221,54 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public void ShowRanking()
+    {
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
+        {
+            rankDropdown.SetValueWithoutNotify(card.cardRank);
+            rankDropdown.interactable = false;
+        }
+    }
+
     //Detect if a click occurs
     public void OnPointerClick(PointerEventData pointerEventData)
     {
         if(gameObject.name != "FullCard")
         {
-            CardGameManagerUI.instance.ShowFullCard(this.card);
+            if(CardGameManager.instance.GetGameState() != GameStateEnum.ROUND_THREE 
+                && transform.parent.parent.name =="Card1" ||
+                transform.parent.parent.name == "Card2" ||
+                transform.parent.parent.name == "Card3" ||
+                transform.parent.parent.name == "Card4" ||
+                transform.parent.parent.name == "Card5")
+            {
+                CardGameManagerUI.instance.ShowFullCard(this.card);
+            }
+
+            if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
+            {
+                CardGameManagerUI.instance.ShowFullCard(this.card);
+            }
         }
     }
 
-    /*
+    
     private bool mouse_over = false;
-    void Update()
-    {
-        if (mouse_over)
-        {
-            
-            transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-        }
-        else
-        {
-            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        }
-    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-        mouse_over = true;
-        Debug.Log("Mouse enter");
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
+        {
+            mouse_over = true;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        mouse_over = false;
-        Debug.Log("Mouse exit");
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
+        {
+            mouse_over = false;
+        }  
     }
-    */
+    
 }

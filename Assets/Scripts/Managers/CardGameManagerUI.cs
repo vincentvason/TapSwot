@@ -37,6 +37,8 @@ public class CardGameManagerUI : MonoBehaviour
     public Button SendRankButton;
 
     public GameObject RoundOne, RoundTwo, RoundTwoEnd, RoundThree;
+    public GameObject StageThreeItsYourTurn, StageThreeWaitForTurn;
+    public GameObject CardsRemaining, AlLCards;
 
     private void Awake()
     {
@@ -119,7 +121,8 @@ public class CardGameManagerUI : MonoBehaviour
     {
         if(CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
         {
-
+            StageThreeItsYourTurn.SetActive(true);
+            StageThreeWaitForTurn.SetActive(false);
         }
         else
         {
@@ -132,7 +135,8 @@ public class CardGameManagerUI : MonoBehaviour
     {
         if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
         {
-
+            StageThreeItsYourTurn.SetActive(false);
+            StageThreeWaitForTurn.SetActive(true);
         }
         else
         {
@@ -140,6 +144,8 @@ public class CardGameManagerUI : MonoBehaviour
             WaitForOtherPlayer.SetActive(true);
         }
     }
+
+    public List<Transform> VotingCardHolders = new List<Transform>();
 
     public void UpdateCurrentRoundText()
     {
@@ -172,6 +178,8 @@ public class CardGameManagerUI : MonoBehaviour
                 //disable discarded or destroy all cards in discarded
                 //disable player cards
                 //instantiate and show all cards based on ranking. PlayerManager.instance.ReceivedCardsFromAllPlayersAfterRankingCount
+                RoundThree.SetActive(true);
+
                 DisableAllHelperEmojisOfRoundOne();
                 cardRankingAndActions_1.SetActive(false);
                 cardRankingAndActions_2.SetActive(false);
@@ -183,7 +191,27 @@ public class CardGameManagerUI : MonoBehaviour
                 RoundTwoEnd.SetActive(false);
 
                 //there will be a separate discarded scrollview for voting stage and separate list
-                RoundThree.SetActive(true);
+                CardsRemaining.SetActive(true);
+                AlLCards.SetActive(true);
+
+                for (int x=0;x< VotingCardHolders.Count; x++)
+                {
+                    if (VotingCardHolders[x].childCount > 0)
+                    {
+                        Destroy(VotingCardHolders[x].GetChild(0).gameObject);
+                    }
+                }
+
+                for(int i =0;i< PlayerManager.instance.ReceivedCardsFromAllPlayersAfterRanking.Count; i++)
+                {
+                    GameObject a = GameObject.Instantiate(CardManager.instance.card, new Vector3(0, 0, 0), Quaternion.identity);
+                    a.SetActive(true);
+                    a.transform.SetParent(VotingCardHolders[i]);
+                    
+                    a.GetComponent<CardUI>().Initialize(PlayerManager.instance.ReceivedCardsFromAllPlayersAfterRanking[i]);
+                    a.GetComponent<CardUI>().DisableBackCard();
+                    a.GetComponent<CardUI>().ShowRanking();
+                }
 
                 break;
             case GameStateEnum.ROUND_FOUR:
