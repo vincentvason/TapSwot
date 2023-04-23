@@ -7,10 +7,11 @@ using Photon.Pun;
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
     
-    void Start()
+    IEnumerator Start()
     {
         //Establish connection of Player and Photon Server
         PhotonNetwork.GameVersion="1.0";
+        yield return new WaitForSeconds(4f);
         PhotonNetwork.ConnectUsingSettings();
         Debug.Log("Connected to the Photon Server");
     }
