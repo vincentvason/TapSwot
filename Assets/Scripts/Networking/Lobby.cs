@@ -8,13 +8,18 @@ using TMPro;
 
 public class Lobby : MonoBehaviourPunCallbacks
 {
-    public TextMeshProUGUI roomName; 
+    public TextMeshProUGUI roomName;
+    public TextMeshProUGUI timeLimit;
+
+    public TextMeshProUGUI displayTimeLimit;
 
     private bool _ready = false;
 
     public void RoomCreate()
     {
         roomName.text = PhotonNetwork.CurrentRoom.Name;
+        displayTimeLimit.text = timeLimit.text;
+
     }
 
 
