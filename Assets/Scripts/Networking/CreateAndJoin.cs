@@ -6,6 +6,7 @@ using Photon.Pun;
 using UnityEngine.SceneManagement;
 using TMPro;
 using Photon.Realtime;
+using System.Linq;
 
 public class CreateAndJoin : MonoBehaviourPunCallbacks
 {
@@ -16,13 +17,20 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
     public TMP_InputField joinInput;
 
     public MainMenuAnimation mainMenu;
+     
 
     public Lobby lobby;
 
     public GameObject emptySeatPrefab;
+    public GameObject playerLobbyPrefab;
     public GameObject LobbyWaitingWindow;
 
+    [SerializeField]
+    private Transform _content;
+
     public Color[] playerColor;
+
+
 
     #region START AND AWAKE
     private void Start()
@@ -91,34 +99,47 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         StartCoroutine(mainMenu.CloseCreateJoinWindow());
         // LobbyCanvas.SetActive(true);
         StartCoroutine(mainMenu.OpenLobbyWaitingWindow());
-        lobby.RoomCreate();
+        lobby.RoomCreate();  // Lobby class method to display to room details using photon callbacks
 
         Debug.Log("Current Players in the Room(Photon)"+PhotonNetwork.CurrentRoom.PlayerCount);
 
-        CleanList();
-
-        if (PhotonNetwork.CurrentRoom.Players.Count > 0)
+        Photon.Realtime.Player[] _playerList = PhotonNetwork.PlayerList;
+        for (int i=0; i< _playerList.Count(); i++)
         {
-            foreach(KeyValuePair<int, Photon.Realtime.Player> kvp in (PhotonNetwork.CurrentRoom.Players))
-            {
-                GameObject a = PhotonNetwork.Instantiate("PlayerLobby", new Vector3(0, 0, 0), Quaternion.identity);
-                a.transform.SetParent(_content);
-                PlayerInfo listing = a.GetComponent<PlayerInfo>();
+            Instantiate(playerLobbyPrefab, _content).GetComponent<PlayerInfo>().SetPlayerInfo(_playerList[i]);
 
-                listing.SetPlayerInfo(kvp.Value);
-                _listing.Add(listing);
-
-                a.transform.localScale = new Vector3(1f, 1f, 1f);
-                a.GetComponent<Image>().color = playerColor[_listing.Count - 1];
-            }
-
-            for(int emptySeat = 0; emptySeat < 4; emptySeat++)
-            {
-                GameObject b = Instantiate(emptySeatPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                b.transform.SetParent(_content);
-                b.transform.localScale = new Vector3(1f, 1f, 1f);
-            }
+            Debug.Log("Player Prefab instantiated for  Player :" + _playerList[i].NickName);
         }
+
+
+        
+
+        //CleanList();
+
+        //if (PhotonNetwork.CurrentRoom.Players.Count > 0)
+        //{
+        //    foreach(KeyValuePair<int, Photon.Realtime.Player> kvp in (PhotonNetwork.CurrentRoom.Players))
+        //    {
+        //        GameObject a = PhotonNetwork.Instantiate("PlayerLobby", new Vector3(0, 0, 0), Quaternion.identity);
+        //        a.transform.SetParent(_content);
+        //        PlayerInfo listing = a.GetComponent<PlayerInfo>();
+
+        //        listing.SetPlayerInfo(kvp.Value);
+        //        _listing.Add(listing);
+
+        //        a.transform.localScale = new Vector3(1f, 1f, 1f);
+        //        a.GetComponent<Image>().color = playerColor[_listing.Count - 1];
+        //    }
+
+            //for(int emptySeat = 0; emptySeat < 4; emptySeat++)
+            //{
+            //    GameObject b = Instantiate(emptySeatPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            //    b.transform.SetParent(_content);
+            //    b.transform.localScale = new Vector3(1f, 1f, 1f);
+            //}
+
+
+        
     }
 
 
@@ -131,66 +152,66 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
 
     #region PLAYER JOIN AND LEFT CALLBACKS
 
-    [SerializeField]
-    private Transform _content;
-    [SerializeField]
-    private PlayerInfo playerListPrefab;
 
-    private List<PlayerInfo> _listing = new List<PlayerInfo>();
+    //private List<PlayerInfo> _listing = new List<PlayerInfo>();
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)
     {
         Debug.Log($"player {newPlayer.NickName} entered the room");        
         Debug.Log("Current Players in the Room(Photon)" + PhotonNetwork.CurrentRoom.PlayerCount);
-        
-        CleanList();
 
-        // Reinstantiate the Player list prefab whenever a player joins
-        if (PhotonNetwork.CurrentRoom.Players.Count > 0)
-        {
-            foreach (KeyValuePair<int, Photon.Realtime.Player> kvp in (PhotonNetwork.CurrentRoom.Players))
-            {
-                GameObject a = PhotonNetwork.Instantiate("PlayerLobby", new Vector3(0, 0, 0), Quaternion.identity);
-                a.transform.localScale = new Vector3(1f, 1f, 1f);
-                a.transform.SetParent(_content);
-                PlayerInfo listing = a.GetComponent<PlayerInfo>();
+        Instantiate(playerLobbyPrefab, _content).GetComponent<PlayerInfo>().SetPlayerInfo(newPlayer);
 
-                listing.SetPlayerInfo(kvp.Value);
-                _listing.Add(listing);
-            }
+        //CleanList();
 
-            for(int emptySeat = 0; emptySeat < 4; emptySeat++)
-            {
-                GameObject b = Instantiate(emptySeatPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-                b.transform.localScale = new Vector3(1f, 1f, 1f);
-                b.transform.SetParent(_content);
-            }
-        }
+        //// Reinstantiate the Player list prefab whenever a player joins
+        //if (PhotonNetwork.CurrentRoom.Players.Count > 0)
+        //{
+        //    foreach (KeyValuePair<int, Photon.Realtime.Player> kvp in (PhotonNetwork.CurrentRoom.Players))
+        //    {
+        //        GameObject a = PhotonNetwork.Instantiate("PlayerLobby", new Vector3(0, 0, 0), Quaternion.identity);
+        //        a.transform.localScale = new Vector3(1f, 1f, 1f);
+        //        a.transform.SetParent(_content);
+        //        PlayerInfo listing = a.GetComponent<PlayerInfo>();
+
+        //        listing.SetPlayerInfo(kvp.Value);
+        //        _listing.Add(listing);
+        //    }
+
+        //    for(int emptySeat = 0; emptySeat < 4; emptySeat++)
+        //    {
+        //        GameObject b = Instantiate(emptySeatPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        //        b.transform.localScale = new Vector3(1f, 1f, 1f);
+        //        b.transform.SetParent(_content);
+        //    }
+        //}
+
+
     }
 
-    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
-    {
-        // To destroy the Player prefab from the player list in the lobby
-        int index = _listing.FindIndex(x => x.Player == otherPlayer);
-        if (index != -1)
-        {
-            Destroy(_listing[index].gameObject);
-            _listing.RemoveAt(index);
-        }
-    }
+    //public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    //{
+    //    // To destroy the Player prefab from the player list in the lobby
+    //    int index = _listing.FindIndex(x => x.Player == otherPlayer);
+    //    if (index != -1)
+    //    {
+    //        Destroy(_listing[index].gameObject);
+    //        _listing.RemoveAt(index);
+    //    }
+    //}
 
     // Clean the player list and its child
-    private void CleanList()
-    {
-        _listing.Clear();
-        if (_content.transform.childCount > 0)
-        {
-            for(int i=0;i< _content.transform.childCount; i++)
-            {
-                Destroy(_content.transform.GetChild(i).gameObject);
-            }
-        }
-    }
+    //private void CleanList()
+    //{
+    //    _listing.Clear();
+    //    if (_content.transform.childCount > 0)
+    //    {
+    //        for(int i=0;i< _content.transform.childCount; i++)
+    //        {
+    //            Destroy(_content.transform.GetChild(i).gameObject);
+    //        }
+    //    }
+    //}
     #endregion
 
     #region ON SELECT - START BUTTON - RPC TO START LOAD MAIN GAME 

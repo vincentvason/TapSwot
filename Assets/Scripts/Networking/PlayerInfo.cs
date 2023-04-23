@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using UnityEngine.SceneManagement;
 using TMPro;
 
-public class PlayerInfo : MonoBehaviour
+public class PlayerInfo : MonoBehaviourPunCallbacks
 {
     public Photon.Realtime.Player Player { get; private set; }
 
@@ -18,4 +17,16 @@ public class PlayerInfo : MonoBehaviour
         _nickname.text = player.NickName;
     }
 
+    public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+    {
+        if (Player == otherPlayer)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    public override void OnLeftRoom()
+    {
+        Destroy(gameObject);
+    }
 }
