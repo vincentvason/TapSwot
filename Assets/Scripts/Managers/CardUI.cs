@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 //IPointerEnterHandler, IPointerExitHandler, 
 public class CardUI : MonoBehaviour, IPointerClickHandler
@@ -45,21 +46,29 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
 
     public void CheckParentAndSetBackCard()
     {
-        if (transform.parent != null)
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO || CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_ONE ||
+            CardGameManager.instance.GetGameState() == GameStateEnum.SETUP)
         {
-            if (transform.parent.parent != null)
+            if (transform.parent != null)
             {
-                //to-do add round check
-                if (transform.parent.parent.name == "DiscardedCardsScroll" || transform.parent.parent.name == "RemainingCardsScroll")
+                if (transform.parent.parent != null)
                 {
-                    EnableBackCard();
-                }
-                else if (transform.parent.parent.name == "Card1" || transform.parent.parent.name == "Card2" || transform.parent.parent.name == "Card3" || transform.parent.parent.name == "Card4" ||
-                    transform.parent.parent.name == "Card5")
-                {
-                    DisableBackCard();
+                    //to-do add round check
+                    if (transform.parent.parent.name == "DiscardedCardsScroll" || transform.parent.parent.name == "RemainingCardsScroll")
+                    {
+                        EnableBackCard();
+                    }
+                    else if (transform.parent.parent.name == "Card1" || transform.parent.parent.name == "Card2" || transform.parent.parent.name == "Card3" || transform.parent.parent.name == "Card4" ||
+                        transform.parent.parent.name == "Card5")
+                    {
+                        DisableBackCard();
+                    }
                 }
             }
+        }
+        else
+        {
+            EnableBackCard();
         }
     }
 
@@ -75,6 +84,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
 
     private void Update()
     {
+        //to-do this is not working
         if (rankDropdown != null)
         {
             if (gameObject.transform.parent.parent.name == "RemainingCardsScroll" ||
@@ -82,20 +92,57 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
             {
                 rankDropdown.enabled = false;
             }
-            else
+            if(gameObject.transform.parent.parent.name == "Card1" ||
+                gameObject.transform.parent.parent.name == "Card2" ||
+                gameObject.transform.parent.parent.name == "Card3" ||
+                gameObject.transform.parent.parent.name == "Card4" ||
+                gameObject.transform.parent.parent.name == "Card5")
             {
-                if (rankDropdown.enabled) return;                
-                if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO ||
-                    CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO_END)
+                if (CardGameManagerUI.instance.cardRankingAndActions_1.activeInHierarchy)
                 {
-                    rankDropdown.enabled = true;
+                    if (rankDropdown.enabled) { return; }
+                    else
+                    {
+                        rankDropdown.enabled = true;
+                    }
+                }
+                else
+                {
+                    rankDropdown.enabled = false;
                 }
             }
         }
     }
+
+
+    public void EnableAllRanks()
+    {
+        var toggles = rankDropdown.gameObject.transform.Find("Dropdown List").GetComponentsInChildren<Toggle>();
+        foreach (var toggle in toggles)
+        {
+            if(toggle.name== "Item") { toggle.interactable = false; toggle.gameObject.SetActive(false); }
+            toggle.interactable = true;            
+        }
+    }
+
+    public void DisableOneRank(int value)
+    {
+        string optionTextToDeactivate = "Item 1: " + value.ToString();
+        var toggles = rankDropdown.gameObject.transform.Find("Dropdown List").GetComponentsInChildren<Toggle>();
+        foreach (var toggle in toggles)
+        {
+            if (toggle.name == "Item") { toggle.interactable = false; toggle.gameObject.SetActive(false); }
+            if (toggle.name == optionTextToDeactivate)
+            {
+                toggle.interactable = false;
+            }
+        }
+    }
+
     public void OnRankChanged(int value)
     {
         //send RPC of player, cardID, and rank value
+        PlayerManager.instance.myPlayer.SetCardRank(this, value);
     }
 
     public void InitializeFullCard(CardSO card)

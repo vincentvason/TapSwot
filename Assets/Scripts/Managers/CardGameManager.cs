@@ -96,6 +96,8 @@ public class CardGameManager : MonoBehaviourPunCallbacks
                 RoundTwoAllPlayersPlayed = true;
                 //This round 2 also has ended. now its timr to hide discarded cards and
                 //show all players card on table with their ranks
+                PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_THREE.ToString());
+                PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
             }
         }
     }

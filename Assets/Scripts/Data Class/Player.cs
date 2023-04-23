@@ -338,6 +338,24 @@ public class Player : MonoBehaviour
         }
     }
 
+    public Dictionary<int, CardUI> SetRanks = new Dictionary<int, CardUI>();
+    public void SetCardRank(CardUI cardUI, int value)
+    {
+        if (!SetRanks.ContainsKey(value))
+        {
+            SetRanks.Add(value, cardUI);
+        }
+
+        foreach(CardUI c in cardsUI)
+        {
+            if(c!= cardUI)
+            {
+                c.EnableAllRanks();
+                c.DisableOneRank(value);
+            }
+        }
+    }
+
     public void ReceiveShuffledCards(string c1, string c2, string c3, string c4, string c5)
     {
         cardIds.Add(c1);

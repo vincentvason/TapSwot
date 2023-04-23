@@ -197,9 +197,6 @@ public class PlayerManager : MonoBehaviour
             case "ROUND_TWO":
                 CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_TWO);
                 break;
-            case "ROUND_TWO_END":
-                CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_TWO_END);
-                break;
             case "ROUND_THREE":
                 CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_THREE);
                 break;

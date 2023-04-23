@@ -109,14 +109,10 @@ public class CardGameManagerUI : MonoBehaviour
                 CurrentRoundText.text = "Stage 3";//ranking + select from pile
                 cardRankingAndActions_1.SetActive(true);
                 cardRankingAndActions_2.SetActive(true);
-                remaingingDeckGameObject.SetActive(false);
-                //maybe we dont need below stage? 
-                break;
-            case GameStateEnum.ROUND_TWO_END:
-                CurrentRoundText.text = "Stage 3"; //rankin + select from discarded pile + joker(new card)
+                remaingingDeckGameObject.SetActive(false); //rankin + select from discarded pile                                                           
                 break;
             case GameStateEnum.ROUND_THREE:
-                CurrentRoundText.text = "Stage 4"; //voting
+                CurrentRoundText.text = "Stage 4"; // joker(new card) + voting
                 break;
             case GameStateEnum.ROUND_FOUR:
                 CurrentRoundText.text = "Stage 5 & 6";
