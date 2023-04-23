@@ -19,6 +19,8 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
     [HeaderAttribute("For Full Card")]
     public TextMeshProUGUI CardBrief;
 
+    public GameObject BackCard;
+
     public void Initialize(CardSO card)
     {
         this.card = card;
@@ -32,6 +34,43 @@ public class CardUI : MonoBehaviour, IPointerClickHandler
             rankDropdown.value = card.cardRank;
             DisableRankDropdown();
         }
+        if (transform.parent != null)
+        {
+            if (transform.parent.parent != null)
+            {
+                CheckParentAndSetBackCard();
+            }
+        }
+    }
+
+    public void CheckParentAndSetBackCard()
+    {
+        if (transform.parent != null)
+        {
+            if (transform.parent.parent != null)
+            {
+                //to-do add round check
+                if (transform.parent.parent.name == "DiscardedCardsScroll" || transform.parent.parent.name == "RemainingCardsScroll")
+                {
+                    EnableBackCard();
+                }
+                else if (transform.parent.parent.name == "Card1" || transform.parent.parent.name == "Card2" || transform.parent.parent.name == "Card3" || transform.parent.parent.name == "Card4" ||
+                    transform.parent.parent.name == "Card5")
+                {
+                    DisableBackCard();
+                }
+            }
+        }
+    }
+
+    public void EnableBackCard()
+    {
+        BackCard.SetActive(true);
+    }
+
+    public void DisableBackCard()
+    {
+        BackCard.SetActive(false);
     }
 
     private void Update()

@@ -145,6 +145,7 @@ public class Player : MonoBehaviour
                 DisableMyPlayerUI();
                 cardAddedBackToSlot = true;
                 string id = droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString();
+                droppedStruct.DroppedObject.GetComponent<CardUI>().CheckParentAndSetBackCard();
                 Debug.Log("card dropped in slot 1, card id :" + id);
                 PlayerManager.instance.SendPlayerCardChanged(this.playerID.ToString(), "0", id); //if card is added to slot, turn is complete
             }
@@ -161,6 +162,7 @@ public class Player : MonoBehaviour
                 DisableMyPlayerUI();
                 cardAddedBackToSlot = true;
                 string id = droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString();
+                droppedStruct.DroppedObject.GetComponent<CardUI>().CheckParentAndSetBackCard();
                 Debug.Log("card dropped in slot 2, card id :" + id);
                 PlayerManager.instance.SendPlayerCardChanged(this.playerID.ToString(), "1", id); //if card is added to slot, turn is complete
             }
@@ -177,6 +179,7 @@ public class Player : MonoBehaviour
                 DisableMyPlayerUI();
                 cardAddedBackToSlot = true;
                 string id = droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString();
+                droppedStruct.DroppedObject.GetComponent<CardUI>().CheckParentAndSetBackCard();
                 Debug.Log("card dropped in slot 3, card id :" + id);
                 PlayerManager.instance.SendPlayerCardChanged(this.playerID.ToString(), "2", id); //if card is added to slot, turn is complete
             }
@@ -193,6 +196,7 @@ public class Player : MonoBehaviour
                 DisableMyPlayerUI();
                 cardAddedBackToSlot = true;
                 string id = droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString();
+                droppedStruct.DroppedObject.GetComponent<CardUI>().CheckParentAndSetBackCard();
                 Debug.Log("card dropped in slot 4, card id :" + id);
                 PlayerManager.instance.SendPlayerCardChanged(this.playerID.ToString(), "3", id); //if card is added to slot, turn is complete
             }
@@ -209,6 +213,7 @@ public class Player : MonoBehaviour
                 DisableMyPlayerUI();
                 cardAddedBackToSlot = true;
                 string id = droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString();
+                droppedStruct.DroppedObject.GetComponent<CardUI>().CheckParentAndSetBackCard();
                 Debug.Log("card dropped in slot 5, card id :" + id);
                 PlayerManager.instance.SendPlayerCardChanged(this.playerID.ToString(), "4", id); //if card is added to slot, turn is complete
             }
@@ -220,6 +225,8 @@ public class Player : MonoBehaviour
     {
         if (droppedStruct.ToList != null && droppedStruct.ToList.name == "DiscardedCardsScroll") //added in discarded scroll
         {
+            droppedStruct.DroppedObject.GetComponent<CardUI>().CheckParentAndSetBackCard();
+
             //added from players cards slot
             if (droppedStruct.FromList != null && droppedStruct.FromList.name == "Card1" || droppedStruct.FromList.name == "Card2" || droppedStruct.FromList.name == "Card3"
                 || droppedStruct.FromList.name == "Card4" || droppedStruct.FromList.name == "Card5")
@@ -243,8 +250,10 @@ public class Player : MonoBehaviour
     {
         if (droppedStruct.ToList != null && droppedStruct.ToList.name == "DiscardedCardsScroll") //added in discarded scroll
         {
+            droppedStruct.DroppedObject.GetComponent<CardUI>().CheckParentAndSetBackCard();
+
             //added from players cards slot
-            if(droppedStruct.FromList!=null && droppedStruct.FromList.name == "Card1" || droppedStruct.FromList.name == "Card2" || droppedStruct.FromList.name == "Card3"
+            if (droppedStruct.FromList!=null && droppedStruct.FromList.name == "Card1" || droppedStruct.FromList.name == "Card2" || droppedStruct.FromList.name == "Card3"
                 || droppedStruct.FromList.name == "Card4" || droppedStruct.FromList.name == "Card5")
             {
                 PlayerManager.instance.Send_AddToDiscardedCards(droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString());
@@ -267,6 +276,8 @@ public class Player : MonoBehaviour
     {
         if (droppedStruct.ToList != null && droppedStruct.ToList.name == "RemainingCardsScroll") //added in discarded scroll
         {
+            droppedStruct.DroppedObject.GetComponent<CardUI>().CheckParentAndSetBackCard();
+
             //added from players cards slot
             if (droppedStruct.FromList != null && droppedStruct.FromList.name == "Card1" || droppedStruct.FromList.name == "Card2" || droppedStruct.FromList.name == "Card3"
                 || droppedStruct.FromList.name == "Card4" || droppedStruct.FromList.name == "Card5")
@@ -289,6 +300,8 @@ public class Player : MonoBehaviour
     {
         if (droppedStruct.ToList != null && droppedStruct.ToList.name == "RemainingCardsScroll") //added in discarded scroll
         {
+            droppedStruct.DroppedObject.GetComponent<CardUI>().CheckParentAndSetBackCard();
+
             //added from players cards slot
             if (droppedStruct.FromList != null && droppedStruct.FromList.name == "Card1" || droppedStruct.FromList.name == "Card2" || droppedStruct.FromList.name == "Card3"
                 || droppedStruct.FromList.name == "Card4" || droppedStruct.FromList.name == "Card5")
@@ -317,8 +330,11 @@ public class Player : MonoBehaviour
         cardIds[slot] = cardId;
         if (this == PlayerManager.instance.myPlayer)
         {
-            cardsUI[slot].card = card;
-            cardsUI[slot].Initialize(card);
+            if(cardsUI[slot] != null)
+            {
+                cardsUI[slot].card = card;
+                cardsUI[slot].Initialize(card);
+            }
         }
     }
 
