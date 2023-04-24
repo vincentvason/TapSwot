@@ -18,8 +18,8 @@ public class Lobby : MonoBehaviourPunCallbacks
     public void RoomCreate()
     {
         roomName.text = PhotonNetwork.CurrentRoom.Name;
-        displayTimeLimit.text = timeLimit.text;
-
+        displayTimeLimit.text = PhotonNetwork.CurrentRoom.CustomProperties["TIME_LIMIT"].ToString();
+      
     }
 
 

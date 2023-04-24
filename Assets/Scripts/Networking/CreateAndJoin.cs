@@ -6,6 +6,7 @@ using Photon.Pun;
 using UnityEngine.SceneManagement;
 using TMPro;
 using Photon.Realtime;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 using System.Linq;
 
 public class CreateAndJoin : MonoBehaviourPunCallbacks
@@ -21,7 +22,6 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
 
     public Lobby lobby;
 
-    public GameObject emptySeatPrefab;
     public GameObject playerLobbyPrefab;
     public GameObject LobbyWaitingWindow;
 
@@ -66,7 +66,21 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
     {
         if(createInput.text.Length>=1)
         {
-            PhotonNetwork.CreateRoom(createInput.text, new RoomOptions() { MaxPlayers=4, IsVisible=true, IsOpen=true},TypedLobby.Default,null );
+            RoomOptions roomOptions = new RoomOptions()
+            {
+                MaxPlayers = 4,
+                IsVisible = true,
+                IsOpen = true
+
+            };
+
+            Hashtable roomCustomProps = new Hashtable();
+            roomCustomProps.Add("TIME_LIMIT", lobby.timeLimit.text.ToString());
+
+            roomOptions.CustomRoomProperties = roomCustomProps;
+            
+
+            PhotonNetwork.CreateRoom(createInput.text, roomOptions);
            
             Debug.Log("Multiplayer Lobby succesfully created: " + createInput.text);
         }
