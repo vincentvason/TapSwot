@@ -73,9 +73,9 @@ public class SceneTransition : MonoBehaviour
         DOTween.KillAll();
         bg.anchoredPosition = new Vector2(0,0f);
         mascot.anchoredPosition = new Vector2(-1120f,0f);
-        iconT.color = new Color32(255,255,255,255);
-        iconT.color = new Color32(255,255,255,255);
-        iconT.color = new Color32(255,255,255,255);
+        iconS.color = new Color32(255,255,255,255);
+        iconW.color = new Color32(255,255,255,255);
+        iconO.color = new Color32(255,255,255,255);
         iconT.color = new Color32(255,255,255,255);
 
         Debug.Log("End Scene Transition");
