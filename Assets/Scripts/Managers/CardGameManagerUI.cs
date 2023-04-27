@@ -38,7 +38,9 @@ public class CardGameManagerUI : MonoBehaviour
 
     public GameObject RoundOne, RoundTwo, RoundTwoEnd, RoundThree;
     public GameObject StageThreeItsYourTurn, StageThreeWaitForTurn;
-    public GameObject CardsRemaining, AlLCards;
+    public GameObject CardsRemaining, AlLCards, DiscardedInVoting, CardWithLabel,Prompt;
+
+    public GameObject VotingCardPrefab;
 
     private void Awake()
     {
@@ -193,6 +195,7 @@ public class CardGameManagerUI : MonoBehaviour
                 //there will be a separate discarded scrollview for voting stage and separate list
                 CardsRemaining.SetActive(true);
                 AlLCards.SetActive(true);
+                DiscardedInVoting.SetActive(true);
 
                 CardManager.instance.CreateCardsForVotingDiscard();
 
@@ -201,6 +204,27 @@ public class CardGameManagerUI : MonoBehaviour
                 CurrentRoundText.text = "Stage 5 & 6";
                 break;
         }
+    }
+
+    public GameObject selectedSmallVotingCard = null;
+    public Transform DiscardScrollPosition;
+    public Transform DiscardScrollContent;
+    public Transform MainCanvas;
+
+
+    public void ShowFullCardForDecision(CardSO card, GameObject cardGameObject)
+    {
+        if(CardGameManager.instance.GetPlayerNameFromTurn() == PlayerManager.instance.myPlayer.playerName)
+        {
+            Prompt.SetActive(true);
+            selectedSmallVotingCard = cardGameObject;
+        }
+        else
+        {
+            Prompt.SetActive(false);
+        }
+        CardWithLabel.SetActive(true);
+        CardWithLabel.transform.GetChild(0).GetComponent<CardUI>().InitializeFullCard(card);
     }
 
     public void ShowFullCard(CardSO card)

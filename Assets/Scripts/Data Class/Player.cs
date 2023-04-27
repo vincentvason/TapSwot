@@ -401,18 +401,32 @@ public class Player : MonoBehaviour
     {
         if (this == PlayerManager.instance.myPlayer)
         {
-            DisableDragOnAllCardSlots();
-            CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = false;
-            CardGameManagerUI.instance.DiscardedDeckScroll.IsDraggable = false;
+            if(CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
+            {
+
+            }
+            else
+            {
+                DisableDragOnAllCardSlots();
+                CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = false;
+                CardGameManagerUI.instance.DiscardedDeckScroll.IsDraggable = false;
+            }
         }
     }
     public void EnableMyPlayerUI()
     {
         if (this == PlayerManager.instance.myPlayer)
         {
-            EnableDragOnAllCardSlots(); //only enable drag on slots when it is my turn
-            CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = true;
-            CardGameManagerUI.instance.DiscardedDeckScroll.IsDraggable = true;
+            if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
+            {
+
+            }
+            else
+            {
+                EnableDragOnAllCardSlots(); //only enable drag on slots when it is my turn
+                CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = true;
+                CardGameManagerUI.instance.DiscardedDeckScroll.IsDraggable = true;
+            }
         }
     }
 

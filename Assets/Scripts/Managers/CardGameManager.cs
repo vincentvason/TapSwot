@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Photon.Pun;
 using System;
 using System.Collections;
@@ -138,5 +139,42 @@ public class CardGameManager : MonoBehaviourPunCallbacks
             PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
             startCountingRoundTwoPLayers = true;
         }
+    }
+
+
+    public void DiscardSelectedCardVoting()
+    {
+        if (CardGameManagerUI.instance.selectedSmallVotingCard != null)
+        {
+            //instantiatte voting card 
+            //set values from selectedSmallVotingCard
+            GameObject animatedCard = Instantiate(CardGameManagerUI.instance.selectedSmallVotingCard);
+            animatedCard.transform.SetParent(CardGameManagerUI.instance.MainCanvas);
+            animatedCard.SetActive(true);
+
+            CopyRectTransformSize(CardGameManagerUI.instance.selectedSmallVotingCard.GetComponent<RectTransform>(), animatedCard.GetComponent<RectTransform>());
+
+            CardGameManagerUI.instance.selectedSmallVotingCard.SetActive(false);//maybe destroy?
+
+            //also send RPC
+            //add cardso information to discarded list
+            animatedCard.transform.DOMove(CardGameManagerUI.instance.DiscardScrollPosition.position, 2.5f, false).OnComplete(() =>
+            animatedCard.transform.SetParent(CardGameManagerUI.instance.DiscardScrollContent)
+            ).SetEase(Ease.Flash);
+
+            //set active false prompt 
+
+            //change turn
+            CardGameManagerUI.instance.Prompt.SetActive(false);
+            //set null// CardGameManagerUI.instance.selectedSmallVotingCard
+        }
+    }
+
+    void CopyRectTransformSize(RectTransform copyFrom, RectTransform copyTo)
+    {
+        copyTo.anchorMin = copyFrom.anchorMin;
+        copyTo.anchorMax = copyFrom.anchorMax;
+        copyTo.anchoredPosition = copyFrom.anchoredPosition;
+        copyTo.sizeDelta = copyFrom.sizeDelta;
     }
 }

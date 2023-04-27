@@ -124,9 +124,25 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         BackCard.SetActive(false);
     }
     int myHierarchy = 0;
+    private bool isFullCard = false;
+
+    private bool CheckForCardAndCanvasParent()
+    {
+        bool b = false;
+        string name = gameObject.transform.parent.name.ToLower();
+        if(name.Contains("card") || name.Contains("top canvas"))
+        {
+            b = true;
+        }
+        return b;
+    }
+
     private void Update()
     {
-        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
+        if (gameObject.transform.parent == null) return;
+
+        if (isFullCard) { rankDropdown.enabled = false; }
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE && !isFullCard && CheckForCardAndCanvasParent())
         {
             if (canvas == null)
             {
@@ -180,6 +196,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     public void InitializeFullCard(CardSO card)
     {
+        isFullCard = true;
         this.card = card;
         cardTitle.text = "<font-weight=800>" + card.cardTitle;
         cardDescription.text = card.cardDescription;
@@ -251,7 +268,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
             if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
             {
-                CardGameManagerUI.instance.ShowFullCard(this.card);
+                CardGameManagerUI.instance.ShowFullCardForDecision(this.card, this.gameObject);
             }
         }
     }
