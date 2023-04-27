@@ -228,6 +228,25 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void SendDiscardCardVoting()
+    {
+        Debug.Log("SendDiscardCardVoting");
+        GameObject c = CardGameManagerUI.instance.selectedSmallVotingCard;
+        string id = c.transform.parent.name;
+        id = id.Replace("Card", "");
+        Debug.Log("SendDiscardCardVoting id " + id);
+
+        gameObject.GetComponent<PhotonView>().RPC("ReceiveDiscardCardVoting", RpcTarget.All, id);
+    }
+
+    [PunRPC]
+    public void ReceiveDiscardCardVoting(string id)
+    {
+        int i = 0;
+        int.TryParse(id, out i);
+        CardGameManager.instance.DiscardSelectedCardVotingAnimation(i);
+    }
+
     public void SendRoundRPC(string round)
     {
         gameObject.GetComponent<PhotonView>().RPC("ReceiveRound", RpcTarget.All, round);

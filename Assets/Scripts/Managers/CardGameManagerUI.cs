@@ -199,6 +199,12 @@ public class CardGameManagerUI : MonoBehaviour
 
                 CardManager.instance.CreateCardsForVotingDiscard();
 
+                DisableAllHelperEmojisOfRoundOne();
+
+                StageThreeItsYourTurn.SetActive(false);
+                StageThreeWaitForTurn.SetActive(false);
+                PlayerTurnText.text = "";
+
                 break;
             case GameStateEnum.ROUND_FOUR:
                 CurrentRoundText.text = "Stage 5 & 6";
@@ -209,7 +215,6 @@ public class CardGameManagerUI : MonoBehaviour
     public GameObject selectedSmallVotingCard = null;
     public Transform DiscardScrollPosition;
     public Transform DiscardScrollContent;
-    public Transform MainCanvas;
 
 
     public void ShowFullCardForDecision(CardSO card, GameObject cardGameObject)

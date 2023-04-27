@@ -120,7 +120,7 @@ public class CardManager : MonoBehaviour
             a.GetComponent<CardUI>().Initialize(discardedCards[i]);
         }
     }
-
+    public int votingCardsCOunt = 0;
     public void CreateCardsForVotingDiscard()
     {
         List<CardSO> cardsToIns = new List<CardSO>();
@@ -144,6 +144,8 @@ public class CardManager : MonoBehaviour
             a.GetComponent<CardUI>().DisableBackCard();
             a.GetComponent<CardUI>().ShowRanking();
         }
+        votingCardsCOunt = PlayerManager.instance.ReceivedCardsFromAllPlayersAfterRanking.Count;
+        CardGameManagerUI.instance.CardsRemaining.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = votingCardsCOunt.ToString();
 
     }
 

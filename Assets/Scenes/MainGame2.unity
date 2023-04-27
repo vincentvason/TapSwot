@@ -20775,9 +20775,9 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 500471800}
   - {fileID: 940967651}
   - {fileID: 941083163}
+  - {fileID: 500471800}
   - {fileID: 1350331566}
   - {fileID: 1390768040}
   - {fileID: 1316716972}
@@ -29473,6 +29473,7 @@ MonoBehaviour:
   card: {fileID: 244837630797399863, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
   discardedCards: []
   VotingRoundDiscardedCards: []
+  votingCardsCOunt: 0
 --- !u!114 &1571808898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29601,7 +29602,6 @@ MonoBehaviour:
   selectedSmallVotingCard: {fileID: 0}
   DiscardScrollPosition: {fileID: 941083163}
   DiscardScrollContent: {fileID: 472926344}
-  MainCanvas: {fileID: 396764703}
 --- !u!114 &1571808901
 MonoBehaviour:
   m_ObjectHideFlags: 0

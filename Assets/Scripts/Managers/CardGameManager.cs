@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardGameManager : MonoBehaviourPunCallbacks
 {
@@ -78,29 +79,40 @@ public class CardGameManager : MonoBehaviourPunCallbacks
         }
         CardGameManagerUI.instance.UpdatePlayerTurnText();
 
-        //SendRPC here to update turn of player
-        PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
-        if (!CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
-        {
-            CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
-        }
+        
 
-        if (startCountingRoundTwoPLayers)
+        if(currentGameState == GameStateEnum.ROUND_THREE)
         {
-            if (!CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
+            PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
+        }
+        else
+        {   //SendRPC here to update turn of player
+            PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
+
+            if (!CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
             {
-                CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
+                CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
             }
 
-            if (ROUND_TWO_PlayersThatHaveTakenTurn.Count == PlayerManager.instance.GetCurrentPlayersList().Count)
+            if (startCountingRoundTwoPLayers)
             {
-                RoundTwoAllPlayersPlayed = true;
-                //This round 2 also has ended. now its timr to hide discarded cards and
-                //show all players card on table with their ranks
-                PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_THREE.ToString());
-                PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
+                if (!CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
+                {
+                    CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
+                }
+
+                if (ROUND_TWO_PlayersThatHaveTakenTurn.Count == PlayerManager.instance.GetCurrentPlayersList().Count)
+                {
+                    RoundTwoAllPlayersPlayed = true;
+                    //This round 2 also has ended. now its timr to hide discarded cards and
+                    //show all players card on table with their ranks
+                    PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_THREE.ToString());
+                    PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
+                }
             }
         }
+
+        
     }
 
     public void UpdateTurnValueFromRPC(string _currentTurn)
@@ -141,40 +153,55 @@ public class CardGameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    void UpdateAnimationCard(GameObject animatedCard)
+    {
+        animatedCard.transform.SetParent(CardGameManagerUI.instance.DiscardScrollContent);
+        animatedCard.GetComponent<LayoutElement>().ignoreLayout = false;
+
+    }
+
 
     public void DiscardSelectedCardVoting()
     {
-        if (CardGameManagerUI.instance.selectedSmallVotingCard != null)
+        PlayerManager.instance.SendDiscardCardVoting();
+    }
+
+    public void DiscardSelectedCardVotingAnimation(int id)
+    {
+        GameObject actualCard = CardGameManagerUI.instance.VotingCardHolders[id - 1].GetChild(0).gameObject;
+
+        if (actualCard != null)
         {
             //instantiatte voting card 
             //set values from selectedSmallVotingCard
-            GameObject animatedCard = Instantiate(CardGameManagerUI.instance.selectedSmallVotingCard);
-            animatedCard.transform.SetParent(CardGameManagerUI.instance.MainCanvas);
+            GameObject animatedCard = actualCard;
             animatedCard.SetActive(true);
-
-            CopyRectTransformSize(CardGameManagerUI.instance.selectedSmallVotingCard.GetComponent<RectTransform>(), animatedCard.GetComponent<RectTransform>());
-
-            CardGameManagerUI.instance.selectedSmallVotingCard.SetActive(false);//maybe destroy?
-
+            
             //also send RPC
             //add cardso information to discarded list
-            animatedCard.transform.DOMove(CardGameManagerUI.instance.DiscardScrollPosition.position, 2.5f, false).OnComplete(() =>
-            animatedCard.transform.SetParent(CardGameManagerUI.instance.DiscardScrollContent)
+            animatedCard.transform.DOMove(CardGameManagerUI.instance.DiscardScrollPosition.position, 2.5f, false)
+            .OnStart(()=>
+            animatedCard.GetComponent<LayoutElement>().ignoreLayout = true
+            )
+            .OnComplete(() =>
+                UpdateAnimationCard(animatedCard)                
             ).SetEase(Ease.Flash);
-
             //set active false prompt 
 
             //change turn
             CardGameManagerUI.instance.Prompt.SetActive(false);
             //set null// CardGameManagerUI.instance.selectedSmallVotingCard
+            CardGameManagerUI.instance.selectedSmallVotingCard = null;
+            UpdateTurn();
+            CardManager.instance.votingCardsCOunt--;
+            CardGameManagerUI.instance.CardsRemaining.transform.GetChild(0).GetComponent<TMPro.TextMeshProUGUI>().text = CardManager.instance.votingCardsCOunt.ToString();
+            if (CardManager.instance.votingCardsCOunt < 6)
+            {
+                //last 5 cards left
+                Debug.Log("last 5 cards left");
+            }
+
         }
     }
 
-    void CopyRectTransformSize(RectTransform copyFrom, RectTransform copyTo)
-    {
-        copyTo.anchorMin = copyFrom.anchorMin;
-        copyTo.anchorMax = copyFrom.anchorMax;
-        copyTo.anchoredPosition = copyFrom.anchoredPosition;
-        copyTo.sizeDelta = copyFrom.sizeDelta;
-    }
 }

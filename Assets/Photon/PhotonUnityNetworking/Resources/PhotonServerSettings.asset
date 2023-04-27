@@ -54,6 +54,7 @@ MonoBehaviour:
   - ReceiveSend_AddToDiscardedCards
   - ReceiveRound
   - ReceiveCardsAndRankByPlayer
+  - ReceiveDiscardCardVoting
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0
