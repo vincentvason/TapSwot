@@ -153,6 +153,7 @@ public class CardShuffling : MonoBehaviour
                     
                 cardDraw.transform.DOScale(0f, drawDuration);
                 yield return new WaitForSeconds(drawDuration);
+                if(cardLeft> cardStack.Length) { Debug.Log("some issue cardLeft" + cardLeft); }
                 cardDraw.GetComponent<RectTransform>().anchoredPosition = cardStack[cardLeft].GetComponent<RectTransform>().anchoredPosition;
                 cardDraw.transform.localScale = new Vector3(1,1,1);
             }

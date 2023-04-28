@@ -27396,12 +27396,17 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4921461691007101573, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
   m_PrefabInstance: {fileID: 1429161372}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1429161375}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 188630528f35fb64b8259a1af104d43c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1429161375 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 244837630797399863, guid: 84032701b6e3e8a4ea630a1ded3e8ef2, type: 3}
+  m_PrefabInstance: {fileID: 1429161372}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1430442608
 GameObject:
   m_ObjectHideFlags: 0
@@ -41201,7 +41206,7 @@ PrefabInstance:
     - target: {fileID: 4257619064212706432, guid: 4177b23792098754f99cdee2516a60f6, type: 3}
       propertyPath: clientCard.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1429161375}
     - target: {fileID: 4257619064212706432, guid: 4177b23792098754f99cdee2516a60f6, type: 3}
       propertyPath: clientCard.Array.data[1]
       value: 

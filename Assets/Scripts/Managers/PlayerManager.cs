@@ -247,6 +247,12 @@ public class PlayerManager : MonoBehaviour
     {
         Debug.Log("SendDiscardCardVoting");
         GameObject c = CardGameManagerUI.instance.selectedSmallVotingCard;
+
+        if (c == null) { Debug.Log("c is null"); return; }
+        if (c.transform.parent == null) { Debug.Log("c.transform.parent is null"); return; }
+
+
+
         string id = c.transform.parent.name;
         id = id.Replace("Card", "");
         Debug.Log("SendDiscardCardVoting id " + id);

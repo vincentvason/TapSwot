@@ -224,14 +224,13 @@ public class CardGameManager : MonoBehaviourPunCallbacks
             GameObject animatedCard = fromCard;
             animatedCard.SetActive(true);
 
-            animatedCard.transform.DOMove(CardGameManagerUI.instance.DiscardScrollPosition.position, 2.5f, false)
+            animatedCard.transform.DOMove(CardGameManagerUI.instance.DiscardScrollPosition.position, 2.2f, false)
             .OnStart(() =>
             animatedCard.GetComponent<LayoutElement>().ignoreLayout = true
             )
             .OnComplete(() =>
                 UpdateAnimationCard(animatedCard)//CardGameManagerUI.instance.DiscardScrollContent
             ).SetEase(Ease.Flash);
-            CardGameManagerUI.instance.selectedSmallVotingCard = null;
         }
 
         
@@ -251,7 +250,6 @@ public class CardGameManager : MonoBehaviourPunCallbacks
             .OnComplete(() =>
                 UpdateDiscardAnimationToLeft(animatedCard, CardGameManagerUI.instance.VotingCardHolders[toReplace - 1])
             ).SetEase(Ease.Flash);
-            CardGameManagerUI.instance.selectedSmallVotingCard = null;
         }
 
         UpdateTurn();
@@ -261,6 +259,7 @@ public class CardGameManager : MonoBehaviourPunCallbacks
     {
         animatedCard.transform.SetParent(parent);
         animatedCard.GetComponent<LayoutElement>().ignoreLayout = false;
+        CardGameManagerUI.instance.selectedSmallVotingCard = null;
     }
 
     public bool lastStage = false;
