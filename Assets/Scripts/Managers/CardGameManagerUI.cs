@@ -207,6 +207,9 @@ public class CardGameManagerUI : MonoBehaviour
 
                 break;
             case GameStateEnum.ROUND_FOUR:
+                DiscardedInVoting.SetActive(false);
+                Prompt.SetActive(false);
+                CardWithLabel.SetActive(false);
                 CurrentRoundText.text = "Stage 5 & 6";
                 break;
         }
@@ -215,14 +218,17 @@ public class CardGameManagerUI : MonoBehaviour
     public GameObject selectedSmallVotingCard = null;
     public Transform DiscardScrollPosition;
     public Transform DiscardScrollContent;
-
+    public GameObject Information;
 
     public void ShowFullCardForDecision(CardSO card, GameObject cardGameObject)
     {
         if(CardGameManager.instance.GetPlayerNameFromTurn() == PlayerManager.instance.myPlayer.playerName)
         {
-            Prompt.SetActive(true);
-            selectedSmallVotingCard = cardGameObject;
+            if (!CardGameManager.instance.lastStage)
+            {
+                Prompt.SetActive(true);
+            }
+            if (cardGameObject.transform.parent.name.ToLower().Contains("card")) { selectedSmallVotingCard = cardGameObject; }
         }
         else
         {

@@ -123,6 +123,23 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     {
         BackCard.SetActive(false);
     }
+    public GameObject KeepCard;
+    public Button KeepCardButtton;
+
+    public void ShowKeepCardButtton()
+    {
+        if (KeepCard != null)
+        {
+            KeepCard.SetActive(true);
+        }
+        if (KeepCardButtton != null)
+        {
+            KeepCardButtton.onClick.AddListener(()=>
+                CardGameManager.instance.KeepCard(transform.GetSiblingIndex().ToString()));
+        }
+
+    }
+
     int myHierarchy = 0;
     private bool isFullCard = false;
 
@@ -141,7 +158,9 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     {
         if (gameObject.transform.parent == null) return;
 
-        if (isFullCard) { rankDropdown.enabled = false; }
+        if (isFullCard) {
+            if (rankDropdown != null) { rankDropdown.enabled = false; }            
+        }
         if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE && !isFullCard && CheckForCardAndCanvasParent())
         {
             if (canvas == null)

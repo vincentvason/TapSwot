@@ -1023,7 +1023,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 280, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2393997865321243616
 CanvasRenderer:
@@ -1091,6 +1091,8 @@ MonoBehaviour:
   CardBrief: {fileID: 0}
   BackCard: {fileID: 6933594443320217922}
   lastDropDownValue: 0
+  KeepCard: {fileID: 5216797767217885381}
+  KeepCardButtton: {fileID: 5216797767217885379}
 --- !u!114 &4509864923337929560
 MonoBehaviour:
   m_ObjectHideFlags: 0

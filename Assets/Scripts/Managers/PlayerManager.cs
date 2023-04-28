@@ -228,6 +228,21 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
+    public void SendKeepCardVoting(string idFromDiscard)
+    {
+        //only if this is my turn...
+        if (CardGameManager.instance.GetPlayerNameFromTurn() == PlayerManager.instance.myPlayer.playerName)
+        {
+            Debug.Log("SendKeepCardVoting");
+            GameObject c = CardGameManagerUI.instance.selectedSmallVotingCard;
+            string idToReplace = c.transform.parent.name;
+            idToReplace = idToReplace.Replace("Card", "");
+            Debug.Log("SendKeepCardVoting id " + idToReplace);
+
+            gameObject.GetComponent<PhotonView>().RPC("ReceiveKeepCardVoting", RpcTarget.All, idToReplace, idFromDiscard);
+        }
+    }
+
     public void SendDiscardCardVoting()
     {
         Debug.Log("SendDiscardCardVoting");
@@ -237,6 +252,18 @@ public class PlayerManager : MonoBehaviour
         Debug.Log("SendDiscardCardVoting id " + id);
 
         gameObject.GetComponent<PhotonView>().RPC("ReceiveDiscardCardVoting", RpcTarget.All, id);
+    }
+
+    [PunRPC]
+    public void ReceiveKeepCardVoting(string idToReplace, string idFromDiscard)
+    {
+        int i = 0;
+        int.TryParse(idToReplace, out i);
+
+        int j = 0;
+        int.TryParse(idFromDiscard, out j);
+
+        CardGameManager.instance.KeepCardAnimation(i,j);
     }
 
     [PunRPC]
