@@ -235,6 +235,7 @@ public class PlayerManager : MonoBehaviour
         {
             Debug.Log("SendKeepCardVoting");
             GameObject c = CardGameManagerUI.instance.selectedSmallVotingCard;
+            if(c== null) { Debug.Log("c is null"); return; }
             string idToReplace = c.transform.parent.name;
             idToReplace = idToReplace.Replace("Card", "");
             Debug.Log("SendKeepCardVoting id " + idToReplace);
