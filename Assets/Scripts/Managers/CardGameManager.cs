@@ -175,7 +175,7 @@ public class CardGameManager : MonoBehaviourPunCallbacks
         animatedCard.transform.SetParent(CardGameManagerUI.instance.DiscardScrollContent);
         animatedCard.GetComponent<LayoutElement>().ignoreLayout = false;
 
-        if (lastStage)
+        if (lastStage && !didOnce)
         {
             List<CardSO> carsSoLIst = new List<CardSO>();
             for (int i = 0; i < CardGameManagerUI.instance.DiscardScrollContent.childCount; i++)
@@ -196,6 +196,7 @@ public class CardGameManager : MonoBehaviourPunCallbacks
                 a.GetComponent<CardUI>().ShowRanking();
                 a.GetComponent<CardUI>().ShowKeepCardButtton();
             }
+            didOnce = true;
         }
     }
 
@@ -228,7 +229,7 @@ public class CardGameManager : MonoBehaviourPunCallbacks
             animatedCard.GetComponent<LayoutElement>().ignoreLayout = true
             )
             .OnComplete(() =>
-                UpdateAnimationCard(animatedCard)
+                UpdateAnimationCard(animatedCard)//CardGameManagerUI.instance.DiscardScrollContent
             ).SetEase(Ease.Flash);
             CardGameManagerUI.instance.selectedSmallVotingCard = null;
         }
@@ -262,7 +263,9 @@ public class CardGameManager : MonoBehaviourPunCallbacks
         animatedCard.GetComponent<LayoutElement>().ignoreLayout = false;
     }
 
-    public bool lastStage = false; 
+    public bool lastStage = false;
+    public bool didOnce = false;
+
     public void DiscardSelectedCardVotingAnimation(int id)
     {
         GameObject actualCard = CardGameManagerUI.instance.VotingCardHolders[id - 1].GetChild(0).gameObject;
