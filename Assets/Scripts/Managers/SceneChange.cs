@@ -39,7 +39,7 @@ public class SceneChange : MonoBehaviourPunCallbacks
 
     public void UpdateAvatarTextOnCreate()
     {
-        TapAvatarInfo.text = "Please enter a name for your room and indicate how much time you want for the game session.";
+        TapAvatarInfo.text = "Please enter a name for your room and indicate how much time you want for the game session";
     }
 
     public void UpdateAvatarTextOnJoin()
