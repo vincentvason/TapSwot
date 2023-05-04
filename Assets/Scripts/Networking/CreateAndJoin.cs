@@ -24,6 +24,7 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
 
     public GameObject playerLobbyPrefab;
     public GameObject LobbyWaitingWindow;
+    public GameObject StartGameBtn;
 
     [SerializeField]
     private Transform _content;
@@ -40,6 +41,9 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         StartCoroutine(mainMenu.OpenCreateJoinWindow());
         // LobbyCanvas.SetActive(false);
         StartCoroutine(mainMenu.CloseLobbyWaitingWindow());
+
+        //Enable Start Button only for the Host of the room
+     
     }
 
     //private void Awake()
@@ -125,8 +129,16 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
             Debug.Log("Player Prefab instantiated for  Player :" + _playerList[i].NickName);
         }
 
+        if (PhotonNetwork.IsMasterClient)
+        {
+            StartGameBtn.SetActive(true);
+        }
+        else
+        {
+            StartGameBtn.SetActive(false);
+        }
 
-        
+
 
         //CleanList();
 
@@ -145,15 +157,15 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         //        a.GetComponent<Image>().color = playerColor[_listing.Count - 1];
         //    }
 
-            //for(int emptySeat = 0; emptySeat < 4; emptySeat++)
-            //{
-            //    GameObject b = Instantiate(emptySeatPrefab, new Vector3(0, 0, 0), Quaternion.identity);
-            //    b.transform.SetParent(_content);
-            //    b.transform.localScale = new Vector3(1f, 1f, 1f);
-            //}
+        //for(int emptySeat = 0; emptySeat < 4; emptySeat++)
+        //{
+        //    GameObject b = Instantiate(emptySeatPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        //    b.transform.SetParent(_content);
+        //    b.transform.localScale = new Vector3(1f, 1f, 1f);
+        //}
 
 
-        
+
     }
 
 
@@ -199,7 +211,14 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         //        b.transform.SetParent(_content);
         //    }
         //}
-
+        if (PhotonNetwork.IsMasterClient)
+        {
+            StartGameBtn.SetActive(true);
+        }
+        else
+        {
+            StartGameBtn.SetActive(false);
+        }
 
     }
 
