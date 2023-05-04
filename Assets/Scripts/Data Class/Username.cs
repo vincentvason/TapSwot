@@ -21,7 +21,7 @@ public class Username : MonoBehaviour
         PhotonNetwork.NickName = usernameInput.text;
         PlayerPrefs.SetString("Username", usernameInput.text);
 
-        username.text = usernameInput.text;
+        username.text = "Hello, " + usernameInput.text + "\nThanks for setting up your profile.";
 
     }
 }
