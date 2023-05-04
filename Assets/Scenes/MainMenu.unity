@@ -740,6 +740,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2737838044424227730, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2737838044424227730, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8113208
+      objectReference: {fileID: 0}
+    - target: {fileID: 2737838044424227730, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8113208
+      objectReference: {fileID: 0}
+    - target: {fileID: 2737838044424227730, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
+      propertyPath: m_Color.r
+      value: 0.8113208
+      objectReference: {fileID: 0}
     - target: {fileID: 2737838044677499208, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
       propertyPath: m_Name
       value: ProceedButton
