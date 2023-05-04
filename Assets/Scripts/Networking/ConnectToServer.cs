@@ -7,25 +7,37 @@ using Photon.Pun;
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
     
-    IEnumerator Start()
+    private void Start()
     {
         //Establish connection of Player and Photon Server
         PhotonNetwork.GameVersion="1.0";
-        yield return new WaitForSeconds(4f);
+      
         PhotonNetwork.ConnectUsingSettings();
         Debug.Log("Connected to the Photon Server");
     }
 
     public override void OnConnectedToMaster()
     {
-        SceneManager.LoadScene(1);
-        // PhotonNetwork.JoinLobby();
-        
+        StartCoroutine("StartGame");
     }
 
     public override void OnJoinedLobby()
     {
+     //    SceneManager.LoadScene(1);
+    }
+
+    IEnumerator StartGame()
+    {
+      
+        yield return new WaitForSeconds(30);
         SceneManager.LoadScene(1);
+    }
+
+    public void StartGameNow()
+    {
+        StopAllCoroutines();
+        SceneManager.LoadScene(1);
+        
     }
 
 }
