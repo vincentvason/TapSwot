@@ -393,7 +393,7 @@ public class Player : MonoBehaviour
             cardsUI[2].gameObject.SetActive(false);
             cardsUI[3].gameObject.SetActive(false);
             cardsUI[4].gameObject.SetActive(false);
-            PlayerManager.instance.ShuffleAnimation.GetComponent<CardShuffling>().StartShuffleAnimation();
+            // PlayerManager.instance.ShuffleAnimation.GetComponent<CardShuffling>().StartShuffleAnimation();
         }
     }
 
