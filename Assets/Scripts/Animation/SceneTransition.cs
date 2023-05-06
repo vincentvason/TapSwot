@@ -16,7 +16,7 @@ public class SceneTransition : MonoBehaviour
 
     void Start()
     {
- 
+
     }
 
     public IEnumerator SceneTransitionBegin()

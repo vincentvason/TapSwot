@@ -10,6 +10,7 @@ public class SceneChange : MonoBehaviourPunCallbacks
 {
     public MainMenuAnimation transition;
     public TMP_Text TapAvatarInfo;
+    public Username user;
     private float time = 0;
 
 
@@ -28,22 +29,28 @@ public class SceneChange : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        StartCoroutine(transition.CloseLobbyWaitingWindowAndLoadScene(1));
+        StartCoroutine(transition.CloseLobbyWaitingWindow());
+        StartCoroutine(transition.OpenCreateJoinWindow());
         // SceneManager.LoadScene(1);
     }
 
     public void UpdateAvatarTextOnProceed() 
     {
-        TapAvatarInfo.text = "Please choose to create a new room or join a room";
+        TapAvatarInfo.text = "<font-weight=600>Hello, " + user.username + ". Please choose to create a new room or join a room.\n";
     }
 
     public void UpdateAvatarTextOnCreate()
     {
-        TapAvatarInfo.text = "Please enter a name for your room and indicate how much time you want for the game session";
+        TapAvatarInfo.text = "<font-weight=600>Please enter a name for your room and indicate how much time you want for the game session.\n";
     }
 
     public void UpdateAvatarTextOnJoin()
     {
-        TapAvatarInfo.text = "Please enter the exact name for the room you wish to join";
+        TapAvatarInfo.text = "<font-weight=600>Please enter the exact name for the room you wish to join.\n";
+    }
+
+    public void UpdateAvatarTextOnEdit()
+    {
+        TapAvatarInfo.text = "<font-weight=600>Welcome!\nPlease set up your profile.\n";
     }
 }

@@ -6,6 +6,8 @@ using Photon.Pun;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
+
+    public SceneTransition sceneTransition;
     
     private void Start()
     {
@@ -30,13 +32,13 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     {
       
         yield return new WaitForSeconds(30);
-        SceneManager.LoadScene(1);
+        StartCoroutine(sceneTransition.SceneTransitionBegin(1));
     }
 
     public void StartGameNow()
     {
         StopAllCoroutines();
-        SceneManager.LoadScene(1);
+        StartCoroutine(sceneTransition.SceneTransitionBegin(1));
         
     }
 

@@ -25,6 +25,7 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
     public GameObject playerLobbyPrefab;
     public GameObject LobbyWaitingWindow;
     public GameObject StartGameBtn;
+    public GameObject WaitForHost;
 
     [SerializeField]
     private Transform _content;
@@ -37,6 +38,8 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
     private void Start()
     {
         // To initialize the Create and Join canvas at the start of the scene
+        
+        StartCoroutine(sceneTransition.SceneTransitionEnd());
         // CreateJoinCanvas.SetActive(true);
         StartCoroutine(mainMenu.OpenCreateJoinWindow());
         // LobbyCanvas.SetActive(false);
@@ -132,10 +135,12 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             StartGameBtn.SetActive(true);
+            WaitForHost.SetActive(false);
         }
         else
         {
             StartGameBtn.SetActive(false);
+            WaitForHost.SetActive(true);
         }
 
 
@@ -214,10 +219,12 @@ public class CreateAndJoin : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             StartGameBtn.SetActive(true);
+            WaitForHost.SetActive(false);
         }
         else
         {
             StartGameBtn.SetActive(false);
+            WaitForHost.SetActive(true);
         }
 
     }

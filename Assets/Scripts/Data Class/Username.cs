@@ -8,7 +8,7 @@ using Photon.Pun;
 public class Username : MonoBehaviour
 {
     public TMP_InputField usernameInput;
-    public TMP_Text username;
+    public string username;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,7 @@ public class Username : MonoBehaviour
         PhotonNetwork.NickName = usernameInput.text;
         PlayerPrefs.SetString("Username", usernameInput.text);
 
-        username.text = "Hello, " + usernameInput.text + "\nThanks for setting up your profile.";
+        username = usernameInput.text;
 
     }
 }
