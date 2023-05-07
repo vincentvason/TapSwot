@@ -48,6 +48,8 @@ public class CardShuffling : MonoBehaviour
 
     [SerializeField] private RectTransform[] cardPlayer1Rect;
 
+    [SerializeField] private TimeController timeController;
+
     public void StartShuffleAnimation()
     {
         //for (int x = 0; x < cardPlayer1Rect.Length; x++)
@@ -78,13 +80,13 @@ public class CardShuffling : MonoBehaviour
         for(int i = 0; i < cardStack.Length; i++)
         {
             cardStack[i].GetComponent<Image>().color = new Color32(255,255,255,255);
-            yield return new WaitForSeconds(0.08f);
         }
 
         for(int i = 0; i < cardShuffle.Length; i++)
         {
             cardShuffle[i].GetComponent<Image>().color = new Color32(255,255,255,255);
         }
+        yield return new WaitForSeconds(0.08f);
 
         
         //Play Shuffing Animation
@@ -120,6 +122,8 @@ public class CardShuffling : MonoBehaviour
         pileLeft.GetComponent<RectTransform>().DOAnchorPos(drawPilePosition,drawDuration*2,false);
         pileLeft.transform.DOScale(0f, drawDuration*2);
         yield return new WaitForSeconds(drawDuration*2);
+        gameObject.SetActive(false);
+        timeController.BeginTimer();
         
         yield return null;
     }
@@ -163,13 +167,12 @@ public class CardShuffling : MonoBehaviour
                 cardDraw.SetActive(false);
             }
         }
-        yield return new WaitForSeconds(6f);
 
         for (int x = 0; x < clientCard.Length; x++)
         {
             clientCard[x].SetActive(true);
         }
-        gameObject.SetActive(false);
+        
         yield return null;
     }
 
