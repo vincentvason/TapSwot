@@ -867,7 +867,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "<font-weight=800>2023\nTap Access Planning for Uncertain Futures.</font-weight>\nThis
+  m_text: "<font-weight=800>2023\nTriple Access Planning for Uncertain Futures.</font-weight>\nThis
     project has received funding from the European Union\u2019s Horizon 2020 research
     and innovation programme under grant agreement No 875022.\n"
   m_isRightToLeft: 0
@@ -1034,6 +1034,7 @@ GameObject:
   - component: {fileID: 1876814136}
   - component: {fileID: 1876814135}
   - component: {fileID: 1876814134}
+  - component: {fileID: 1876814137}
   m_Layer: 5
   m_Name: ContinueBtn
   m_TagString: Untagged
@@ -1081,7 +1082,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 3
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1156,6 +1157,26 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1876814132}
   m_CullTransparentMesh: 1
+--- !u!95 &1876814137
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876814132}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 80755da33520d484f84b109a8448671f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2009760667
 GameObject:
   m_ObjectHideFlags: 0
