@@ -26,6 +26,9 @@ public class Player : MonoBehaviour
     private bool cardRemovedFromSlot = false;
     private bool cardAddedBackToSlot = false;
 
+    public bool RankingStageStarted = false;
+    private int dropCountInRankStage = 0;
+
     public void InitialiseNetworkPlayer(Photon.Realtime.Player player)
     {
         MyPlayer = player;
@@ -45,6 +48,9 @@ public class Player : MonoBehaviour
 
             CardGameManagerUI.instance.RemainingDeckScroll.OnElementAdded.AddListener(OnRemainingElementAdded);
             CardGameManagerUI.instance.RemainingDeckScroll.OnElementDropped.AddListener(OnRemainingElementDropped);
+
+            CardGameManagerUI.instance.RemainingDeckScroll.OnElementGrabbed.AddListener(OnElementDraggedFromRemaining);
+
         }
         //to-do     //update when something is added to remaining cards or removed from remaining cards
         CardGameManager.OnGameStateChanged += Instance_OnGameStateChanged;
@@ -66,11 +72,20 @@ public class Player : MonoBehaviour
     /// on drag started from discared scroll, then disable drop in remaining scroll
     /// </summary>
     /// <param name="grabbedStruct"></param>
+    private void OnElementDraggedFromRemaining(ReorderableList.ReorderableListEventStruct grabbedStruct)
+    {
+        CardGameManagerUI.instance.DiscardedDeckScroll.IsDropable = false;
+    }
+
+    /// <summary>
+    /// on drag started from discared scroll, then disable drop in remaining scroll
+    /// </summary>
+    /// <param name="grabbedStruct"></param>
     private void OnElementDraggedFromDiscarded(ReorderableList.ReorderableListEventStruct grabbedStruct)
     {
         CardGameManagerUI.instance.RemainingDeckScroll.IsDropable = false;
     }
-
+    private bool checkMySlots = false;
     /// <summary>
     /// on drag started from slot, enable drop in remaining scroll
     /// </summary>
@@ -78,9 +93,15 @@ public class Player : MonoBehaviour
     private void OnElementDraggedFromSlot(ReorderableList.ReorderableListEventStruct grabbedStruct)
     {
         CardGameManagerUI.instance.RemainingDeckScroll.IsDropable = true;
+        CardGameManagerUI.instance.DiscardedDeckScroll.IsDropable = true;
 
-        //disable drag of other elements unitl slot is filled
-        DisableDragOnAllCardSlots();
+        for (int x = 0; x < playerDraggableCards.Count; x++)
+        {
+            if(grabbedStruct.SourceObject.GetComponent<ReorderableList>() != playerDraggableCards[x])
+            {
+                playerDraggableCards[x].IsDraggable = false;
+            }
+        }
     }
 
     private void DisableDragOnAllCardSlots()
@@ -135,21 +156,47 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void UpdateDragCountAndDropdowns()
+    {
+        dropCountInRankStage += 1;
+
+        List<TMPro.TMP_Dropdown> dropdowns = new List<TMPro.TMP_Dropdown>();
+        foreach (CardUI c in cardsUI)
+        {
+            dropdowns.Add(c.rankDropdown);
+        }
+        DropdownController.instance.InitialiseAllDropdowns(dropdowns);
+    }
+
     private void ElementDropped0(ReorderableList.ReorderableListEventStruct droppedStruct)
     {
         if(droppedStruct.ToList!=null)
         {
             if (droppedStruct.FromList.name != "Card1" && droppedStruct.ToList.name == "Card1")
             {
-                CardGameManagerUI.instance.ShowConfirmReplace();
+                if (RankingStageStarted && dropCountInRankStage == 0)
+                {
+                    UpdateDragCountAndDropdowns();
+                }
+
                 DisableMyPlayerUI();
                 cardAddedBackToSlot = true;
                 string id = droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString();
                 droppedStruct.DroppedObject.GetComponent<CardUI>().CheckParentAndSetBackCard();
                 Debug.Log("card dropped in slot 1, card id :" + id);
                 PlayerManager.instance.SendPlayerCardChanged(this.playerID.ToString(), "0", id); //if card is added to slot, turn is complete
+
+                if (!RankingStageStarted)
+                {
+                    CardGameManagerUI.instance.ShowConfirmReplace();
+                }
             }
             CheckAndSendRPC(droppedStruct, "Card1");
+
+            if (droppedStruct.FromList.name == "Card1" && droppedStruct.ToList.name == "Card1")
+            {
+                EnableDragOnAllCardSlots();
+            }
         }
     }
     private void ElementDropped1(ReorderableList.ReorderableListEventStruct droppedStruct)
@@ -158,15 +205,28 @@ public class Player : MonoBehaviour
         {
             if (droppedStruct.FromList.name != "Card2" && droppedStruct.ToList.name == "Card2")
             {
-                CardGameManagerUI.instance.ShowConfirmReplace();
+                if (RankingStageStarted && dropCountInRankStage == 0)
+                {
+                    UpdateDragCountAndDropdowns();
+                }
+
                 DisableMyPlayerUI();
                 cardAddedBackToSlot = true;
                 string id = droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString();
                 droppedStruct.DroppedObject.GetComponent<CardUI>().CheckParentAndSetBackCard();
                 Debug.Log("card dropped in slot 2, card id :" + id);
                 PlayerManager.instance.SendPlayerCardChanged(this.playerID.ToString(), "1", id); //if card is added to slot, turn is complete
+                if (!RankingStageStarted)
+                {
+                    CardGameManagerUI.instance.ShowConfirmReplace();
+                }
             }
             CheckAndSendRPC(droppedStruct, "Card2");
+
+            if (droppedStruct.FromList.name == "Card2" && droppedStruct.ToList.name == "Card2")
+            {
+                EnableDragOnAllCardSlots();
+            }
         }
     }
     private void ElementDropped2(ReorderableList.ReorderableListEventStruct droppedStruct)
@@ -175,15 +235,27 @@ public class Player : MonoBehaviour
         {
             if (droppedStruct.FromList.name != "Card3" && droppedStruct.ToList.name == "Card3")
             {
-                CardGameManagerUI.instance.ShowConfirmReplace();
+                if (RankingStageStarted && dropCountInRankStage == 0)
+                {
+                    UpdateDragCountAndDropdowns();
+                }
                 DisableMyPlayerUI();
                 cardAddedBackToSlot = true;
                 string id = droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString();
                 droppedStruct.DroppedObject.GetComponent<CardUI>().CheckParentAndSetBackCard();
                 Debug.Log("card dropped in slot 3, card id :" + id);
                 PlayerManager.instance.SendPlayerCardChanged(this.playerID.ToString(), "2", id); //if card is added to slot, turn is complete
+                if (!RankingStageStarted)
+                {
+                    CardGameManagerUI.instance.ShowConfirmReplace();
+                }
             }
             CheckAndSendRPC(droppedStruct, "Card3");
+
+            if (droppedStruct.FromList.name == "Card3" && droppedStruct.ToList.name == "Card3")
+            {
+                EnableDragOnAllCardSlots();
+            }
         }
     }
     private void ElementDropped3(ReorderableList.ReorderableListEventStruct droppedStruct)
@@ -192,32 +264,56 @@ public class Player : MonoBehaviour
         {
             if (droppedStruct.FromList.name != "Card4" && droppedStruct.ToList.name == "Card4")
             {
-                CardGameManagerUI.instance.ShowConfirmReplace();
+                if (RankingStageStarted && dropCountInRankStage == 0)
+                {
+                    UpdateDragCountAndDropdowns();
+                }
                 DisableMyPlayerUI();
                 cardAddedBackToSlot = true;
                 string id = droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString();
                 droppedStruct.DroppedObject.GetComponent<CardUI>().CheckParentAndSetBackCard();
                 Debug.Log("card dropped in slot 4, card id :" + id);
                 PlayerManager.instance.SendPlayerCardChanged(this.playerID.ToString(), "3", id); //if card is added to slot, turn is complete
+                if (!RankingStageStarted)
+                {
+                    CardGameManagerUI.instance.ShowConfirmReplace();
+                }
             }
             CheckAndSendRPC(droppedStruct, "Card4");
+
+            if (droppedStruct.FromList.name == "Card4" && droppedStruct.ToList.name == "Card4")
+            {
+                EnableDragOnAllCardSlots();
+            }
         }
     }
     private void ElementDropped4(ReorderableList.ReorderableListEventStruct droppedStruct)
     {
         if (droppedStruct.ToList != null)
         {
-            if(droppedStruct.FromList.name != "Card5" && droppedStruct.ToList.name == "Card5")
+            if (droppedStruct.FromList.name != "Card5" && droppedStruct.ToList.name == "Card5")
             {
-                CardGameManagerUI.instance.ShowConfirmReplace();
+                if (RankingStageStarted && dropCountInRankStage == 0)
+                {
+                    UpdateDragCountAndDropdowns();
+                }
                 DisableMyPlayerUI();
                 cardAddedBackToSlot = true;
                 string id = droppedStruct.DroppedObject.GetComponent<CardUI>().card.cardId.ToString();
                 droppedStruct.DroppedObject.GetComponent<CardUI>().CheckParentAndSetBackCard();
                 Debug.Log("card dropped in slot 5, card id :" + id);
                 PlayerManager.instance.SendPlayerCardChanged(this.playerID.ToString(), "4", id); //if card is added to slot, turn is complete
+                if (!RankingStageStarted)
+                {
+                    CardGameManagerUI.instance.ShowConfirmReplace();
+                }
             }
             CheckAndSendRPC(droppedStruct, "Card5");
+
+            if (droppedStruct.FromList.name == "Card5" && droppedStruct.ToList.name == "Card5")
+            {
+                EnableDragOnAllCardSlots();
+            }
         }
     }
 
@@ -399,11 +495,14 @@ public class Player : MonoBehaviour
 
     public void DisableMyPlayerUI()
     {
+        Debug.Log("DisableMyPlayerUI");
         if (this == PlayerManager.instance.myPlayer)
         {
-            if(CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
+            if(CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO)
             {
-
+                EnableDragOnAllCardSlots(); //only enable drag on slots when it is my turn
+                CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = false;
+                CardGameManagerUI.instance.DiscardedDeckScroll.IsDraggable = true;
             }
             else
             {
@@ -415,11 +514,15 @@ public class Player : MonoBehaviour
     }
     public void EnableMyPlayerUI()
     {
+        Debug.Log("EnableMyPlayerUI");
+
         if (this == PlayerManager.instance.myPlayer)
         {
-            if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
+            if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO)
             {
-
+                EnableDragOnAllCardSlots(); //only enable drag on slots when it is my turn
+                CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = false;
+                CardGameManagerUI.instance.DiscardedDeckScroll.IsDraggable = true;
             }
             else
             {
@@ -430,7 +533,15 @@ public class Player : MonoBehaviour
         }
     }
 
-
+    private void Update()
+    {
+        if (RankingStageStarted && dropCountInRankStage > 0 && CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO)
+        {
+            DisableDragOnAllCardSlots();
+            CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = false;
+            CardGameManagerUI.instance.DiscardedDeckScroll.IsDraggable = false;
+        }
+    }
 
 
 }

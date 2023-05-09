@@ -26,6 +26,11 @@ public class CardGameManager : MonoBehaviourPunCallbacks
 
     public static event Action<GameStateEnum> OnGameStateChanged;
 
+    public void QuitApplication()
+    {
+        Application.Quit();
+    }
+
     private void Awake()
     {
         instance = this;

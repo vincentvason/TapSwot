@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -45,6 +46,7 @@ public class CardGameManagerUI : MonoBehaviour
 
     public GameObject Stage1HelpWindow;
 
+    public GameObject MoveToNextStage;
     private void Awake()
     {
         instance = this;
@@ -68,6 +70,10 @@ public class CardGameManagerUI : MonoBehaviour
     public void UpdatePlayerTurnText()
     {
         PlayerTurnText.text = "Current Turn:" + CardGameManager.instance.GetPlayerNameFromTurn();
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
+        {
+            PlayerTurnText.text = "";
+        }
     }
 
     [SerializeField]private bool rankValuesSent = false;
@@ -98,7 +104,6 @@ public class CardGameManagerUI : MonoBehaviour
         WaitForOtherPlayer.SetActive(false);
         ItsYourTurn.SetActive(false);
         SelectFromRemaining.SetActive(false);
-        ConfirmReplace.SetActive(false);
     }
 
     public void ShowConfirmReplace()
@@ -111,7 +116,6 @@ public class CardGameManagerUI : MonoBehaviour
         if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO)
         {
             DisableAllHelperEmojisOfRoundOne();
-
         }
     }
 
@@ -123,6 +127,23 @@ public class CardGameManagerUI : MonoBehaviour
             SelectFromRemaining.SetActive(true);
         }
     }
+    string s;
+    private void Update()
+    {
+        s = PlayerTurnText.text;
+        s = s.Replace("Current Turn:", "");
+        //my turn.. 
+        if (s == PlayerManager.instance.myPlayer.playerName)
+        {
+            ShowItsYourTurn();
+        }
+        //not my turn
+        else
+        {
+            ShowWaitForTurn();
+        }
+    }
+
     public void ShowItsYourTurn()
     {
         if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
@@ -141,8 +162,16 @@ public class CardGameManagerUI : MonoBehaviour
             DisableAllHelperEmojisOfRoundOne();
             ItsYourTurn.SetActive(false);
         }
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            MoveToNextStage.SetActive(true);
+        }
+        else
+        {
+            MoveToNextStage.SetActive(false);
+        }
     }
-    private bool isFirstTimeSHowingWaitForTurn = false;
     public void ShowWaitForTurn()
     {
         if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
@@ -161,19 +190,7 @@ public class CardGameManagerUI : MonoBehaviour
             DisableAllHelperEmojisOfRoundOne();
             WaitForOtherPlayer.SetActive(false);
         }
-
-        if (!isFirstTimeSHowingWaitForTurn)
-        {
-            WaitForOtherPlayer.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<font-weight=900>This stage of the game is now started, please wait until it is your turn";
-            WaitForOtherPlayer.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
-
-            isFirstTimeSHowingWaitForTurn = true;
-        }
-        else
-        {
-            WaitForOtherPlayer.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<font-weight=900>Wait for other player...";
-            WaitForOtherPlayer.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "<font-weight=700>You can also review any card on your hand or in the discard pile.";
-        }
+        MoveToNextStage.SetActive(false);
     }
 
     public List<Transform> VotingCardHolders = new List<Transform>();
@@ -201,6 +218,9 @@ public class CardGameManagerUI : MonoBehaviour
                 }
                 dropdownController.InitialiseAllDropdowns(dropdowns);
                 SendRankButton.interactable = false;
+                PlayerTurnText.text = "";
+                PlayerManager.instance.myPlayer.RankingStageStarted = true;
+
                 break;
             case GameStateEnum.ROUND_THREE:
                 CurrentRoundText.text = "Stage 4"; // joker(new card) + voting
@@ -230,8 +250,6 @@ public class CardGameManagerUI : MonoBehaviour
 
                 StageThreeItsYourTurn.SetActive(false);
                 StageThreeWaitForTurn.SetActive(false);
-                PlayerTurnText.text = "";
-
                 break;
             case GameStateEnum.ROUND_FOUR:
                 DiscardedInVoting.SetActive(false);
@@ -249,7 +267,10 @@ public class CardGameManagerUI : MonoBehaviour
 
     public void ShowFullCardForDecision(CardSO card, GameObject cardGameObject)
     {
-        if(CardGameManager.instance.GetPlayerNameFromTurn() == PlayerManager.instance.myPlayer.playerName)
+        s = PlayerTurnText.text;
+        s = s.Replace("Current Turn:", "");
+
+        if (s == PlayerManager.instance.myPlayer.playerName)
         {
             if (!CardGameManager.instance.lastStage)
             {

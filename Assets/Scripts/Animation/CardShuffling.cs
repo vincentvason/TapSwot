@@ -118,9 +118,12 @@ public class CardShuffling : MonoBehaviour
         pileLeft.GetComponent<RectTransform>().DOAnchorPos(drawPilePosition,drawDuration*2,false);
         pileLeft.transform.DOScale(0f, drawDuration*2);
         yield return new WaitForSeconds(drawDuration*2);
-        gameObject.SetActive(false);
+        for (int x = 0; x < clientCard.Length; x++)
+        {
+            clientCard[x].SetActive(true);
+        }
         timeController.BeginTimer();
-        
+        gameObject.SetActive(false); 
         yield return null;
     }
 
@@ -162,11 +165,6 @@ public class CardShuffling : MonoBehaviour
             {
                 cardDraw.SetActive(false);
             }
-        }
-
-        for (int x = 0; x < clientCard.Length; x++)
-        {
-            clientCard[x].SetActive(true);
         }
         
         yield return null;

@@ -31,6 +31,26 @@ public class CardManager : MonoBehaviour
         remainingCards = cardDatabase.cards.Select(c => new CardSO(c)).ToList();
     }
 
+    public void AddAllRemainingCardsToDiscardedCards()
+    {
+        CardGameManagerUI.instance.MoveToNextStage.SetActive(false);
+        StartCoroutine(SendRemoveAllRemainingCards());
+    }
+
+    private IEnumerator SendRemoveAllRemainingCards()
+    {
+        if (mainDeckRect.transform.childCount > 0)
+        {
+            foreach (CardSO so in remainingCards.ToList())
+            {
+                yield return new WaitForSeconds(0.02f);
+                string cardID = so.cardId.ToString();
+                PlayerManager.instance.Send_AddToDiscardedCards(cardID);
+                PlayerManager.instance.Send_RemoveFromRemainingCards(cardID);
+            }   
+        }
+    }
+
     public void AddCardToDiscardedCards(string cardID)
     {
         CardSO co = GetCardBasedOnId(cardID);
@@ -45,7 +65,7 @@ public class CardManager : MonoBehaviour
     public void RemoveCardFromDiscardedCards(string cardID)
     {
         CardSO c = GetCardBasedOnId(cardID);
-        foreach (CardSO so in remainingCards.ToList())
+        foreach (CardSO so in discardedCards.ToList())
         {
             if (so.cardId == c.cardId)
             {

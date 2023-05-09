@@ -114,6 +114,8 @@ MonoBehaviour:
   CardBrief: {fileID: 0}
   BackCard: {fileID: 2908439722759979891}
   lastDropDownValue: 0
+  KeepCard: {fileID: 0}
+  KeepCardButtton: {fileID: 0}
 --- !u!114 &-652023944357158551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,10 +129,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: -1
-  m_PreferredWidth: 280
-  m_PreferredHeight: 240
+  m_MinWidth: 280
+  m_MinHeight: 240
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1

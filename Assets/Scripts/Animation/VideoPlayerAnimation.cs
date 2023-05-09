@@ -56,10 +56,16 @@ public class VideoPlayerAnimation : MonoBehaviour
         introductionButton.SetActive(false);
         yield return new WaitForSeconds(0.2f);
         introductionPanel.transform.DOScale(3,0.5f);
-        yield return new WaitForSeconds(0.5f);
         videoPlayer.SetActive(true);
-        videoPlayer.transform.DOScale(1,0.1f);
-        introductionPanel.SetActive(false);
+        videoPlayer.transform.DOScale(1,0.1f).OnComplete(()=>
+                StartCoroutine(DisableAfterAnimationComplete()
+        ));
+    }
+
+    private IEnumerator DisableAfterAnimationComplete()
+    {
+        yield return new WaitForSeconds(2f);
         backBlackScreen.SetActive(false);
+        introductionPanel.SetActive(false);
     }
 }

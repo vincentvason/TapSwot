@@ -227,10 +227,10 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         {
             rankDropdown.gameObject.SetActive(true);
             rankDropdown.value = card.cardRank;
-        }
-        if(rankDropdown.value == 0)
-        {
-            rankDropdown.gameObject.SetActive(false);
+            if (rankDropdown.value == 0)
+            {
+                rankDropdown.gameObject.SetActive(false);
+            }
         }
     }
 

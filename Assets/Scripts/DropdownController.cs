@@ -8,6 +8,20 @@ public class DropdownController : MonoBehaviour
 
     private List<int>  selectedOptions = new List<int>();
 
+    public static DropdownController instance = null;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public bool CheckIfAllDropdownsHasSetValue()
     {
         bool b = false;
@@ -27,6 +41,17 @@ public class DropdownController : MonoBehaviour
 
     public void InitialiseAllDropdowns(List<TMPro.TMP_Dropdown> _dropdowns)
     {
+        List<int> previousRanks = new List<int>();
+        if (dropdowns.Count > 0)
+        {
+            foreach(TMPro.TMP_Dropdown dropdown in dropdowns)
+            {
+                previousRanks.Add(dropdown.value);
+            }
+        }
+
+        selectedOptions.Clear();
+        dropdowns.Clear();
         dropdowns = _dropdowns;
         // Attach event listeners to each dropdown
         for (int i = 0; i < dropdowns.Count; i++)
@@ -36,6 +61,10 @@ public class DropdownController : MonoBehaviour
             {
                 OnDropdownValueChanged(dropdownIndex, value);
             });
+            if (previousRanks.Count > 0)
+            {
+                dropdowns[i].SetValueWithoutNotify(previousRanks[i]);
+            }
         }
     }
 

@@ -228,11 +228,14 @@ public class PlayerManager : MonoBehaviour
             CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Add("1");
         }
     }
-
+    string s;
     public void SendKeepCardVoting(string idFromDiscard)
     {
+        s = CardGameManagerUI.instance.PlayerTurnText.text;
+        s = s.Replace("Current Turn:", "");
+
         //only if this is my turn...
-        if (CardGameManager.instance.GetPlayerNameFromTurn() == PlayerManager.instance.myPlayer.playerName)
+        if (s == PlayerManager.instance.myPlayer.playerName)
         {
             Debug.Log("SendKeepCardVoting");
             GameObject c = CardGameManagerUI.instance.selectedSmallVotingCard;
