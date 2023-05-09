@@ -50,12 +50,8 @@ public class CardShuffling : MonoBehaviour
 
     [SerializeField] private TimeController timeController;
 
-    public void StartShuffleAnimation()
+    private void OnEnable()
     {
-        //for (int x = 0; x < cardPlayer1Rect.Length; x++)
-        //{
-        //    cardPlayer1Position[x] = new Vector2(cardPlayer1Rect[x].rect.x, cardPlayer1Rect[x].rect.y);
-        //}
         StartCoroutine(DrawCard());
     }
 

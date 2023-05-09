@@ -93,10 +93,11 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         {
             if (transform.parent != null)
             {
-                if (transform.parent.parent != null)
+                if (transform.parent.parent.parent != null)
                 {
                     //to-do add round check
-                    if (transform.parent.parent.name == "DiscardedCardsScroll" || transform.parent.parent.name == "RemainingCardsScroll")
+                    //if (transform.parent.parent.name == "DiscardedCardsScroll" || transform.parent.parent.name == "RemainingCardsScroll")
+                    if (transform.parent.parent.parent.name == "RemainingCardsScroll")
                     {
                         EnableBackCard();
                     }
@@ -226,6 +227,10 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         {
             rankDropdown.gameObject.SetActive(true);
             rankDropdown.value = card.cardRank;
+        }
+        if(rankDropdown.value == 0)
+        {
+            rankDropdown.gameObject.SetActive(false);
         }
     }
 

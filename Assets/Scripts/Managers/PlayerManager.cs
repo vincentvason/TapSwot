@@ -221,7 +221,8 @@ public class PlayerManager : MonoBehaviour
         gameObject.GetComponent<PhotonView>().RPC("ReceiveRemainingShuffleCards", RpcTarget.All, (object)remainingCardsID.ToArray());
 
         //Start First Players Turn here
-        SendPlayerTurnUpdate("0", "1");
+        //SendPlayerTurnUpdate("0", "1");
+        CardGameManager.instance.UpdateTurnFirstTime();
         if (!CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Contains("1"))
         {
             CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Add("1");
@@ -296,6 +297,34 @@ public class PlayerManager : MonoBehaviour
         gameObject.GetComponent<PhotonView>().RPC("ReceivePlayerTurnValue", RpcTarget.All, lastTurn, currentTurn);
     }
 
+    public void SendPlayerTurnUpdateFirstTime(string lastTurn, string currentTurn)
+    {
+        gameObject.GetComponent<PhotonView>().RPC("ReceivePlayerTurnValueFirstTime", RpcTarget.All, lastTurn, currentTurn);
+    }
+
+    [PunRPC]
+    public void ReceivePlayerTurnValueFirstTime(string lastTurn, string currentTurn)
+    {
+        CardGameManager.instance.UpdateTurnValueFromRPC(currentTurn);
+        int last = 0;
+        int current = 0;
+        int.TryParse(lastTurn, out last);
+        int.TryParse(currentTurn, out current);
+
+        Debug.Log("[ReceivePlayerTurnValueFirstTime]:" + "[lastTurn]:" + lastTurn + "[currentTurn]" + currentTurn);
+        Debug.Log("[ReceivePlayerTurnValueFirstTime int]:" + "[lastTurn]:" + last + "[currentTurn]" + current);
+
+        foreach (Player p in currentPlayersList)
+        {
+            p.OtherPlayerTurn();
+            if (p.playerID.ToString() == currentTurn.ToString())
+            {
+                p.OnTurnReceived();
+            }
+        }
+        CardGameManagerUI.instance.UpdatePlayerTurnText();
+    }
+
     [PunRPC]
     public void ReceiveRound(string round)
     {
@@ -327,19 +356,19 @@ public class PlayerManager : MonoBehaviour
 
         foreach (Player p in currentPlayersList)
         {
-            if (p.playerID.ToString() == last.ToString())
-            {
-                p.OtherPlayerTurn();
-            }
-            
-            if(p.playerID.ToString() == current.ToString())
+            //if (p.playerID.ToString() == last.ToString())
+            //{
+            //    p.OtherPlayerTurn();
+            //}
+            p.OtherPlayerTurn();
+            if (p.playerID.ToString() == current.ToString())
             {
                 p.OnTurnReceived();
             }
-            else
-            {
-                p.OtherPlayerTurn();
-            }
+            //else
+            //{
+            //    p.OtherPlayerTurn();
+            //}
         }
         CardGameManagerUI.instance.UpdatePlayerTurnText();
     }

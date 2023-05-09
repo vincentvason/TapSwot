@@ -73,9 +73,9 @@ Material:
     - _OutlineWidth: 0
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 1
-    - _ScaleRatioB: 1
-    - _ScaleRatioC: 1
+    - _ScaleRatioA: 0.8333333
+    - _ScaleRatioB: 0.6770833
+    - _ScaleRatioC: 0.6770833
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0
@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: Outfit-Regular SDF
   m_EditorClassIdentifier: 
-  hashCode: -881993788
+  hashCode: -835846221
   material: {fileID: -8059178355782199316}
-  materialHashCode: -2011912092
+  materialHashCode: -1825327693
   m_Version: 1.1.0
   m_SourceFontFileGUID: e22c8c8f7ef5c534ba0eb9eaf3e5f6de
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: e22c8c8f7ef5c534ba0eb9eaf3e5f6de, type: 3}

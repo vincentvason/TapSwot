@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class CardGameManager : MonoBehaviourPunCallbacks
 {
     private GameStateEnum currentGameState;
-    public int currentTurn = 1;
+    public int currentTurn = 0;
 
     public static CardGameManager instance = null;
 
@@ -47,6 +47,15 @@ public class CardGameManager : MonoBehaviourPunCallbacks
     {
         
     }
+    private bool cardShuffled = false;
+    public void ShowShuffleCardAnimationOnce()
+    {
+        if (!cardShuffled)
+        {
+            PlayerManager.instance.ShuffleAnimation.SetActive(true);
+            cardShuffled = true;
+        }
+    }
 
     public string GetPlayerNameFromTurn()
     {
@@ -71,7 +80,20 @@ public class CardGameManager : MonoBehaviourPunCallbacks
         return currentTurn;
     }
 
-    public int lastTurn;
+    public void UpdateTurnFirstTime()
+    {
+        lastTurn = currentTurn;
+        currentTurn++;
+        if (currentTurn > PhotonNetwork.CurrentRoom.PlayerCount)
+        {
+            currentTurn = 1;
+        }
+        CardGameManagerUI.instance.UpdatePlayerTurnText(); 
+        //0,1
+        PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
+    }
+
+    public int lastTurn = -1;
     private void UpdateTurn()
     {
         lastTurn = currentTurn;

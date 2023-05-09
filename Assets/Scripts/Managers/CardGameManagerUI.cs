@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
@@ -28,7 +29,7 @@ public class CardGameManagerUI : MonoBehaviour
 
     public GameObject FullCard;
 
-    public GameObject cardRankingAndActions_1, cardRankingAndActions_2;
+    public GameObject cardRankingAndActions_1;
     public GameObject discardedDeckGameObject, remaingingDeckGameObject;
 
     public DropdownController dropdownController;
@@ -42,6 +43,8 @@ public class CardGameManagerUI : MonoBehaviour
 
     public GameObject VotingCardPrefab;
 
+    public GameObject Stage1HelpWindow;
+
     private void Awake()
     {
         instance = this;
@@ -50,6 +53,7 @@ public class CardGameManagerUI : MonoBehaviour
     private void Start()
     {
         DisableAllHelperEmojisOfRoundOne();
+        Stage1HelpWindow.SetActive(true);
     }
     public void UpdateDiscardedScrollText(string count)
     {
@@ -121,7 +125,7 @@ public class CardGameManagerUI : MonoBehaviour
     }
     public void ShowItsYourTurn()
     {
-        if(CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
         {
             StageThreeItsYourTurn.SetActive(true);
             StageThreeWaitForTurn.SetActive(false);
@@ -131,8 +135,14 @@ public class CardGameManagerUI : MonoBehaviour
             DisableAllHelperEmojisOfRoundOne();
             ItsYourTurn.SetActive(true);
         }
-    }
 
+        if (CardManager.instance.GetRemaingCards().Count == 0)
+        {
+            DisableAllHelperEmojisOfRoundOne();
+            ItsYourTurn.SetActive(false);
+        }
+    }
+    private bool isFirstTimeSHowingWaitForTurn = false;
     public void ShowWaitForTurn()
     {
         if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
@@ -144,6 +154,25 @@ public class CardGameManagerUI : MonoBehaviour
         {
             DisableAllHelperEmojisOfRoundOne();
             WaitForOtherPlayer.SetActive(true);
+        }
+
+        if (CardManager.instance.GetRemaingCards().Count == 0)
+        {
+            DisableAllHelperEmojisOfRoundOne();
+            WaitForOtherPlayer.SetActive(false);
+        }
+
+        if (!isFirstTimeSHowingWaitForTurn)
+        {
+            WaitForOtherPlayer.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<font-weight=900>This stage of the game is now started, please wait until it is your turn";
+            WaitForOtherPlayer.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "";
+
+            isFirstTimeSHowingWaitForTurn = true;
+        }
+        else
+        {
+            WaitForOtherPlayer.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = "<font-weight=900>Wait for other player...";
+            WaitForOtherPlayer.transform.GetChild(0).GetChild(0).GetChild(1).GetComponent<TextMeshProUGUI>().text = "<font-weight=700>You can also review any card on your hand or in the discard pile.";
         }
     }
 
@@ -163,7 +192,6 @@ public class CardGameManagerUI : MonoBehaviour
             case GameStateEnum.ROUND_TWO:
                 CurrentRoundText.text = "Stage 3";//ranking + select from pile
                 cardRankingAndActions_1.SetActive(true);
-                cardRankingAndActions_2.SetActive(true);
                 remaingingDeckGameObject.SetActive(false); //rankin + select from discarded pile
 
                 List<TMPro.TMP_Dropdown> dropdowns = new List<TMPro.TMP_Dropdown>();
@@ -184,7 +212,6 @@ public class CardGameManagerUI : MonoBehaviour
 
                 DisableAllHelperEmojisOfRoundOne();
                 cardRankingAndActions_1.SetActive(false);
-                cardRankingAndActions_2.SetActive(false);
                 remaingingDeckGameObject.SetActive(false);
                 CardManager.instance.CleanDiscarded();
                 discardedDeckGameObject.SetActive(false);

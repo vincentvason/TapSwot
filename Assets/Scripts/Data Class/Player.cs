@@ -85,11 +85,11 @@ public class Player : MonoBehaviour
 
     private void DisableDragOnAllCardSlots()
     {
-        //playerDraggableCards[0].IsDraggable = false;
-        //playerDraggableCards[1].IsDraggable = false;
-        //playerDraggableCards[2].IsDraggable = false;
-        //playerDraggableCards[3].IsDraggable = false;
-        //playerDraggableCards[4].IsDraggable = false;
+        playerDraggableCards[0].IsDraggable = false;
+        playerDraggableCards[1].IsDraggable = false;
+        playerDraggableCards[2].IsDraggable = false;
+        playerDraggableCards[3].IsDraggable = false;
+        playerDraggableCards[4].IsDraggable = false;
     }
 
     private void EnableDragOnAllCardSlots()
@@ -387,7 +387,7 @@ public class Player : MonoBehaviour
 
             DisableMyPlayerUI(); //we disable interactions until it is our turn to play
 
-            PlayerManager.instance.ShuffleAnimation.SetActive(true);
+            //we set off cards here and after card shuffling animation we switch them on.
             cardsUI[0].gameObject.SetActive(false);
             cardsUI[1].gameObject.SetActive(false);
             cardsUI[2].gameObject.SetActive(false);

@@ -14,10 +14,14 @@ public class VideoPlayerAnimation : MonoBehaviour
 
     [SerializeField] private float timeElapsed;
     [SerializeField] private bool isVideoPlayed;
-    
+
+    public GameObject backBlackScreen;
+
+
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        backBlackScreen.SetActive(true);
         introductionPanel.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         introductionBubble.transform.DOScale(1,0.1f);
@@ -37,6 +41,7 @@ public class VideoPlayerAnimation : MonoBehaviour
         if(timeElapsed > 633 && videoPlayer.activeSelf == true)
         {
             videoPlayer.SetActive(false);
+            backBlackScreen.SetActive(false);
         }
     }
 
@@ -55,5 +60,6 @@ public class VideoPlayerAnimation : MonoBehaviour
         videoPlayer.SetActive(true);
         videoPlayer.transform.DOScale(1,0.1f);
         introductionPanel.SetActive(false);
-    }    
+        backBlackScreen.SetActive(false);
+    }
 }
