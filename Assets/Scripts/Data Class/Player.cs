@@ -104,6 +104,10 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void Ex_DisableDragOnAllCardSlots()
+    {
+        DisableDragOnAllCardSlots();
+    }
     private void DisableDragOnAllCardSlots()
     {
         playerDraggableCards[0].IsDraggable = false;
@@ -159,13 +163,6 @@ public class Player : MonoBehaviour
     private void UpdateDragCountAndDropdowns()
     {
         dropCountInRankStage += 1;
-
-        List<TMPro.TMP_Dropdown> dropdowns = new List<TMPro.TMP_Dropdown>();
-        foreach (CardUI c in cardsUI)
-        {
-            dropdowns.Add(c.rankDropdown);
-        }
-        DropdownController.instance.InitialiseAllDropdowns(dropdowns);
     }
 
     private void ElementDropped0(ReorderableList.ReorderableListEventStruct droppedStruct)
@@ -435,6 +432,16 @@ public class Player : MonoBehaviour
             //    cardsUI[slot].card = card;
             //    cardsUI[slot].Initialize(card);
             //}
+        }
+
+        if (RankingStageStarted && dropCountInRankStage > 0)
+        {
+            List<TMPro.TMP_Dropdown> dropdowns = new List<TMPro.TMP_Dropdown>();
+            foreach (CardUI c in cardsUI)
+            {
+                dropdowns.Add(c.rankDropdown);
+            }
+            DropdownController.instance.InitialiseAllDropdowns(dropdowns);
         }
     }
 

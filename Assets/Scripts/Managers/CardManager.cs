@@ -35,18 +35,27 @@ public class CardManager : MonoBehaviour
     {
         CardGameManagerUI.instance.MoveToNextStage.SetActive(false);
         StartCoroutine(SendRemoveAllRemainingCards());
+        //disable drag and drop on everything
+
+        PlayerManager.instance.myPlayer.Ex_DisableDragOnAllCardSlots();
+        CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = false;
+        CardGameManagerUI.instance.DiscardedDeckScroll.IsDraggable = false;
     }
 
     private IEnumerator SendRemoveAllRemainingCards()
     {
         if (mainDeckRect.transform.childCount > 0)
         {
+            PlayerManager.instance.Send_DisableAllDrags();
+            CardGameManagerUI.instance.DisableAllHelperEmojisOfRoundOne();
+
             foreach (CardSO so in remainingCards.ToList())
             {
                 yield return new WaitForSeconds(0.02f);
                 string cardID = so.cardId.ToString();
                 PlayerManager.instance.Send_AddToDiscardedCards(cardID);
-                PlayerManager.instance.Send_RemoveFromRemainingCards(cardID);
+                PlayerManager.instance.Send_RemoveFromRemainingCards(cardID);                
+                CardGameManagerUI.instance.MoveToNextStage.SetActive(false);
             }   
         }
     }
@@ -111,10 +120,10 @@ public class CardManager : MonoBehaviour
         CardGameManagerUI.instance.UpdateDiscardedScrollText(discardedCards.Count.ToString());
 
         //if remainging cards.count <=0 and all players has taken turn atlest once... change game state to stage 2
-        if (remainingCards.Count <= 0)
-        {
-            CardGameManager.instance.CheckAllPlayersAndUpdateGameStage();
-        }
+        //if (remainingCards.Count <= 0)
+        //{
+        //    CardGameManager.instance.CheckAllPlayersAndUpdateGameStage();
+        //}
     }
 
     public void CleanDiscarded()

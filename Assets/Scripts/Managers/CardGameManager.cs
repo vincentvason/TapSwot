@@ -162,6 +162,33 @@ public class CardGameManager : MonoBehaviourPunCallbacks
     public void UpdateTurnValueFromRPC(string _currentTurn)
     {
         int.TryParse(_currentTurn, out currentTurn);
+
+        if (currentGameState == GameStateEnum.ROUND_THREE)
+        {
+            if (lastStage)
+            {
+                if (!CardGameManager.instance.ROUND_THREE_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
+                {
+                    CardGameManager.instance.ROUND_THREE_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
+                }
+            }
+        }
+        else
+        {
+
+            if (!CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
+            {
+                CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
+            }
+
+            if (startCountingRoundTwoPLayers)
+            {
+                if (!CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
+                {
+                    CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
+                }
+            }
+        }
     }
 
     public void UpdateGameState(GameStateEnum state)

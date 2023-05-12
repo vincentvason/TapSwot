@@ -223,10 +223,10 @@ public class PlayerManager : MonoBehaviour
         //Start First Players Turn here
         //SendPlayerTurnUpdate("0", "1");
         CardGameManager.instance.UpdateTurnFirstTime();
-        if (!CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Contains("1"))
-        {
-            CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Add("1");
-        }
+        //if (!CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Contains("1"))
+        //{
+        //    CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Add("1");
+        //}
     }
     string s;
     public void SendKeepCardVoting(string idFromDiscard)
@@ -303,6 +303,19 @@ public class PlayerManager : MonoBehaviour
     public void SendPlayerTurnUpdateFirstTime(string lastTurn, string currentTurn)
     {
         gameObject.GetComponent<PhotonView>().RPC("ReceivePlayerTurnValueFirstTime", RpcTarget.All, lastTurn, currentTurn);
+    }
+
+    public void Send_DisableAllDrags()
+    {
+        gameObject.GetComponent<PhotonView>().RPC("ReceiveDisableAllDrags", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void ReceiveDisableAllDrags()
+    {
+        PlayerManager.instance.myPlayer.Ex_DisableDragOnAllCardSlots();
+        CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = false;
+        CardGameManagerUI.instance.DiscardedDeckScroll.IsDraggable = false;
     }
 
     [PunRPC]
