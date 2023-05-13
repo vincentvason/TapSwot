@@ -17,8 +17,8 @@ public class Lobby : MonoBehaviourPunCallbacks
 
     public void RoomCreate()
     {
-        roomName.text = PhotonNetwork.CurrentRoom.Name;
-        displayTimeLimit.text = PhotonNetwork.CurrentRoom.CustomProperties["TIME_LIMIT"].ToString();
+        roomName.text = "<font-weight=800>"+PhotonNetwork.CurrentRoom.Name;
+        displayTimeLimit.text = "<font-weight=600>"+PhotonNetwork.CurrentRoom.CustomProperties["TIME_LIMIT"].ToString();
       
     }
 
