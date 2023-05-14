@@ -88,7 +88,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     public void CheckParentAndSetBackCard()
     {
-        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO || CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_ONE ||
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO_END || CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_ONE ||
             CardGameManager.instance.GetGameState() == GameStateEnum.SETUP)
         {
             if (transform.parent != null)

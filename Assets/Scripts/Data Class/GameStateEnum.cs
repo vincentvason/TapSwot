@@ -12,6 +12,7 @@ public enum GameStateEnum
     ROUND_TWO, // The players are now left with 5 cards each (Total 20 cards in the game) and the remainaing card deck is discarded.             
                // Each player ranks their personal cards according to their individual preference/ Players can also skip their turn.
                // ROUND 2 ends when all players have finalized their 5 final cards and have ranked each card.
+    ROUND_TWO_END,//ranking
     ROUND_THREE, // Add remove  any custom cards and cards for each player are now moved to a common voting deck. The cards will be displayed in vertical columns based on the rankings. Voting will start from the least important card onwards(Bottom-Up approach). Voting will conitnue on each card until 15 cards are voted out with full majority voting system.
 
     // ROUND 3 ends when Elimination card count == 15 indicating we have 5 final remaiaing cards   

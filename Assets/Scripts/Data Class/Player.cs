@@ -505,7 +505,7 @@ public class Player : MonoBehaviour
         Debug.Log("DisableMyPlayerUI");
         if (this == PlayerManager.instance.myPlayer)
         {
-            if(CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO)
+            if(CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO_END)
             {
                 EnableDragOnAllCardSlots(); //only enable drag on slots when it is my turn
                 CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = false;
@@ -525,7 +525,7 @@ public class Player : MonoBehaviour
 
         if (this == PlayerManager.instance.myPlayer)
         {
-            if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO)
+            if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO_END)
             {
                 EnableDragOnAllCardSlots(); //only enable drag on slots when it is my turn
                 CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = false;
@@ -542,7 +542,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (RankingStageStarted && dropCountInRankStage > 0 && CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO)
+        if (RankingStageStarted && dropCountInRankStage > 0 && CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO_END)
         {
             DisableDragOnAllCardSlots();
             CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = false;

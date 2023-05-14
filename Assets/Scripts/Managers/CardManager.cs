@@ -216,6 +216,35 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    public int CreateAndAddNewCardToDatabase(string value, string cardTitle, string cardSubTitle, string cardDesc, string cardSlotToReplace)
+    {
+        CardSO card = new CardSO();
+        card.cardDescription = cardSubTitle;
+        card.cardBrief = cardDesc;
+        card.cardId = cardDatabase.cards.Count + 1;
+        card.cardTitle = cardTitle;
+        if (value == "0")
+        {
+            card.cardCategory = "S";
+        }
+        if (value == "1")
+        {
+            card.cardCategory = "W";
+        }
+        if (value == "2")
+        {
+            card.cardCategory = "O";
+        }
+        if (value == "3")
+        {
+            card.cardCategory = "T";
+        }
+        card.cardRank = 0;
+
+        cardDatabase.cards.Add(card);
+        return card.cardId;
+    }
+
     public List<CardSO> GetCardListBasedOnIds(List<string> ids)
     {
         return System.Linq.Enumerable.ToList(cardDatabase.cards.Where(c => ids.Contains(c.cardId.ToString())));

@@ -68,14 +68,17 @@ public class DropdownController : MonoBehaviour
             {
                 OnDropdownValueChanged(dropdownIndex, value);
             });
-            if (previousRanks.Count > 0)
+            if (previousRanks.Count == dropdowns.Count)
             {
                 selectedOptions.Add(previousRanks[i]);
             }
         }
-        for (int i = 0; i < dropdowns.Count; i++)
+        if (previousRanks.Count == dropdowns.Count)
         {
-            dropdowns[i].value = (previousRanks[i]);
+            for (int i = 0; i < dropdowns.Count; i++)
+            {
+                dropdowns[i].value = (previousRanks[i]);
+            }
         }
 
     }

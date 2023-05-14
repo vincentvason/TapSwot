@@ -47,6 +47,18 @@ public class CardGameManagerUI : MonoBehaviour
     public GameObject Stage1HelpWindow;
 
     public GameObject MoveToNextStage;
+
+    [Header("New Card Dialog")]
+    public GameObject NewCardHelper;
+    public GameObject NewCardSkipButton;
+    public GameObject NewCardDialog;
+
+    public GameObject NewCardParent;
+    public GameObject[] NewCardSlotButtons;
+
+    public TMPro.TMP_Dropdown SWOTDropdown;
+    public TMPro.TMP_InputField newCardTitle, newCardSubTitle, newCardDescription;
+
     private void Awake()
     {
         instance = this;
@@ -113,7 +125,7 @@ public class CardGameManagerUI : MonoBehaviour
             DisableAllHelperEmojisOfRoundOne();
             ConfirmReplace.SetActive(true);
         }
-        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO)
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO_END)
         {
             DisableAllHelperEmojisOfRoundOne();
         }
@@ -157,10 +169,20 @@ public class CardGameManagerUI : MonoBehaviour
             ItsYourTurn.SetActive(true);
         }
 
-        if (CardManager.instance.GetRemaingCards().Count == 0)
+        if (CardManager.instance.GetRemaingCards().Count == 0 && rankingRound)
         {
             DisableAllHelperEmojisOfRoundOne();
             ItsYourTurn.SetActive(false);
+        }
+
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO)
+        {
+            NewCardParent.SetActive(true);
+            NewCardSlotButtons[0].SetActive(true);
+            NewCardSlotButtons[1].SetActive(true);
+            NewCardSlotButtons[2].SetActive(true);
+            NewCardSlotButtons[3].SetActive(true);
+            NewCardSlotButtons[4].SetActive(true);
         }
 
         if (PhotonNetwork.IsMasterClient)
@@ -185,16 +207,66 @@ public class CardGameManagerUI : MonoBehaviour
             WaitForOtherPlayer.SetActive(true);
         }
 
-        if (CardManager.instance.GetRemaingCards().Count == 0)
+        if (CardManager.instance.GetRemaingCards().Count == 0 && rankingRound)
         {
             DisableAllHelperEmojisOfRoundOne();
             WaitForOtherPlayer.SetActive(false);
         }
+
+        if(CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO)
+        {
+            NewCardParent.SetActive(false);
+            NewCardSlotButtons[0].SetActive(false);
+            NewCardSlotButtons[1].SetActive(false);
+            NewCardSlotButtons[2].SetActive(false);
+            NewCardSlotButtons[3].SetActive(false);
+            NewCardSlotButtons[4].SetActive(false);
+        }
+
         MoveToNextStage.SetActive(false);
     }
 
     public List<Transform> VotingCardHolders = new List<Transform>();
 
+    public void SkipNewCard()
+    {
+        PlayerManager.instance.SendSkipNewCard();
+        NewCardDialog.SetActive(false);
+        NewCardSkipButton.SetActive(false);
+        NewCardParent.SetActive(false);
+        NewCardHelper.SetActive(false);
+    }
+    public void SaveNewCardData()
+    {
+        int value = SWOTDropdown.value;
+        string cardTitle = newCardTitle.text;
+        string cardSubTitle = newCardSubTitle.text;
+        string cardDesc = newCardDescription.text;
+        string cardSlotToReplace = newCardSlotOpened.ToString();
+
+        PlayerManager.instance.SendNewCardData(value.ToString(), cardTitle, cardSubTitle, cardDesc, cardSlotToReplace);
+        CardGameManager.instance.OnConfirmButtonPressed();//sending turn
+
+        NewCardDialog.SetActive(false);
+        NewCardSkipButton.SetActive(false);
+        NewCardParent.SetActive(false);
+        NewCardHelper.SetActive(false);
+    }
+
+    private int newCardSlotOpened;
+    public void OpenNewCardDilog(int slotOpened) 
+    {
+        newCardSlotOpened = slotOpened;
+        NewCardDialog.SetActive(true);
+
+        NewCardParent.SetActive(false);
+        NewCardSlotButtons[0].SetActive(false);
+        NewCardSlotButtons[1].SetActive(false);
+        NewCardSlotButtons[2].SetActive(false);
+        NewCardSlotButtons[3].SetActive(false);
+        NewCardSlotButtons[4].SetActive(false);
+    }
+    private bool rankingRound = false;
     public void UpdateCurrentRoundText()
     {
         GameStateEnum currentGameState = CardGameManager.instance.GetGameState();
@@ -207,10 +279,29 @@ public class CardGameManagerUI : MonoBehaviour
                 CurrentRoundText.text = "Stage 2";//card selection from remaining
                 break;
             case GameStateEnum.ROUND_TWO:
+                NewCardHelper.SetActive(true);
+                NewCardSkipButton.SetActive(true);
+                NewCardDialog.SetActive(false);
+                //disable drag on all cards (discarded, card slots, remaining)
+
+                PlayerManager.instance.myPlayer.Ex_DisableDragOnAllCardSlots();
+                CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = false;
+                CardGameManagerUI.instance.DiscardedDeckScroll.IsDraggable = false;
+
+                NewCardParent.SetActive(true);
+                NewCardSlotButtons[0].SetActive(true);
+                NewCardSlotButtons[1].SetActive(true);
+                NewCardSlotButtons[2].SetActive(true);
+                NewCardSlotButtons[3].SetActive(true);
+                NewCardSlotButtons[4].SetActive(true);
+                remaingingDeckGameObject.SetActive(false);
+                SendRankButton.interactable = false;
+                break;
+            case GameStateEnum.ROUND_TWO_END:
                 CurrentRoundText.text = "Stage 3";//ranking + select from pile
                 cardRankingAndActions_1.SetActive(true);
                 remaingingDeckGameObject.SetActive(false); //rankin + select from discarded pile
-
+                rankingRound = true;
                 List<TMPro.TMP_Dropdown> dropdowns = new List<TMPro.TMP_Dropdown>();
                 foreach (CardUI c in PlayerManager.instance.myPlayer.cardsUI)
                 {
@@ -220,7 +311,12 @@ public class CardGameManagerUI : MonoBehaviour
                 SendRankButton.interactable = false;
                 PlayerTurnText.text = "";
                 PlayerManager.instance.myPlayer.RankingStageStarted = true;
-
+                NewCardParent.SetActive(false);
+                NewCardSlotButtons[0].SetActive(false);
+                NewCardSlotButtons[1].SetActive(false);
+                NewCardSlotButtons[2].SetActive(false);
+                NewCardSlotButtons[3].SetActive(false);
+                NewCardSlotButtons[4].SetActive(false);
                 break;
             case GameStateEnum.ROUND_THREE:
                 CurrentRoundText.text = "Stage 4"; // joker(new card) + voting

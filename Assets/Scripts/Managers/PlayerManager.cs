@@ -13,7 +13,8 @@ public class PlayerManager : MonoBehaviour
     public GameObject myPlayerPrefab, otherPlayerPrefab;
 
     public RectTransform Otherplayer_content,Myplayer_content;
-    
+
+    public List<string> NewCardPlayersTurn = new List<string>();
 
     private void Awake()
     {
@@ -117,6 +118,41 @@ public class PlayerManager : MonoBehaviour
         }
 
         gameObject.GetComponent<PhotonView>().RPC("ReceiveCardsAndRankByPlayer", RpcTarget.All, playerID, (object)cardIDs.ToArray(), (object)cardRanks.ToArray());
+    }
+
+    public void SendNewCardData(string value, string cardTitle, string cardSubTitle, string cardDesc, string cardSlotToReplace)
+    {
+        string playerID = myPlayer.playerID.ToString();
+
+        gameObject.GetComponent<PhotonView>().RPC("ReceiveNewCard", RpcTarget.All, playerID, value, cardTitle, cardSubTitle, cardDesc, cardSlotToReplace);
+    }
+
+    public void SendSkipNewCard()
+    {
+        string playerID = myPlayer.playerID.ToString();
+        gameObject.GetComponent<PhotonView>().RPC("ReceiveSkipNewCard", RpcTarget.All, playerID);
+    }
+
+    [PunRPC]
+    public void ReceiveNewCard(string playerID, string value, string cardTitle, string cardSubTitle, string cardDesc, string cardSlotToReplace)
+    {
+        NewCardPlayersTurn.Add(playerID);
+        int cardId = CardManager.instance.CreateAndAddNewCardToDatabase(value, cardTitle, cardSubTitle, cardDesc, cardSlotToReplace);
+        //add card to player slot here
+
+        foreach (Player p in currentPlayersList)
+        {
+            if (p.playerID.ToString() == playerID)
+            {
+                p.ReceiveUpdatedCardInSlot(cardSlotToReplace, cardId.ToString());
+            }
+        }
+    }
+
+    [PunRPC]
+    public void ReceiveSkipNewCard(string playerID)
+    {
+        NewCardPlayersTurn.Add(playerID);
     }
 
     public List<CardSO> ReceivedCardsFromAllPlayersAfterRanking = new List<CardSO>();
@@ -348,6 +384,9 @@ public class PlayerManager : MonoBehaviour
         {
             case "ROUND_TWO":
                 CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_TWO);
+                break;
+            case "ROUND_TWO_END":
+                CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_TWO_END);
                 break;
             case "ROUND_THREE":
                 CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_THREE);
