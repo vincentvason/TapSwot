@@ -40,6 +40,8 @@ public class CardManager : MonoBehaviour
         PlayerManager.instance.myPlayer.Ex_DisableDragOnAllCardSlots();
         CardGameManagerUI.instance.RemainingDeckScroll.IsDraggable = false;
         CardGameManagerUI.instance.DiscardedDeckScroll.IsDraggable = false;
+
+        //CardGameManager.instance.PlayerTookTurn();
     }
 
     private IEnumerator SendRemoveAllRemainingCards()

@@ -231,6 +231,8 @@ public class CardGameManagerUI : MonoBehaviour
     public void SkipNewCard()
     {
         PlayerManager.instance.SendSkipNewCard();
+        CardGameManager.instance.OnConfirmButtonPressed();//sending turn
+
         NewCardDialog.SetActive(false);
         NewCardSkipButton.SetActive(false);
         NewCardParent.SetActive(false);
@@ -298,6 +300,9 @@ public class CardGameManagerUI : MonoBehaviour
                 SendRankButton.interactable = false;
                 break;
             case GameStateEnum.ROUND_TWO_END:
+                NewCardHelper.SetActive(false);
+                NewCardSkipButton.SetActive(false);
+                NewCardDialog.SetActive(false);
                 CurrentRoundText.text = "Stage 3";//ranking + select from pile
                 cardRankingAndActions_1.SetActive(true);
                 remaingingDeckGameObject.SetActive(false); //rankin + select from discarded pile

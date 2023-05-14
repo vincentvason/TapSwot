@@ -13,15 +13,15 @@ public class CardGameManager : MonoBehaviourPunCallbacks
 
     public static CardGameManager instance = null;
 
-    public bool RoundOneAllPlayersPlayed = false;
-    public List<string> ROUND_ONE_PlayersThatHaveTakenTurn = new List<string>(); // a list of players who have taken their turn
+    //public bool RoundOneAllPlayersPlayed = false;
+    //public List<string> ROUND_ONE_PlayersThatHaveTakenTurn = new List<string>(); // a list of players who have taken their turn
 
-    public bool startCountingRoundTwoPLayers = false;
-    public bool RoundTwoAllPlayersPlayed = false;
-    public List<string> ROUND_TWO_PlayersThatHaveTakenTurn = new List<string>(); // a list of players who have taken their turn
+    //public bool startCountingRoundTwoPLayers = false;
+    //public bool RoundTwoAllPlayersPlayed = false;
+    //public List<string> ROUND_TWO_PlayersThatHaveTakenTurn = new List<string>(); // a list of players who have taken their turn
 
-    public bool RoundThreeAllPlayersPlayed = false;
-    public List<string> ROUND_THREE_PlayersThatHaveTakenTurn = new List<string>(); // a list of players who have taken their turn
+    //public bool RoundThreeAllPlayersPlayed = false;
+    //public List<string> ROUND_THREE_PlayersThatHaveTakenTurn = new List<string>(); // a list of players who have taken their turn
 
 
     public static event Action<GameStateEnum> OnGameStateChanged;
@@ -98,97 +98,6 @@ public class CardGameManager : MonoBehaviourPunCallbacks
         PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
     }
 
-    public int lastTurn = -1;
-    private void UpdateTurn()
-    {
-        lastTurn = currentTurn;
-        currentTurn++;
-        if(currentTurn> PhotonNetwork.CurrentRoom.PlayerCount)
-        {
-            currentTurn = 1;
-        }
-        CardGameManagerUI.instance.UpdatePlayerTurnText();
-
-        if(currentGameState == GameStateEnum.ROUND_THREE)
-        {
-            if (lastStage)
-            {
-                if (!CardGameManager.instance.ROUND_THREE_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
-                {
-                    CardGameManager.instance.ROUND_THREE_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
-                }
-                if (ROUND_THREE_PlayersThatHaveTakenTurn.Count == PlayerManager.instance.GetCurrentPlayersList().Count)
-                {
-                    RoundThreeAllPlayersPlayed = true;
-                    //This round 2 also has ended. now its timr to hide discarded cards and
-                    //show all players card on table with their ranks
-                    PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_FOUR.ToString());
-                }
-            }
-
-
-            PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
-        }
-        else
-        {   //SendRPC here to update turn of player
-            PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
-
-            if (!CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
-            {
-                CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
-            }
-
-            if (startCountingRoundTwoPLayers)
-            {
-                if (!CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
-                {
-                    CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
-                }
-
-                if (ROUND_TWO_PlayersThatHaveTakenTurn.Count == PlayerManager.instance.GetCurrentPlayersList().Count)
-                {
-                    RoundTwoAllPlayersPlayed = true;
-                    //This round 2 also has ended. now its timr to hide discarded cards and
-                    //show all players card on table with their ranks
-                    PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_TWO_END.ToString());
-                    PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
-                }
-            }
-        }
-
-        
-    }
-
-    public void UpdateTurnValueFromRPC(string _currentTurn)
-    {
-        int.TryParse(_currentTurn, out currentTurn);
-
-        if (currentGameState == GameStateEnum.ROUND_THREE)
-        {
-            if (lastStage)
-            {
-                if (!CardGameManager.instance.ROUND_THREE_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
-                {
-                    CardGameManager.instance.ROUND_THREE_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
-                }
-            }
-        }
-        else
-        {
-            if (!CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
-            {
-                CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
-            }
-
-            if (startCountingRoundTwoPLayers)
-            {
-                if (!CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
-                {
-                    CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
-                }
-            }
-        }
-    }
 
     public void UpdateGameState(GameStateEnum state)
     {
@@ -200,27 +109,6 @@ public class CardGameManager : MonoBehaviourPunCallbacks
     public void OnConfirmButtonPressed()
     {
         UpdateTurn();
-    }
-
-    internal void CheckAllPlayersAndUpdateGameStage()
-    {
-        Debug.Log("ROUND_ONE_PlayersThatHaveTakenTurn.Count" + ROUND_ONE_PlayersThatHaveTakenTurn.Count);
-        Debug.Log(" PlayerManager.instance.GetCurrentPlayersList().Count" + PlayerManager.instance.GetCurrentPlayersList().Count);
-        if (ROUND_ONE_PlayersThatHaveTakenTurn.Count >= PlayerManager.instance.GetCurrentPlayersList().Count)
-        {
-            RoundOneAllPlayersPlayed = true;
-            Debug.Log("RoundOneAllPlayersPlayed");
-        }
-        
-        if (RoundOneAllPlayersPlayed)
-        {
-            Debug.Log("SendRoundRPC");
-
-            //SEND RPC for round update
-            PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_TWO.ToString());
-            PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
-            startCountingRoundTwoPLayers = true;
-        }
     }
 
     void UpdateAnimationCard(GameObject animatedCard)
@@ -360,6 +248,224 @@ public class CardGameManager : MonoBehaviourPunCallbacks
             }
 
         }
+    }
+
+    //Turns
+
+    // This is the key we'll use to store the turn count in the room's properties
+    private const string TurnCountKey = "TurnCount";
+
+    // Call this when the round starts
+    public void StartRound()
+    {
+        // Reset the turn count
+        SetTurnCount(0);
+    }
+
+    // Call this when a player takes their turn
+    public void PlayerTookTurn()
+    {
+        int turnCount = GetTurnCount();
+        turnCount++;
+        SetTurnCount(turnCount);
+    }
+
+    // Use this to check if all players have taken their turn
+    public bool AllPlayersTookTurn()
+    {
+        int turnCount = GetTurnCount();
+        Debug.Log("AllPlayersTookTurn()" + turnCount);
+        return turnCount >= PhotonNetwork.CurrentRoom.PlayerCount;
+    }
+
+    // Helper method to get the turn count
+    private int GetTurnCount()
+    {
+        if (PhotonNetwork.CurrentRoom.CustomProperties.TryGetValue(TurnCountKey, out object turnCountObj))
+        {
+            return (int)turnCountObj;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    // Helper method to set the turn count
+    private void SetTurnCount(int turnCount)
+    {
+        ExitGames.Client.Photon.Hashtable customProperties = new ExitGames.Client.Photon.Hashtable();
+        customProperties[TurnCountKey] = turnCount;
+        PhotonNetwork.CurrentRoom.SetCustomProperties(customProperties);
+    }
+
+    //
+
+
+    public int lastTurn = -1;
+    private void UpdateTurn()
+    {
+        lastTurn = currentTurn;
+        currentTurn++;
+        if (currentTurn > PhotonNetwork.CurrentRoom.PlayerCount)
+        {
+            currentTurn = 1;
+        }
+        CardGameManagerUI.instance.UpdatePlayerTurnText();
+        PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
+
+        //if(currentGameState == GameStateEnum.ROUND_THREE)
+        //{
+        //    if (lastStage)
+        //    {
+        //        if (!CardGameManager.instance.ROUND_THREE_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
+        //        {
+        //            Debug.Log("ROUND_THREE_PlayersThatHaveTakenTurn.Add");
+        //            //CardGameManager.instance.ROUND_THREE_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
+        //        }
+        //        if (ROUND_THREE_PlayersThatHaveTakenTurn.Count == PlayerManager.instance.GetCurrentPlayersList().Count)
+        //        {
+        //            RoundThreeAllPlayersPlayed = true;
+        //            //This round 2 also has ended. now its timr to hide discarded cards and
+        //            //show all players card on table with their ranks
+        //            PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_FOUR.ToString());
+        //        }
+        //    }
+
+
+        //    PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
+        //}
+        //else
+        //{   //SendRPC here to update turn of player
+        //    PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
+
+        //    if (!CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
+        //    {
+        //        Debug.Log("ROUND_ONE_PlayersThatHaveTakenTurn.Add");
+        //        //CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
+        //    }
+
+        //    if (startCountingRoundTwoPLayers)
+        //    {
+        //        if (!CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Contains(currentTurn.ToString()))
+        //        {
+        //            Debug.Log("ROUND_TWO_PlayersThatHaveTakenTurn.Add");
+        //            //CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Add(currentTurn.ToString());
+        //        }
+
+        //        if (ROUND_TWO_PlayersThatHaveTakenTurn.Count == PlayerManager.instance.GetCurrentPlayersList().Count)
+        //        {
+        //            RoundTwoAllPlayersPlayed = true;
+        //            //This round 2 also has ended. now its timr to hide discarded cards and
+        //            //show all players card on table with their ranks
+        //            PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_TWO_END.ToString());
+        //            PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
+        //        }
+        //    }
+        //}
+
+
+    }
+
+    private IEnumerator DelayAndCheck()
+    {
+        yield return new WaitForSeconds(1f);
+        if (currentGameState == GameStateEnum.ROUND_TWO)
+        {
+            if (AllPlayersTookTurn())
+            {
+                PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_TWO_END.ToString());
+                Debug.Log("Turn Count is :" + GetTurnCount());
+            }
+        }
+        yield return new WaitForSeconds(1f);
+
+        if (currentGameState == GameStateEnum.ROUND_TWO_END)
+        {
+            if (AllPlayersTookTurn())
+            {
+                PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_THREE.ToString());
+                Debug.Log("Turn Count is :" + GetTurnCount());
+            }
+        }
+        yield return new WaitForSeconds(1f);
+
+        if (currentGameState == GameStateEnum.ROUND_THREE)
+        {
+            if (AllPlayersTookTurn())
+            {
+                PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_FOUR.ToString());
+                Debug.Log("Turn Count is :" + GetTurnCount());
+            }
+        }
+    }
+
+    public void UpdateTurnValueFromRPC(string _lastTurn, string _currentTurn)
+    {
+        int lastTurn = 0;
+        int.TryParse(_currentTurn, out currentTurn);
+        int.TryParse(_lastTurn, out lastTurn);
+        PlayerTookTurn();
+        StartCoroutine(DelayAndCheck());
+
+        //if (currentGameState == GameStateEnum.ROUND_THREE)
+        //{
+        //    if (lastStage)
+        //    {
+        //        if (!CardGameManager.instance.ROUND_THREE_PlayersThatHaveTakenTurn.Contains(lastTurn.ToString()))
+        //        {
+        //            Debug.Log("ROUND_THREE_PlayersThatHaveTakenTurn.Add");
+        //            CardGameManager.instance.ROUND_THREE_PlayersThatHaveTakenTurn.Add(lastTurn.ToString());
+        //        }
+        //    }
+        //}
+        //else
+        //{
+        //    if (!CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Contains(lastTurn.ToString()))
+        //    {
+        //        Debug.Log("ROUND_ONE_PlayersThatHaveTakenTurn.Add");
+        //        CardGameManager.instance.ROUND_ONE_PlayersThatHaveTakenTurn.Add(lastTurn.ToString());
+        //    }
+
+        //    if (startCountingRoundTwoPLayers)
+        //    {
+        //        if (!CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Contains(lastTurn.ToString()))
+        //        {
+        //            Debug.Log("ROUND_TWO_PlayersThatHaveTakenTurn.Add");
+        //            CardGameManager.instance.ROUND_TWO_PlayersThatHaveTakenTurn.Add(lastTurn.ToString());
+        //        }
+        //    }
+        //}
+    }
+
+    internal void CheckAllPlayersAndUpdateGameStage()
+    {
+        if (currentGameState == GameStateEnum.ROUND_ONE)
+        {
+            if (AllPlayersTookTurn())
+            {
+                PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
+                PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_TWO.ToString());
+            }
+        }
+
+        //Debug.Log("ROUND_ONE_PlayersThatHaveTakenTurn.Count" + ROUND_ONE_PlayersThatHaveTakenTurn.Count);
+        //Debug.Log(" PlayerManager.instance.GetCurrentPlayersList().Count" + PlayerManager.instance.GetCurrentPlayersList().Count);
+        //if (ROUND_ONE_PlayersThatHaveTakenTurn.Count >= PlayerManager.instance.GetCurrentPlayersList().Count)
+        //{
+        //    RoundOneAllPlayersPlayed = true;
+        //    Debug.Log("RoundOneAllPlayersPlayed");
+        //}
+
+        //if (RoundOneAllPlayersPlayed)
+        //{
+        //    Debug.Log("SendRoundRPC");
+
+        //    //SEND RPC for round update
+        //    PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_TWO.ToString());
+        //    PlayerManager.instance.SendPlayerTurnUpdate(lastTurn.ToString(), currentTurn.ToString());
+        //    startCountingRoundTwoPLayers = true;
+        //}
     }
 
 }

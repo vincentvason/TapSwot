@@ -183,8 +183,8 @@ public class PlayerManager : MonoBehaviour
         if(ReceivedCardsFromAllPlayersAfterRankingCount>= PlayerManager.instance.GetCurrentPlayersList().Count)
         {
             //all players have ranked. Send RPC for stage change
-            PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_THREE.ToString());
             PlayerManager.instance.SendPlayerTurnUpdate(CardGameManager.instance.lastTurn.ToString(), CardGameManager.instance.currentTurn.ToString());
+            PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_THREE.ToString());
         }
     }
 
@@ -357,7 +357,10 @@ public class PlayerManager : MonoBehaviour
     [PunRPC]
     public void ReceivePlayerTurnValueFirstTime(string lastTurn, string currentTurn)
     {
-        CardGameManager.instance.UpdateTurnValueFromRPC(currentTurn);
+        //SetRoundOne
+        CardGameManager.instance.StartRound();
+
+        CardGameManager.instance.UpdateTurnValueFromRPC(lastTurn,currentTurn);
         int last = 0;
         int current = 0;
         int.TryParse(lastTurn, out last);
@@ -383,15 +386,19 @@ public class PlayerManager : MonoBehaviour
         switch (round)
         {
             case "ROUND_TWO":
+                CardGameManager.instance.StartRound();
                 CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_TWO);
                 break;
             case "ROUND_TWO_END":
+                CardGameManager.instance.StartRound();
                 CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_TWO_END);
                 break;
             case "ROUND_THREE":
+                CardGameManager.instance.StartRound();
                 CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_THREE);
                 break;
             case "ROUND_FOUR":
+                CardGameManager.instance.StartRound();
                 CardGameManager.instance.UpdateGameState(GameStateEnum.ROUND_FOUR);
                 break;
         }
@@ -400,7 +407,7 @@ public class PlayerManager : MonoBehaviour
     [PunRPC]
     public void ReceivePlayerTurnValue(string lastTurn, string currentTurn)
     {
-        CardGameManager.instance.UpdateTurnValueFromRPC(currentTurn);
+        CardGameManager.instance.UpdateTurnValueFromRPC(lastTurn,currentTurn);
         int last = 0;
         int current = 0;
         int.TryParse(lastTurn, out last);
