@@ -77,7 +77,8 @@ public class DropdownController : MonoBehaviour
         {
             for (int i = 0; i < dropdowns.Count; i++)
             {
-                dropdowns[i].value = (previousRanks[i]);
+                if(previousRanks[i]!=0)
+                    dropdowns[i].SetValueWithoutNotify(previousRanks[i]);
             }
         }
 

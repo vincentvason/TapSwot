@@ -102,6 +102,7 @@ public class CardGameManagerUI : MonoBehaviour
                 WaitForOtherPlayer.SetActive(true);
                 rankValuesSent = true;
                 SendRankButton.interactable = false;
+                PlayerManager.instance.myPlayer.DisableAllCardsDropdownAfterRankingFinalised();
             }
         }
         else
@@ -300,6 +301,7 @@ public class CardGameManagerUI : MonoBehaviour
                 SendRankButton.interactable = false;
                 break;
             case GameStateEnum.ROUND_TWO_END:
+                PlayerManager.instance.myPlayer.RankingStageStarted = true;
                 NewCardHelper.SetActive(false);
                 NewCardSkipButton.SetActive(false);
                 NewCardDialog.SetActive(false);
@@ -315,7 +317,6 @@ public class CardGameManagerUI : MonoBehaviour
                 dropdownController.InitialiseAllDropdowns(dropdowns);
                 SendRankButton.interactable = false;
                 PlayerTurnText.text = "";
-                PlayerManager.instance.myPlayer.RankingStageStarted = true;
                 NewCardParent.SetActive(false);
                 NewCardSlotButtons[0].SetActive(false);
                 NewCardSlotButtons[1].SetActive(false);
@@ -324,6 +325,7 @@ public class CardGameManagerUI : MonoBehaviour
                 NewCardSlotButtons[4].SetActive(false);
                 break;
             case GameStateEnum.ROUND_THREE:
+                rankingRound = false;
                 CurrentRoundText.text = "Stage 4"; // joker(new card) + voting
 
                 //disable discarded or destroy all cards in discarded
