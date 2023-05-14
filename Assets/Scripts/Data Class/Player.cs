@@ -560,7 +560,7 @@ public class Player : MonoBehaviour
     {
         foreach(CardUI cardUI in cardsUI)
         {
-            cardUI.DisableRankDropdown();
+            cardUI.SetNotInteractable();
         }
     }
 

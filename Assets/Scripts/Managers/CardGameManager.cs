@@ -110,7 +110,7 @@ public class CardGameManager : MonoBehaviourPunCallbacks
     {
         UpdateTurn();
     }
-
+    private bool checkLastTurns = false;
     void UpdateAnimationCard(GameObject animatedCard)
     {
         animatedCard.transform.SetParent(CardGameManagerUI.instance.DiscardScrollContent);
@@ -118,6 +118,8 @@ public class CardGameManager : MonoBehaviourPunCallbacks
 
         if (lastStage && !didOnce)
         {
+            StartRound(); //we will start counting turns now.
+            checkLastTurns = true;
             List<CardSO> carsSoLIst = new List<CardSO>();
             for (int i = 0; i < CardGameManagerUI.instance.DiscardScrollContent.childCount; i++)
             {
@@ -155,42 +157,32 @@ public class CardGameManager : MonoBehaviourPunCallbacks
         int originalIndexDiscard = 1;
         int toSetIndexForAnimation = 2;
 
-        
+        //instead of animation. just set parent
 
         GameObject fromCard = CardGameManagerUI.instance.VotingCardHolders[toReplace - 1].GetChild(0).gameObject;
+        GameObject toCard = CardGameManagerUI.instance.DiscardScrollContent.GetChild(fromDiscard).gameObject;
+        //fromCard.GetComponent<LayoutElement>().ignoreLayout = false;
+        //toCard.GetComponent<LayoutElement>().ignoreLayout = false;
+
         if (fromCard != null)
         {
-            //instantiatte voting card 
-            //set values from selectedSmallVotingCard
-            GameObject animatedCard = fromCard;
-            animatedCard.SetActive(true);
-
-            animatedCard.transform.DOMove(CardGameManagerUI.instance.DiscardScrollPosition.position, 2.2f, false)
-            .OnStart(() =>
-            animatedCard.GetComponent<LayoutElement>().ignoreLayout = true
-            )
-            .OnComplete(() =>
-                UpdateAnimationCard(animatedCard)//CardGameManagerUI.instance.DiscardScrollContent
-            ).SetEase(Ease.Flash);
+            //fromCard.transform.parent = null;
         }
 
-        
-
-        GameObject toCard = CardGameManagerUI.instance.DiscardScrollContent.GetChild(fromDiscard).gameObject;
         if (toCard != null)
         {
-            //instantiatte voting card 
-            //set values from selectedSmallVotingCard
-            GameObject animatedCard = toCard;
-            animatedCard.SetActive(true);
+            //toCard.transform.parent = null;
+        }
 
-            animatedCard.transform.DOMove(CardGameManagerUI.instance.VotingCardHolders[toReplace - 1].position, 2.5f, false)
-            .OnStart(() =>
-            animatedCard.GetComponent<LayoutElement>().ignoreLayout = true
-            )
-            .OnComplete(() =>
-                UpdateDiscardAnimationToLeft(animatedCard, CardGameManagerUI.instance.VotingCardHolders[toReplace - 1])
-            ).SetEase(Ease.Flash);
+        {  
+            //fromCard.SetActive(true);
+            fromCard.transform.SetParent(CardGameManagerUI.instance.DiscardScrollContent);
+            toCard.transform.SetParent(CardGameManagerUI.instance.VotingCardHolders[toReplace - 1].transform);
+        }
+
+        {   
+            //toCard.SetActive(true);
+            //UpdateDiscardAnimationToLeft(toCard, CardGameManagerUI.instance.VotingCardHolders[toReplace - 1]);
         }
 
         UpdateTurn();
@@ -305,6 +297,13 @@ public class CardGameManager : MonoBehaviourPunCallbacks
     public int lastTurn = -1;
     private void UpdateTurn()
     {
+        //lastTurn = 1;
+        //currentTurn = 1;
+
+        //lastTurn = 1;
+        //current = 2;
+
+
         lastTurn = currentTurn;
         currentTurn++;
         if (currentTurn > PhotonNetwork.CurrentRoom.PlayerCount)
@@ -392,7 +391,7 @@ public class CardGameManager : MonoBehaviourPunCallbacks
 
         if (currentGameState == GameStateEnum.ROUND_THREE)
         {
-            if (AllPlayersTookTurn())
+            if (AllPlayersTookTurn() && checkLastTurns)
             {
                 PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_FOUR.ToString());
                 Debug.Log("Turn Count is :" + GetTurnCount());

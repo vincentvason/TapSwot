@@ -121,7 +121,8 @@ public class DropdownController : MonoBehaviour
             else
             {
                 yield return new WaitForSeconds(0.01f);
-                lastOption.Add(dropdownIndex, value);
+                if(!lastOption.ContainsKey(dropdownIndex))
+                    lastOption.Add(dropdownIndex, value);
             }
             yield return new WaitForSeconds(0.01f);
             selectedOptions.Add(value);

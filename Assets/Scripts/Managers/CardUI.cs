@@ -257,6 +257,16 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         }
     }
 
+    public void SetNotInteractable()
+    {
+        if (rankDropdown != null)
+        {
+            rankDropdown.interactable = false;
+            //rankDropdown.gameObject.SetActive(false);
+        }
+
+    }
+
     public void DisableRankDropdown()
     {
         if (rankDropdown != null)

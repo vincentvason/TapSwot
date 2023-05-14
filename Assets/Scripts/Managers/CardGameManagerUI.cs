@@ -82,7 +82,7 @@ public class CardGameManagerUI : MonoBehaviour
     public void UpdatePlayerTurnText()
     {
         PlayerTurnText.text = "Current Turn:" + CardGameManager.instance.GetPlayerNameFromTurn();
-        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO_END)
         {
             PlayerTurnText.text = "";
         }
@@ -97,12 +97,12 @@ public class CardGameManagerUI : MonoBehaviour
             {
                 //send turn update
                 PlayerManager.instance.Send_PlayerRankUpdate();
+                PlayerManager.instance.myPlayer.DisableAllCardsDropdownAfterRankingFinalised();
                 //show wait for other players
                 DisableAllHelperEmojisOfRoundOne();
                 WaitForOtherPlayer.SetActive(true);
                 rankValuesSent = true;
                 SendRankButton.interactable = false;
-                PlayerManager.instance.myPlayer.DisableAllCardsDropdownAfterRankingFinalised();
             }
         }
         else

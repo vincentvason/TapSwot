@@ -183,7 +183,7 @@ public class PlayerManager : MonoBehaviour
         if(ReceivedCardsFromAllPlayersAfterRankingCount>= PlayerManager.instance.GetCurrentPlayersList().Count)
         {
             //all players have ranked. Send RPC for stage change
-            PlayerManager.instance.SendPlayerTurnUpdate(CardGameManager.instance.lastTurn.ToString(), CardGameManager.instance.currentTurn.ToString());
+            CardGameManager.instance.OnConfirmButtonPressed();
             PlayerManager.instance.SendRoundRPC(GameStateEnum.ROUND_THREE.ToString());
         }
     }
