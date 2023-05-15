@@ -301,7 +301,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     {
         if (rankDropdown != null)
         {
-            rankDropdown.enabled = false;
+            rankDropdown.interactable = false;
             //rankDropdown.gameObject.SetActive(false);
         }
     }
