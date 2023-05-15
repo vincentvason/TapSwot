@@ -100,7 +100,7 @@ public class CardGameManagerUI : MonoBehaviour
             {
                 //send turn update
                 PlayerManager.instance.Send_PlayerRankUpdate();
-                PlayerManager.instance.myPlayer.DisableAllCardsDropdownAfterRankingFinalised();
+                //PlayerManager.instance.myPlayer.DisableAllCardsDropdownAfterRankingFinalised();
                 //show wait for other players
                 DisableAllHelperEmojisOfRoundOne();
                 WaitForOtherPlayer.SetActive(true);
@@ -194,11 +194,13 @@ public class CardGameManagerUI : MonoBehaviour
 
         if (PhotonNetwork.IsMasterClient)
         {
-            MoveToNextStage.SetActive(true);
+            if (MoveToNextStage != null)
+                MoveToNextStage.SetActive(true);
         }
         else
         {
-            MoveToNextStage.SetActive(false);
+            if (MoveToNextStage != null)
+                MoveToNextStage.SetActive(false);
         }
     }
     public void ShowWaitForTurn()
@@ -233,7 +235,8 @@ public class CardGameManagerUI : MonoBehaviour
             NewCardSkipButton.GetComponent<Button>().interactable = false;
         }
 
-        MoveToNextStage.SetActive(false);
+        if(MoveToNextStage!=null)
+            MoveToNextStage.SetActive(false);
     }
 
     public List<Transform> VotingCardHolders = new List<Transform>();
@@ -356,12 +359,12 @@ public class CardGameManagerUI : MonoBehaviour
                 AlLCards.SetActive(true);
                 DiscardedInVoting.SetActive(true);
 
-                CardManager.instance.CreateCardsForVotingDiscard();
-
                 DisableAllHelperEmojisOfRoundOne();
 
                 StageThreeItsYourTurn.SetActive(false);
                 StageThreeWaitForTurn.SetActive(false);
+
+                CardManager.instance.CreateCardsForVotingDiscard();
                 break;
             case GameStateEnum.ROUND_FOUR:
                 DiscardedInVoting.SetActive(false);

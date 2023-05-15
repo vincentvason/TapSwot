@@ -70,10 +70,8 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
                 CheckParentAndSetBackCard();
             }
         }
-        lastDropDownValue = card.cardRank;
         // Save the original parent transform
         originalParent = transform.parent;
-
     }
 
     private void CreateCanvas()
@@ -258,7 +256,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
             }
         }
 
-        if (CardGameManager.instance.GetGameState() != GameStateEnum.ROUND_ONE || CardGameManager.instance.GetGameState() != GameStateEnum.ROUND_TWO)
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_ONE || CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO)
         {
             if (rankDropdown != null) { rankDropdown.SetValueWithoutNotify(0); }                
         }
