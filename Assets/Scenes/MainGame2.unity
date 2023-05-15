@@ -32956,8 +32956,8 @@ MonoBehaviour:
   FinalCardPanel: {fileID: 1006858644}
   FinalCardPrefab: {fileID: 544444413}
   FinalCardContentTransform: {fileID: 317931163}
-  TakeScreenshotButton: {fileID: 0}
-  OpenFolderButton: {fileID: 0}
+  TakeScreenshotButton: {fileID: 1258856508}
+  OpenFolderButton: {fileID: 2072739761}
   targetRect: {fileID: 1006858645}
   _camera: {fileID: 1672604121}
   _objToScreenshot: {fileID: 1006858645}

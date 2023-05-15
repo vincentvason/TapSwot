@@ -188,6 +188,8 @@ public class CardGameManagerUI : MonoBehaviour
             NewCardSlotButtons[2].SetActive(true);
             NewCardSlotButtons[3].SetActive(true);
             NewCardSlotButtons[4].SetActive(true);
+
+            NewCardSkipButton.GetComponent<Button>().interactable = true;
         }
 
         if (PhotonNetwork.IsMasterClient)
@@ -227,6 +229,8 @@ public class CardGameManagerUI : MonoBehaviour
             NewCardSlotButtons[2].SetActive(false);
             NewCardSlotButtons[3].SetActive(false);
             NewCardSlotButtons[4].SetActive(false);
+
+            NewCardSkipButton.GetComponent<Button>().interactable = false;
         }
 
         MoveToNextStage.SetActive(false);
