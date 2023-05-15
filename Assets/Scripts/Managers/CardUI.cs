@@ -313,7 +313,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
             if (rankDropdown != null)
             {
                 rankDropdown.SetValueWithoutNotify(card.cardRank);
-                rankDropdown.interactable = false;
+                rankDropdown.enabled = false;
             }
         }
         if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_FOUR)
@@ -321,7 +321,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
             if (rankDropdown != null)
             {
                 rankDropdown.SetValueWithoutNotify(card.cardRank);
-                rankDropdown.interactable = false;
+                rankDropdown.enabled = false;
             }
         }
     }
