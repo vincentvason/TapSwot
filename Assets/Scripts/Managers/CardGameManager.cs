@@ -241,7 +241,7 @@ public class CardGameManager : MonoBehaviourPunCallbacks
             
             //also send RPC
             //add cardso information to discarded list
-            animatedCard.transform.DOMove(CardGameManagerUI.instance.DiscardScrollPosition.position, 2.5f, false)
+            animatedCard.transform.DOMove(CardGameManagerUI.instance.DiscardScrollPosition.position, 1.0f, false)
             .OnStart(()=>
             animatedCard.GetComponent<LayoutElement>().ignoreLayout = true
             )
