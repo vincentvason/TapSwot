@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -416,13 +417,19 @@ public class CardGameManagerUI : MonoBehaviour
 
     public void TakeScreenshot()
     {
-        string fileName = "TAP_SWOT_FinalCards_" + DateTime.UtcNow.ToString();
+        string guid = Guid.NewGuid().ToString();
+        string fileName = "TAP_SWOT_FinalCards_" + guid;
+        fileName = fileName.Replace("-", "_");
         StartCoroutine(CutSpriteFromScreen(fileName));
     }
     //Object To Screenshot
     [SerializeField] private RectTransform _objToScreenshot;
     private IEnumerator CutSpriteFromScreen(string fileName)
     {
+        fileName = new string(fileName.ToCharArray()
+        .Where(c => !Char.IsWhiteSpace(c))
+        .ToArray());
+
         //Code will throw error at runtime if this is removed
         yield return new WaitForEndOfFrame();
         //Get the corners of RectTransform rect and store it in a array vector
