@@ -38,7 +38,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
         if (rankDropdown != null)
         {
             rankDropdown.value = 0;
-            if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_TWO_END) { } else { DisableRankDropdown(); }            
+            DisableRankDropdown();
         }
         if (transform.parent != null)
         {
@@ -301,7 +301,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     {
         if (rankDropdown != null)
         {
-            rankDropdown.interactable = false;
+            rankDropdown.enabled = false;
             //rankDropdown.gameObject.SetActive(false);
         }
     }
