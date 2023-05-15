@@ -171,7 +171,7 @@ public class CardManager : MonoBehaviour
             a.SetActive(true);
             a.transform.SetParent(CardGameManagerUI.instance.VotingCardHolders[i]);
 
-            a.GetComponent<CardUI>().Initialize(cardsToIns[i]);
+            a.GetComponent<CardUI>().InitializeCreateCardsForVotingDiscard(cardsToIns[i]);
             a.GetComponent<CardUI>().DisableBackCard();
             a.GetComponent<CardUI>().ShowRanking();
         }

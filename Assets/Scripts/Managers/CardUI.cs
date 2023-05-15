@@ -55,6 +55,27 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     bool createdCanvas = false;
 
 
+    public void InitializeCreateCardsForVotingDiscard(CardSO card)
+    {
+        this.card = card;
+        cardTitle.text = "<font-weight=800>" + card.cardTitle;
+        cardDescription.text = card.cardDescription;
+        cardRank.text = card.cardRank.ToString();
+        cardCategory.text = card.cardCategory;
+        
+        if (transform.parent != null)
+        {
+            if (transform.parent.parent != null)
+            {
+                CheckParentAndSetBackCard();
+            }
+        }
+        lastDropDownValue = card.cardRank;
+        // Save the original parent transform
+        originalParent = transform.parent;
+
+    }
+
     private void CreateCanvas()
     {
         if (!createdCanvas)
