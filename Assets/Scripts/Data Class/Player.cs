@@ -564,5 +564,20 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void EnableKeepCardButton()
+    {
+        for(int i=0;i< CardGameManagerUI.instance.DiscardScrollContent.childCount; i++)
+        {
+            CardGameManagerUI.instance.DiscardScrollContent.GetChild(i).GetComponent<CardUI>().SetKeepCardButtonState(true);
+        }        
+    }
+
+    public void DisableKeepCardButton()
+    {
+        for (int i = 0; i < CardGameManagerUI.instance.DiscardScrollContent.childCount; i++)
+        {
+            CardGameManagerUI.instance.DiscardScrollContent.GetChild(i).GetComponent<CardUI>().SetKeepCardButtonState(false);
+        }
+    }
 
 }

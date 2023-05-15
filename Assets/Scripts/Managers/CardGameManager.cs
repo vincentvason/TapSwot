@@ -3,6 +3,7 @@ using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -146,6 +147,7 @@ public class CardGameManager : MonoBehaviourPunCallbacks
     public void KeepCard(string idFromDiscard)
     {
         PlayerManager.instance.SendKeepCardVoting(idFromDiscard);
+        UpdateTurn();
     }
     public void DiscardSelectedCardVoting()
     {
@@ -164,20 +166,48 @@ public class CardGameManager : MonoBehaviourPunCallbacks
         //fromCard.GetComponent<LayoutElement>().ignoreLayout = false;
         //toCard.GetComponent<LayoutElement>().ignoreLayout = false;
 
-        if (fromCard != null)
+        CardSO fromCardSO = fromCard.GetComponent<CardUI>().card;
+        CardSO toCardSo = toCard.GetComponent<CardUI>().card;
+
+        Destroy(fromCard);
+        Destroy(toCard);
+
         {
-            //fromCard.transform.parent = null;
+            GameObject a = GameObject.Instantiate(CardGameManagerUI.instance.VotingCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            a.SetActive(true);
+            a.transform.SetParent(CardGameManagerUI.instance.VotingCardHolders[toReplace - 1].transform);
+
+            a.GetComponent<CardUI>().Initialize(toCardSo);
+            a.GetComponent<CardUI>().DisableBackCard();
+            a.GetComponent<CardUI>().ShowRanking();
+            a.GetComponent<CardUI>().HideKeepCardButton();
         }
 
-        if (toCard != null)
         {
-            //toCard.transform.parent = null;
+            GameObject a = GameObject.Instantiate(CardGameManagerUI.instance.VotingCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            a.SetActive(true);
+            a.transform.SetParent(CardGameManagerUI.instance.DiscardScrollContent);
+
+            a.GetComponent<CardUI>().Initialize(fromCardSO);
+            a.GetComponent<CardUI>().DisableBackCard();
+            a.GetComponent<CardUI>().ShowRanking();
+            a.GetComponent<CardUI>().HideKeepCardButton();
         }
+
+        //if (fromCard != null)
+        //{
+        //    fromCard.transform.parent = null;
+        //}
+
+        //if (toCard != null)
+        //{
+        //    toCard.transform.parent = null;
+        //}
 
         {  
             //fromCard.SetActive(true);
-            fromCard.transform.SetParent(CardGameManagerUI.instance.DiscardScrollContent);
-            toCard.transform.SetParent(CardGameManagerUI.instance.VotingCardHolders[toReplace - 1].transform);
+            //fromCard.transform.SetParent(CardGameManagerUI.instance.DiscardScrollContent);
+            //toCard.transform.SetParent(CardGameManagerUI.instance.VotingCardHolders[toReplace - 1].transform);
         }
 
         {   
@@ -185,7 +215,7 @@ public class CardGameManager : MonoBehaviourPunCallbacks
             //UpdateDiscardAnimationToLeft(toCard, CardGameManagerUI.instance.VotingCardHolders[toReplace - 1]);
         }
 
-        UpdateTurn();
+        //UpdateTurn();
     }
 
     private void UpdateDiscardAnimationToLeft(GameObject animatedCard, Transform parent)
@@ -466,5 +496,4 @@ public class CardGameManager : MonoBehaviourPunCallbacks
         //    startCountingRoundTwoPLayers = true;
         //}
     }
-
 }

@@ -1,6 +1,8 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -156,13 +158,14 @@ public class CardGameManagerUI : MonoBehaviour
             ShowWaitForTurn();
         }
     }
-
+    
     public void ShowItsYourTurn()
     {
         if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
         {
             StageThreeItsYourTurn.SetActive(true);
             StageThreeWaitForTurn.SetActive(false);
+            PlayerManager.instance.myPlayer.EnableKeepCardButton();
         }
         else
         {
@@ -201,6 +204,7 @@ public class CardGameManagerUI : MonoBehaviour
         {
             StageThreeItsYourTurn.SetActive(false);
             StageThreeWaitForTurn.SetActive(true);
+            PlayerManager.instance.myPlayer.DisableKeepCardButton();
         }
         else
         {
@@ -359,8 +363,95 @@ public class CardGameManagerUI : MonoBehaviour
                 Prompt.SetActive(false);
                 CardWithLabel.SetActive(false);
                 CurrentRoundText.text = "Stage 5 & 6";
+
+                StageThreeItsYourTurn.SetActive(false);
+                StageThreeWaitForTurn.SetActive(false);
+                DisableAllHelperEmojisOfRoundOne();
+                ItsYourTurn.SetActive(false);
+                RoundThree.SetActive(false);
+                CardsRemaining.SetActive(false);
+                AlLCards.SetActive(false);
+                DiscardedInVoting.SetActive(false);
+
+                ShowLastFiveCards();
+
                 break;
         }
+    }
+    public GameObject FinalCardPanel;
+    public GameObject FinalCardPrefab;
+    public Transform FinalCardContentTransform;
+
+    public GameObject TakeScreenshotButton, OpenFolderButton;
+    private void ShowLastFiveCards()
+    {
+        FinalCardPanel.SetActive(true);
+        List<CardSO> cardSOs = new List<CardSO>();
+        for(int i = 0; i < VotingCardHolders.Count; i++)
+        {
+            if(VotingCardHolders[i].childCount > 0)
+            {
+                cardSOs.Add(VotingCardHolders[i].GetChild(0).GetComponent<CardUI>().card);
+            }
+        }
+
+        foreach(CardSO so in cardSOs)
+        {
+            GameObject a = GameObject.Instantiate(FinalCardPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            a.SetActive(true);
+            a.transform.SetParent(FinalCardContentTransform);
+
+            a.transform.GetChild(0).GetComponent<CardUI>().InitializeFullCard(so);
+            a.transform.GetChild(0).GetComponent<CardUI>().DisableBackCard();
+            a.transform.GetChild(0).GetComponent<CardUI>().ShowRanking();
+            a.transform.GetChild(0).GetComponent<CardUI>().HideKeepCardButton();
+            a.transform.GetChild(0).GetComponent<CardUI>().SetNotInteractable();
+        }
+
+        AlLCards.SetActive(false);
+    }
+
+    public RectTransform targetRect;
+    public Camera _camera;
+
+    public void TakeScreenshot()
+    {
+        string fileName = "TAP_SWOT_FinalCards_" + DateTime.UtcNow.ToString();
+        StartCoroutine(CutSpriteFromScreen(fileName));
+    }
+    //Object To Screenshot
+    [SerializeField] private RectTransform _objToScreenshot;
+    private IEnumerator CutSpriteFromScreen(string fileName)
+    {
+        //Code will throw error at runtime if this is removed
+        yield return new WaitForEndOfFrame();
+        //Get the corners of RectTransform rect and store it in a array vector
+        Vector3[] corners = new Vector3[4];
+        _objToScreenshot.GetWorldCorners(corners);
+        //Remove 100 and you will get error
+        int width = ((int)corners[3].x - (int)corners[0].x) - 100;
+        int height = (int)corners[1].y - (int)corners[0].y;
+        var startX = corners[0].x;
+        var startY = corners[0].y;
+        //Make a temporary texture and read pixels from it
+        Texture2D ss = new Texture2D(width, height, TextureFormat.RGB24, false);
+        ss.ReadPixels(new Rect(startX, startY, width, height), 0, 0);
+        ss.Apply();
+        Debug.Log("Start X : " + startX + " Start Y : " + startY);
+        Debug.Log("Screen Width : " + Screen.width + " Screen Height : " + Screen.height);
+        Debug.Log("Texture Width : " + width + " Texture Height : " + height);
+        //Save the screenshot to disk
+        byte[] byteArray = ss.EncodeToPNG();
+        string savePath = Application.streamingAssetsPath + "/" + fileName + ".png";
+        System.IO.File.WriteAllBytes(savePath, byteArray);
+        Debug.Log("Screenshot Path : " + savePath);
+        // Destroy texture to avoid memory leaks
+        Destroy(ss);
+    }
+
+    public void OpenFolder()
+    {
+        Application.OpenURL("file://" + Application.streamingAssetsPath);
     }
 
     public GameObject selectedSmallVotingCard = null;
@@ -368,6 +459,10 @@ public class CardGameManagerUI : MonoBehaviour
     public Transform DiscardScrollContent;
     public GameObject Information;
 
+    public void SetSelectedSmallVotingCard(GameObject cardGameObject)
+    {
+        selectedSmallVotingCard = cardGameObject;
+    } 
     public void ShowFullCardForDecision(CardSO card, GameObject cardGameObject)
     {
         s = PlayerTurnText.text;
@@ -379,7 +474,7 @@ public class CardGameManagerUI : MonoBehaviour
             {
                 Prompt.SetActive(true);
             }
-            if (cardGameObject.transform.parent.name.ToLower().Contains("card")) { selectedSmallVotingCard = cardGameObject; }
+            //if (cardGameObject.transform.parent.name.ToLower().Contains("card")) { selectedSmallVotingCard = cardGameObject; }
         }
         else
         {

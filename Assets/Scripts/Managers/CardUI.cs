@@ -117,15 +117,40 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
     public void EnableBackCard()
     {
-        BackCard.SetActive(true);
+        if (BackCard != null)
+        {
+            BackCard.SetActive(true);
+        }  
     }
 
     public void DisableBackCard()
     {
-        BackCard.SetActive(false);
+        if (BackCard != null)
+        {
+            BackCard.SetActive(false);
+        }
     }
     public GameObject KeepCard;
     public Button KeepCardButtton;
+
+    public void SetKeepCardButtonState(bool state)
+    {
+        if (KeepCard != null)
+        {
+            if(KeepCard.GetComponent<Button>().interactable != state)
+            {
+                KeepCard.GetComponent<Button>().interactable = state;
+            }
+        }
+    }
+
+    public void HideKeepCardButton()
+    {
+        if (KeepCard != null)
+        {
+            KeepCard.SetActive(false);
+        }
+    }
 
     public void ShowKeepCardButtton()
     {
@@ -280,8 +305,19 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
     {
         if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
         {
-            rankDropdown.SetValueWithoutNotify(card.cardRank);
-            rankDropdown.interactable = false;
+            if (rankDropdown != null)
+            {
+                rankDropdown.SetValueWithoutNotify(card.cardRank);
+                rankDropdown.interactable = false;
+            }
+        }
+        if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_FOUR)
+        {
+            if (rankDropdown != null)
+            {
+                rankDropdown.SetValueWithoutNotify(card.cardRank);
+                rankDropdown.interactable = false;
+            }
         }
     }
 
@@ -302,6 +338,7 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
 
             if (CardGameManager.instance.GetGameState() == GameStateEnum.ROUND_THREE)
             {
+                CardGameManagerUI.instance.SetSelectedSmallVotingCard(this.gameObject);
                 CardGameManagerUI.instance.ShowFullCardForDecision(this.card, this.gameObject);
             }
         }
