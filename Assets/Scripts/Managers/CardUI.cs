@@ -236,6 +236,11 @@ public class CardUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler,
                 }
             }
         }
+
+        if (CardGameManager.instance.GetGameState() != GameStateEnum.ROUND_ONE || CardGameManager.instance.GetGameState() != GameStateEnum.ROUND_TWO)
+        {
+            if (rankDropdown != null) { rankDropdown.SetValueWithoutNotify(0); }                
+        }
     }
 
 

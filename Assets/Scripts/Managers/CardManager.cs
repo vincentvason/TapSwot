@@ -53,7 +53,7 @@ public class CardManager : MonoBehaviour
 
             foreach (CardSO so in remainingCards.ToList())
             {
-                yield return new WaitForSeconds(0.02f);
+                yield return new WaitForSeconds(0.25f);
                 string cardID = so.cardId.ToString();
                 PlayerManager.instance.Send_AddToDiscardedCards(cardID);
                 PlayerManager.instance.Send_RemoveFromRemainingCards(cardID);                

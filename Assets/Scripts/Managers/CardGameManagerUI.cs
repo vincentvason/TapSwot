@@ -384,8 +384,10 @@ public class CardGameManagerUI : MonoBehaviour
     public Transform FinalCardContentTransform;
 
     public GameObject TakeScreenshotButton, OpenFolderButton;
+    private bool showLastFiveCardsCalled = false;
     private void ShowLastFiveCards()
     {
+        if (showLastFiveCardsCalled) return;
         FinalCardPanel.SetActive(true);
         List<CardSO> cardSOs = new List<CardSO>();
         for(int i = 0; i < VotingCardHolders.Count; i++)
@@ -410,6 +412,7 @@ public class CardGameManagerUI : MonoBehaviour
         }
 
         AlLCards.SetActive(false);
+        showLastFiveCardsCalled = true;
     }
 
     public RectTransform targetRect;
