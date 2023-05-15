@@ -34,6 +34,7 @@ public class CardManager : MonoBehaviour
     public void AddAllRemainingCardsToDiscardedCards()
     {
         CardGameManagerUI.instance.MoveToNextStage.SetActive(false);
+        Destroy(CardGameManagerUI.instance.MoveToNextStage);
         StartCoroutine(SendRemoveAllRemainingCards());
         //disable drag and drop on everything
 
@@ -57,7 +58,6 @@ public class CardManager : MonoBehaviour
                 string cardID = so.cardId.ToString();
                 PlayerManager.instance.Send_AddToDiscardedCards(cardID);
                 PlayerManager.instance.Send_RemoveFromRemainingCards(cardID);                
-                CardGameManagerUI.instance.MoveToNextStage.SetActive(false);
             }   
         }
     }
