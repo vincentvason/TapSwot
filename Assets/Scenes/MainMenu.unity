@@ -653,6 +653,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1511937410002328921, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2737838044018033358, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -901,6 +905,10 @@ PrefabInstance:
       propertyPath: ProceedbtnText
       value: 
       objectReference: {fileID: 7509382240586705453}
+    - target: {fileID: 7485892234792846121, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8383556686951066528, guid: 7c2d2c7f73105f04ab142d42efd008b8, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
