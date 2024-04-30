@@ -21,7 +21,9 @@ Please visit [a full guide](https://uwe-repository.worktribe.com/OutputFile/1088
 
 ## Technology Usage
 This game was developed in Unity 2022. This project was created by three people and involved collaboration with the game design team from [TAP with Uncertainty](https://www.tapforuncertainty.eu/).
+
 My responsibilities included designing the user interface, creating motion graphics, and developing animations. My code can be found in the [Animation](https://github.com/vincentvason/TapSwot/tree/main/Assets/Scripts/Animation) folder.
+
 Additionally, I am responsible for UI design.
 
 ## Academic Research
