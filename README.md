@@ -30,4 +30,4 @@ Additionally, I am responsible for UI design.
 This project is a part of university work (Game Research & Development Module). I have also done background research including the development process.
 Please see the project's wiki.
 
-[MSc Commerical Games Development, University of West of England](MSc Commerical Games Development, University of West of England)
+[MSc Commerical Games Development, University of West of England](https://info.uwe.ac.uk/programmes/displayentry.asp?code=I60012&rp=listEntry.asp)
